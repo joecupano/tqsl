@@ -1,3 +1,5 @@
+# Trusted QSL
+
 This is the TrustedQSL project, which provides tools for digitally
 signing Amateur Radio QSO records.
 
@@ -11,8 +13,8 @@ html: Various legacy documents
 This document describes the changes to TrustedQSL since version 1.13 and
 explains how applications can use TQSL in their applications.
 
-Command Line Changes
---------------------
+## Command Line Changes
+
 Many applications use the 'tqsl' application in command line mode to sign
 log files. There were several new capabilities added to command line operation
 in 1.14. The first is that tqsl can now automatically sign and upload a log to
@@ -24,8 +26,8 @@ to upload it.
 The command line parser in 1.14 was rewritten and is less
 forgiving of improperly formatted command lines. 
 
-Command Line Options
---------------------
+## Command Line Options
+
 The following summarizes the command line options and what they do:
 Usage: tqsl [-a <str>] [-b <date> ] [-e <date>] [-d] [-l <str>] [-s]
             [-f <str>] [-o <str>] [-u] [-x] [-p <str>] [-q] [-n] [-v] [-h]
@@ -163,8 +165,8 @@ This option allows a logging program to specify what callsign to use for a
 log signing operation. This will override the callsign associated with the
 selected station location, if any.
 
-Command Line Usage
-------------------
+## Command Line Usage
+
 An application that uses the command line invokes the tqsl binary, optionally
 providing a set of options that dictate how tqsl operates. Normally, such
 an application should include the "-x" or "-q" options to indicate to tqsl
@@ -234,8 +236,8 @@ Command line applications are strongly encouraged to add "-a=compliant" to
 their invocations of tqsl, and to consider storing and displaying the log
 messages to their users.
 
-Application Changes
--------------------
+## Application Changes
+
 Some logging applications directly call tqsllib functions to sign log files.
 The application programming interface (API) to tqsllib has not changed in
 ways that introduce incompatibilities, but there are additional API calls
@@ -273,8 +275,8 @@ to
         tqsl_converterCommit(conv);
         tqsl_endConverter(&conv);
 
-Using tqsllib
--------------
+## Using tqsllib
+
 A minimal set of calls to permit an application to sign a log is the following.
 Of course, error checking should be performed for each call.
 
