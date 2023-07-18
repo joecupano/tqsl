@@ -1,11 +1,11 @@
-== Windows Build System setup for TrustedQSL ==
+# Windows Build System setup for TrustedQSL
  
  - By Robert, KC2YWE - Written 2/14/2013 -
  
 v1.0 - Initial writing
 V1.1 - Update to newer library versions, 7/25/2013
 
--- Conventions --
+## Conventions
 
 -- is a header
  - is a sub-item
@@ -21,7 +21,7 @@ If I don't mention something about an installer, leave it at the default unless
 you have a reason to change it.
 
 	
--- Prerequisites --
+## Prerequisites 
 
 This is a Windows-specific tutorial. You must be running a version of Windows.
 These instructions were written for a clean install of Windows 7 64-bit in a
@@ -33,14 +33,14 @@ You must read the whole document. I know it's long, but don't try to skim it or
 you might miss something that ends up breaking things later (there's a lot of
 potential pitfalls)
 
--- Abbreviations --
+## Abbreviations 
 
 TQSL = TrustedQSL
 VC, VC++ = Microsoft Visual C++
 VS, VS2008, VS2010, VS2012 = Microsoft Visual Studio (includes VC++) and a
 version
 
--- Assumptions --
+## Assumptions 
 
 The build system should be very flexible and should work with many versions of
 libraries, compilers, and platforms. But for simplicity's sake, the instructions
@@ -63,7 +63,7 @@ come from READMEs.
 I will store things directly in the C:\ directory. You can put them wherever
 you want, but you may need to help cmake find them. 
 
--- Variables --
+## Variables 
 
 This document will use VS2012 Express, which is free. It seems to be the nicest
 Visual Studio IDE, once you fix the menus. They will also work with VS2010 and
@@ -104,7 +104,7 @@ irrelevant unless you try to move a binary somewhere else.
 DEFAULTS - this document is written for using a dynamic VC++ runtime and static
 libraries.
 
--- Outline --
+## Outline 
 
 1) Visual Studio, cmake, git, tqsl
 2) Getting the source
@@ -116,12 +116,12 @@ libraries.
 4) Running cmake
 5) Building
 
--- 1) Visual Studio, cmake, git, tqsl --
+### 1) Visual Studio, cmake, git, tqsl 
 
 These downloads and installs should run in parallel. If you find yourself
 waiting, cycle to the next item.
 
- - git
+#### git
   * This installer "pauses" the VS2012 installer, even though it doesn't work
 while the VS2012 installer is running anyway. So maybe wait until it's done
 before starting VS2012 Express, or else you'll have to wait until VS2012 is
@@ -143,7 +143,7 @@ option 1).
 	
  TortoiseGitPLink is probably the best choice.
 
- - Visual Studio 2012 Express 
+ #### Visual Studio 2012 Express 
  
  Download and run from: http://www.microsoft.com/visualstudio/eng#downloads
 	"Visual Studio Express 2012 for Windows Desktop" (not Windows 8!) -
@@ -155,12 +155,12 @@ and accept the prompt. While it downloads, work on the other stuff.
  Next, etc. Add cmake to the current user path (3rd option); create an icon at
 your preference.
  
- - CMake
+ #### CMake
  
  Download and run from: http://www.cmake.org/cmake/resources/software.html
 	cmake-2.8.10.2-win32-x86.exe
  
- - TrustedQSL
+ #### TrustedQSL
  
  Yes, for now you should have TrustedQSL installed. It's the fastest way to get
 the correct folder structure, config files, registry entries, etc. 
@@ -169,7 +169,7 @@ the correct folder structure, config files, registry entries, etc.
 	"Step 1 - Download and install the software" > "Download the software
 	for Windows here"
 	
--- 2) Get the source --
+### 2) Get the source --
 
  Decide where you want your source folder. I have mine in Documents\src. Right
 click in that folder and choose "Git clone...". Enter 
@@ -181,7 +181,7 @@ version. You should see a lot of Git options if you right-click in this folder;
 a Git tutorial will come later but you can play around for now. You can always
 delete the folder and re-clone it if you mess anything up.
 	
--- 3) Libraries (order is irrelevant) --
+### 3) Libraries (order is irrelevant) --
 
  Now that you have the source, let's install the libraries needed to make it
 work.
@@ -192,7 +192,7 @@ should work (they do on Linux) but I've never tested it on Windows so I don't
 recommend it for now. 
 
 
- - openssl
+ #### openssl
  
  You'll need Perl, sorry.
  
@@ -240,7 +240,7 @@ Make sure you can run 'nasm' and 'perl' (Ctrl-C to exit Perl).
 into it. This is a CMake problem that will hopefully go away pretty soon, but
 it hasn't happened yet.
  
- - wxWidgets 
+ #### wxWidgets 
  
  YOU NEED TO USE WXWIDGETS 2.8 for now; 2.9 has been tried and almost works but
 there are still some problems.
@@ -283,7 +283,7 @@ needed.
 	created. The 'winssl' part of that string is the most important because
 	it means it will use the Windows APIs (and thus certificates) for SSL.
 	
- - expat
+ #### expat
  
  Download and run from: http://sourceforge.net/projects/expat/
 	"Download: expat-win32bin-2.1.0.exe"
@@ -296,7 +296,7 @@ to '..\..\Bin\libexpat.lib'. Go to the expat\Bin directory and verify that
 libexpat is about 500KB, which means it's statically linked. Delete all but
 libexpat.lib.
 	
- - zlib
+ #### zlib
  
  Download and extract to C:\ (will make a new folder): http://zlib.net/
 	"zlib source code, version 1.2.8, tar.gz format" - "US (zlib.net)"
@@ -311,7 +311,7 @@ to link based on the build type.
   - Type 'msbuild /p:Configuration=Debug ALL_BUILD.vcxproj'
   - Type 'msbuild /p:Configuration=Release ALL_BUILD.vcxproj'
 
- - Berkeley DB
+ #### Berkeley DB
 
  Download from http://download.oracle.com/berkeley-db/db-6.0.20.NC.zip
  and unzip to c:\db-6.0.20.NC. From Visual Studio, open the 
@@ -320,19 +320,19 @@ to link based on the build type.
  Configuration Type). You can now build the Debug and Release libraries.
  Only the 'db' project needs to be built.
 
--- 4) Running cmake --
+### 4) Running cmake
 
  Almost there! Open a command prompt and run cmake . -DCMAKE_LIBRARY_PATH="C:\expat\Bin" -DCMAKE_INCLUDE_PATH="C:\expat\Source\lib" -DwxWidgets_ROOT_DIR="C:\wxWidgets-2.8.12" -DBDB_INCLUDE_DIR="C:\db-6.0.20.NC\build_windows" -DBDB_LIBRARY="C:\db-6.0.20.NC\build_windows\Win32\Release\db.lib"
 
 
--- 5) Building --
+### 5) Building
 
  Whew! You thought this would be hard after all the rest, didn't you? Nope.
 Open TrustedQSL.sln and build. Both debug (default) and release will work.
 You'll find the binaries in tqsl\bin\Debug or tqsl\bin\Release as appropriate.
 
 
-== Final Thoughts ==
+## Final Thoughts
 
 This is actually a lot simpler than the old process (even though it doesn't
 seem simpler!) because you still had to get all the libraries, but you also had
