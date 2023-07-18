@@ -3,12 +3,9 @@
 This is the TrustedQSL project, which provides tools for digitally
 signing Amateur Radio QSO records.
 
-src: Source code and documentation for tqsllib, the TrustedQSL
-     library.
-
-apps: Source code for "tqsl" and other sample applications.
-
-html: Various legacy documents
+** **src** Source code and documentation for tqsllib, the TrustedQSL library.
+* **apps** Source code for "tqsl" and other sample applications.
+* **html** Various legacy documents
 
 This document describes the changes to TrustedQSL since version 1.13 and
 explains how applications can use TQSL in their applications.
