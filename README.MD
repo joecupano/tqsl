@@ -29,14 +29,19 @@ forgiving of improperly formatted command lines.
 ## Command Line Options
 
 The following summarizes the command line options and what they do:
+
+```
 Usage: tqsl [-a <str>] [-b <date> ] [-e <date>] [-d] [-l <str>] [-s]
             [-f <str>] [-o <str>] [-u] [-x] [-p <str>] [-q] [-n] [-v] [-h]
             [-t <file>] [-c <call> ] [Input ADIF or Cabrillo log file to sign]
-
+```
 
 The following command line options may be specified on the command line:
+
+```
   -a <str>      Specify dialog action - abort, all, compliant or ask
 
+```
 This option instructs TQSL on how to handle QSOs that do not appear to be
 valid. There are many potential causes for invalid QSOs. Examples include QSOs
 with dates outside the valid range for the certificate being used, QSOs
@@ -60,9 +65,10 @@ invalid callsigns. QSOs outside the range of valid dates for the selected
 station certificate will not be signed, as they would not be accepted by
 Logbook.
 
-
+```
   -b            Set begin date for the QSO date filter.
   -e            Set end date for the QSL date filter.
+```
 
 These options filter QSOs being signed to those after the begin date and
 before the end date. If neither of these are supplied, then no filtering
@@ -70,7 +76,9 @@ will be performed.  These values will override any date range entries
 provided by the user.  This implies that "-d" (suppress date range dialog)
 should be used with -b or -e.
 
+```
   -d            Suppress date range dialog
+```
 
 This option instructs tqsl to not ask the user to select a range of dates
 for processing QSOs. If this is used, all QSOs in the input file will be
