@@ -189,7 +189,7 @@ When operated in "batch" mode (i.e. -x or -q used), tqsl provides information
 that the calling program can use to determine if the signing operation
 succeeded. The first way is by capturing tqsl's exit status code. This
 provides information on success or failure using the following values:
-
+```
         0 - Success: all QSOs submitted were signed and saved or uploaded
         1 - Cancelled by user
         2 - The log was rejected by the LoTW server
@@ -218,6 +218,7 @@ Following that is a short descriptive message giving the exit status. The
 last thing on the line is the numeric exit code (as above) in parenthesis.
 
 Examples of output follows:
+```
 05:57:39 PM: Warning: Signing cancelled
 05:57:39 PM: No records output
 05:57:39 PM: Final Status: cancelled by user (1)
@@ -228,11 +229,11 @@ Examples of output follows:
 Note: TQSL assumes that this file will be uploaded to LoTW.
 Resubmitting these QSOs will cause them to be reported as duplicates.
 06:05:56 PM: Final Status: Some QSOs were duplicates or out of date range (9)
-
+```
 An example usage for signing a log would be
-
+```
 tqsl -q -l "K1MU home" -p "Insecure" -a compliant -u -d k1mu.adi 2>temp.txt
-
+```
 This indicates quiet mode (-q), selects a station location and a password,
 indicates that only compliant QSOs will be written (-a), uploads to LoTW (-u),
 suppresses date popups (-d), provides an input file (k1mu.adi), and finally
@@ -255,7 +256,9 @@ work properly.
 Normally, an application will call tqsl_beginCabrilloConverter() or
 tqsl_beginADIFConverter to begin signing a log file. After the converter
 is created by those calls, the application should then call
+```
         tqsl_setConverterAllowDuplicates(conv, false)
+```
 which tells tqsllib that duplicate processing should be enabled. If you do
 not call tqsl_setConverterAllowDuplicates, the library will assume that
 duplicates should be permitted (for compatibility reasons), which may cause
