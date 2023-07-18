@@ -85,9 +85,9 @@ for processing QSOs. If this is used, all QSOs in the input file will be
 selected for processing. Command line tools will usually include this
 option to suppress tqsl dialogs. However, this means that the logging
 program is responsible for filtering QSOs before delivering them to tqsl.
-
+```
   -f <str>      Select handling option for QTH details
-
+```
 This option instructs tqsl on how to handle the MY_ fields in an
 ADIF log file. These specify the callsign, QTH details such as zones,
 gridsquare, state/county, etc. for a QSO. If the log includes this
@@ -96,52 +96,52 @@ information to ensure that the Station Location is correct. By
 default, TQSL will report any discrepancies between QTH and the
 Station Location; TQSL can also be directed to ignore the QTH
 information.
-
+```
   -f ignore     Directs TQSL to ignore the QTH information
   -f report     Directs TQSL to report any differences between the
                 station location and the MY_ QTH deails
   -f update     Directs TQSL to overwrite the Station Location
                 information with data from the log.
-
+```
 When using "-f update", the ideal practice should be to either
 specify all QTH information (state, county, grid, zones) in the
 ADIF "MY_" fields, or use an minimal Station Location with no
 QTH data.
-
+```
   -l <str>      Select Station Location.
-
+```
 This option selects a station location. This is used for signing logs or
 in conjunction with the "-s" option to define a location for editing.
-
+```
   -s            Edit (if used with -l) or create Station Location
-
+```
 This option can be used to create a new Station Location (-s without -l) or
 to edit an existing Station Location (when both -s and -l are provided).
-
+```
   -o <str>      Output file name (defaults to input name minus extension
                 plus .tq8)
-
+```
 This option instructs tqsl where the signed output file will be stored. If it
 is not provided, the output file will be written to the same location as the
 input file with the extension changed to ".tq8"
-
+```
   -u            Upload after signing instead of saving
-
+```
 This option instructs tqsl to upload the log file after it is successfully
 signed.
-
+```
   -q            Operate in batch mode, not menu-driven mode.
   -x            Operate in batch mode, not menu-driven mode.
-
+```
 If -x or -q are included on the command line, tqsl suppresses user dialogs
 and sends error messages to standard error. A logging application is expected
 to read this file and possibly display the contents to the user so they
 can see the results of the command action. If these options are not included,
 a calling application cannot distinguish between a successful signing and
 one where a user cancels the signing.
-
+```
   -n            Look for updated (new) versions of key files.
-
+```
 If -n is given on the command line, tqsl checks for new versions of
 the tqsl program, an updated tqsl configuration file, and verifies that any
 user certificates are not about to expire. If any of these circumstances
@@ -149,26 +149,26 @@ exist, the user is prompted to perform the required updates. When the check is
 completed, tqsl exits. This command line option can not be combined with any
 other command line options as it only performs an update check and does not
 sign any logs submitted with the command.
-
+```
   -p <str>      Password for the signing key
-
+```
 This option allows an application to provide the password for the private key
 that will be used to sign the log file.
-
+```
   -v            Display the version information and exit
   -h            Display command line help
-
+```
 These options allow the user to display the version number of tqsl or to
 obtain help on the command line usage.
-
+```
   -t <file>     Open a diagnostic trace file at startup
-
+```
 When supplied, this option enables diagnostic tracing at startup, opening
 the supplied file to record TQSL operations details. This is useful for
 debugging purposes.
-
+```
   -c <call>     Use the given callsign when signing a log
-
+```
 This option allows a logging program to specify what callsign to use for a 
 log signing operation. This will override the callsign associated with the
 selected station location, if any.
@@ -206,7 +206,7 @@ provides information on success or failure using the following values:
        11 - LoTW network connection failed (no network or LoTW is unreachable)
        12 - Unknown error
        13 - The TQSL duplicates database is locked.
-
+```
 This exit status is also written to stderr in a format that can be parsed
 by the calling application. The last output from tqsl will be of the format
 hh:mm:ss AM|PM Final Status: Description (code) 
