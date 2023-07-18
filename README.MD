@@ -281,11 +281,14 @@ not be added to the duplicate database. Simply adding the necessary call
 before the converter is closed is enough to bring the application up to date.
 
 change
+```
         tqsl_endConverter(&conv)
+```
 to
+```
         tqsl_converterCommit(conv);
         tqsl_endConverter(&conv);
-
+```
 ## Using tqsllib
 
 A minimal set of calls to permit an application to sign a log is the following.
