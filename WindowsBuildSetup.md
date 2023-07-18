@@ -5,22 +5,6 @@
 v1.0 - Initial writing
 V1.1 - Update to newer library versions, 7/25/2013
 
-## Conventions
-
--- is a header
- - is a sub-item
-'command' means type that command without the quotes; when quotes are needed,
-I use "" CAPS means extra important, not shouting
-
-When you need to get a file, I say:
-
-Download and run from: http://example.url/product
-	"Link text on page to follow" (comment about which one to choose, maybe)
-
-If I don't mention something about an installer, leave it at the default unless
-you have a reason to change it.
-
-	
 ## Prerequisites 
 
 This is a Windows-specific tutorial. You must be running a version of Windows.
@@ -87,11 +71,11 @@ can install it separately (or may already have it). Whatever you decide, you
 need to decide before you start compiling stuff or else you'll have to
 re-compile *everything* due to weird linker errors.
 
-YOU MUST DECIDE IN ADVANCE WHAT COMPILER YOU WILL USE. Like the above, you will
+**YOU MUST DECIDE IN ADVANCE WHAT COMPILER YOU WILL USE.** Like the above, you will
 find yourself recompiling a lot if you try to switch compilers. In particular,
 much of the STL stuff is incompatible between versions.
 
-YOU MUST DECIDE IN ADVANCE WHETHER YOU WILL STATICALLY OR DYNAMICALLY LINK. All
+**YOU MUST DECIDE IN ADVANCE WHETHER YOU WILL STATICALLY OR DYNAMICALLY LINK.** All
 the libraries need to be compiled differently depending on your decision. Just
 like the runtime, this determines whether you have to schlep a bunch of DLLs
 along with you or not.
@@ -101,7 +85,7 @@ compiler versions - the code will (should, in the case of compilers) be
 independent of these choices. These all affect YOUR setup, and most are
 irrelevant unless you try to move a binary somewhere else.
 
-DEFAULTS - this document is written for using a dynamic VC++ runtime and static
+**DEFAULTS** - this document is written for using a dynamic VC++ runtime and static
 libraries.
 
 ## Outline 
@@ -143,7 +127,7 @@ option 1).
 	
  TortoiseGitPLink is probably the best choice.
 
- #### Visual Studio 2012 Express 
+#### Visual Studio 2012 Express 
  
  Download and run from: http://www.microsoft.com/visualstudio/eng#downloads
 	"Visual Studio Express 2012 for Windows Desktop" (not Windows 8!) -
@@ -155,23 +139,23 @@ and accept the prompt. While it downloads, work on the other stuff.
  Next, etc. Add cmake to the current user path (3rd option); create an icon at
 your preference.
  
- #### CMake
+#### CMake
  
  Download and run from: http://www.cmake.org/cmake/resources/software.html
 	cmake-2.8.10.2-win32-x86.exe
  
- #### TrustedQSL
+#### TrustedQSL
  
- Yes, for now you should have TrustedQSL installed. It's the fastest way to get
+Yes, for now you should have TrustedQSL installed. It's the fastest way to get
 the correct folder structure, config files, registry entries, etc. 
  
  Download and run from: http://www.arrl.org/instructions
 	"Step 1 - Download and install the software" > "Download the software
 	for Windows here"
 	
-### 2) Get the source --
+### 2) Get the source
 
- Decide where you want your source folder. I have mine in Documents\src. Right
+Decide where you want your source folder. I have mine in Documents\src. Right
 click in that folder and choose "Git clone...". Enter 
 git://git.code.sf.net/p/trustedqsl/tqsl, click OK, and wait. It should create a
 folder called 'tqsl' in the folder you right-clicked in. Check it out and
@@ -181,9 +165,9 @@ version. You should see a lot of Git options if you right-click in this folder;
 a Git tutorial will come later but you can play around for now. You can always
 delete the folder and re-clone it if you mess anything up.
 	
-### 3) Libraries (order is irrelevant) --
+### 3) Libraries (order is irrelevant)
 
- Now that you have the source, let's install the libraries needed to make it
+Now that you have the source, let's install the libraries needed to make it
 work.
 
  Most of these happen from the "Developer Command Prompt for VS2012". Open it
@@ -191,8 +175,7 @@ and run 'nmake' and 'cl'; for 'cl' make sure it says "for x86". 64-bit builds
 should work (they do on Linux) but I've never tested it on Windows so I don't
 recommend it for now. 
 
-
- #### openssl
+#### openssl
  
  You'll need Perl, sorry.
  
@@ -209,7 +192,7 @@ have anything. I recommend 7zip
 	"64-bit x64" (or 32 bit as appropriate) - the install can't run at the
 same time as Perl.
 	
- You'll also need the Netwide Assembler (nasm). It's not strictly required, but
+You'll also need the Netwide Assembler (nasm). It's not strictly required, but
 the assembly routines in OpenSSL only work with it, and apparently they're
 rather a lot faster. 
  
@@ -221,11 +204,11 @@ rather a lot faster.
  Download and extract to C:\openssl-src: http://www.openssl.org/source/
 	"openssl-1.0.1e.tar.gz"
 	
- Go to the developer command prompt. Run 'set path=%localappdata%\nasm;%path%'.
+Go to the developer command prompt. Run 'set path=%localappdata%\nasm;%path%'.
 Make sure you can run 'nasm' and 'perl' (Ctrl-C to exit Perl).
 'cd \openssl-src\openssl-1.0.1e'
  
- The below comes from "INSTALL.W32". Read it for more details if needed
+The below comes from "INSTALL.W32". Read it for more details if needed
  
 	'perl Configure VC-WIN32 --prefix=c:\openssl'
 	'ms\do_nasm' - observe a half-dozen 'perl' commands
@@ -236,20 +219,20 @@ Make sure you can run 'nasm' and 'perl' (Ctrl-C to exit Perl).
 	Look for "passed all tests"
 	'nmake -f ms\nt.mak install'
 	
- Make a new directory called "VC" and move "libeay32.lib" and "ssleay32.lib"
+Make a new directory called "VC" and move "libeay32.lib" and "ssleay32.lib"
 into it. This is a CMake problem that will hopefully go away pretty soon, but
 it hasn't happened yet.
  
- #### wxWidgets 
+#### wxWidgets 
  
- YOU NEED TO USE WXWIDGETS 2.8 for now; 2.9 has been tried and almost works but
+**YOU NEED TO USE WXWIDGETS 2.8** for now; 2.9 has been tried and almost works but
 there are still some problems.
  
  Download and run from: http://wxwidgets.org/downloads/
 	"wxMSW" (under "Current Stable Release: wxWidgets 2.8.12")
 	
  
- The below comes (mostly) from "BuildCVS.txt". Read it for more details if
+The below comes (mostly) from "BuildCVS.txt". Read it for more details if
 needed.
  
 	In your developer command prompt, 'cd \wxWidgets-2.8.12\'
@@ -283,25 +266,25 @@ needed.
 	created. The 'winssl' part of that string is the most important because
 	it means it will use the Windows APIs (and thus certificates) for SSL.
 	
- #### expat
+#### expat
  
  Download and run from: http://sourceforge.net/projects/expat/
 	"Download: expat-win32bin-2.1.0.exe"
 	- Change the install folder to "C:\expat" to match our naming scheme
 	
- Unfortunately, the binaries are DLLs. Go to C:\expat\Source and open the
+Unfortunately, the binaries are DLLs. Go to C:\expat\Source and open the
 file 'expat.dsw'. Agree to convert it. Switch to the release config. Open the
 properties for 'expat_static', go to Librarian - General and change Output file
 to '..\..\Bin\libexpat.lib'. Go to the expat\Bin directory and verify that
 libexpat is about 500KB, which means it's statically linked. Delete all but
 libexpat.lib.
 	
- #### zlib
+#### zlib
  
  Download and extract to C:\ (will make a new folder): http://zlib.net/
 	"zlib source code, version 1.2.8, tar.gz format" - "US (zlib.net)"
 
- ZLIB seems to disagree with running a release version in a debug build and
+ZLIB seems to disagree with running a release version in a debug build and
 crashes. So you'll want both. cmake will automatically set up the correct one
 to link based on the build type.
  
@@ -311,7 +294,7 @@ to link based on the build type.
   - Type 'msbuild /p:Configuration=Debug ALL_BUILD.vcxproj'
   - Type 'msbuild /p:Configuration=Release ALL_BUILD.vcxproj'
 
- #### Berkeley DB
+#### Berkeley DB
 
  Download from http://download.oracle.com/berkeley-db/db-6.0.20.NC.zip
  and unzip to c:\db-6.0.20.NC. From Visual Studio, open the 
@@ -324,13 +307,11 @@ to link based on the build type.
 
  Almost there! Open a command prompt and run cmake . -DCMAKE_LIBRARY_PATH="C:\expat\Bin" -DCMAKE_INCLUDE_PATH="C:\expat\Source\lib" -DwxWidgets_ROOT_DIR="C:\wxWidgets-2.8.12" -DBDB_INCLUDE_DIR="C:\db-6.0.20.NC\build_windows" -DBDB_LIBRARY="C:\db-6.0.20.NC\build_windows\Win32\Release\db.lib"
 
-
 ### 5) Building
 
  Whew! You thought this would be hard after all the rest, didn't you? Nope.
 Open TrustedQSL.sln and build. Both debug (default) and release will work.
 You'll find the binaries in tqsl\bin\Debug or tqsl\bin\Release as appropriate.
-
 
 ## Final Thoughts
 
