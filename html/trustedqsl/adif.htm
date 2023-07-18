@@ -1,0 +1,2126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Amateur Data Interchange Format Specifications</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 5.50.4308.2900" name=GENERATOR></HEAD>
+<BODY>
+<P align=center><FONT face=Arial size=6><B><I>Amateur Data Interchange Format 
+1.0</I></B></FONT></P>
+<P align=center><FONT face=Arial size=6><B><I>(ADIF)</I></B></FONT></P>
+<P align=center><FONT face=Arial size=6><B><I>Specifications</I></B></FONT></P>
+<P><FONT size=3>Ever since software has become a part of amateur radio, there 
+have been as many data formats as there have been ham radio software 
+programmers. Hams have struggled with converting data among various formats. 
+Several hams have been discussing such a standard via an Internet discussion. In 
+early 1996 KK7A promoted the idea of a standard for exchange of ham data. An 
+internet reflector was set up for discussing such a standard. WF1B and WN4AZY, 
+as publishers of commercial ham radio software, have taken the best suggestions 
+from this discussion and formed a proposal. Ray introduced it at the 1996 Dayton 
+hamvention. Within a year, this proposal has adapted adopted by most software 
+publishers. We wish to thank everyone who has contributed to this 
+effort.</FONT></P>
+<P><FONT size=3>ADIF is infinitely extensible--it will never be outgrown. It can 
+handle binary as well as text data. New data elements may be added to this 
+specification without "breaking" older implementations. It may be easily 
+programmed in any language. The data itself is easily read by eye, and may 
+implemented so as to be transferred via Internet without any 
+encoding.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>Purpose:</B></FONT></P>
+<P><FONT size=3>Provide a standard interchange independent of operating system 
+or programming language for amateur data that will permit easy and direct 
+transfer of data conforming to the standard between various amateur programs as 
+well awards and contest sponsors.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>Data to be Interchanged:</B></FONT></P>
+<P><FONT size=3>The ADIF standard must not be limited to log data. It should 
+incorporate other categories such as awards multiplier lists, packet spot data, 
+contest rules, etc., and must be expandable to incorporate any new type of data 
+that may appear in the future as the hobby grows and changes. However, as of 
+version 1.0, only specifications for log data have been implemented. Anyone 
+wishing to interchange other types of data will still find these specifications 
+helpful. All that is necessary to transfer other types of data is to apply to 
+ADIF a definition of fields and records to be transferred.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>ADIF components:</B></FONT></P>
+<P><FONT size=3>ADIF consists of three components:</FONT></P>
+<P><FONT size=3>1. Physical specifications--a specification of how fields and 
+records are stored.</FONT></P>
+<P><FONT size=3>2. Field type definitions--Specification of how a particular 
+type of data is stored. For instance, DATE should be stored with ASCII 
+characters in the format YYYYMMDD. Examples of other possible data types are 
+Numeric, Windows .BMP picture, binary data containing unspecified non-textual 
+data, or freeform text containing multiple lines.</FONT></P>
+<P><FONT size=3>3. Field definitions--a list of data elements (Call, QSO Date, 
+DXCC country, etc.), and a description of valid values. Each field has a name 
+that is from one to ten characters long. The field name may include the 
+characters A-Z, 0-9, and _, but must begin with a letter. (This is for easy 
+transfer with xBase and other popular existing data formats).</FONT></P>
+<P><FONT size=3>4. File definitions--a description of a category of data. For 
+instance, log data is defined as all data resulting from a QSO, including 
+exchanged info plus any data related specifically to a QSO, such as band/mode, 
+comments, traffic exchanged during the QSO, awards tracking info, and contest 
+scoring info. A category will include a list of fields supported by the ADIF 
+standard for each category. Each record in the file will contain one or more of 
+the supported fields. </FONT></P>
+<P><FONT size=3>Additional fields that are not part of the ADIF specification 
+for the file may be added by those creating ADIF files. This will permit export 
+of user-defined fields. However, there is of course no guarantee that these 
+undocumented fields will be imported by a program reading ADIF files, or that a 
+chosen name may not be used for another purpose and imported into the wrong 
+field in future ADIF specifications. Therefore, creators of ADIF files are 
+encouraged to cooperate when adding new fields to so as to derive maximum 
+benefit from ADIF.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>1. Physical Specifications:</B></FONT></P>
+<P><FONT size=3>Each data field is preceded by a field name and length enclosed 
+in angle brackets. The name and length are separated by a colon. The field name 
+may be in upper, lower, or mixed case. Case is insignificant. For instance, 
+CALL, Call, or call are equivalent. The length specification is ASCII text in 
+display format, and may be of any non-negative value. The data follows the 
+closing angle bracket. For example:</FONT></P>
+<P><FONT size=3>&lt;CALL:6&gt;WN4AZY</FONT></P>
+<P>&nbsp;</P>
+<P><FONT size=3>Records are made up of multiple fields and terminated with 
+&lt;EOR&gt; or &lt;eor&gt; as an end-of-record marker. For example:</FONT></P>
+<P><FONT 
+size=3>&lt;call:6&gt;WN4AZY&lt;band:3&gt;20M&lt;mode:4&gt;RTTY&lt;qso_date:8&gt;19960513&lt;time_on:4&gt;1305&lt;eor&gt;</FONT></P>
+<P>&nbsp;</P>
+<P><FONT size=3>An optional field type indicator may follow the field length, 
+separated by a colon: For example:</FONT></P>
+<P><FONT size=3>&lt;qso_date:8:d&gt;19960513</FONT></P>
+<P>&nbsp;</P>
+<P><FONT size=3>The field type indicator may be in upper, lower, or mixed case. 
+A field type indicator is optional. For instance, the Field Definition for 
+QSO_DATE specifies that the field is always of type Date, so it is not necessary 
+to repeat it here. However, when exporting user-defined fields that are not part 
+of the ADIF specification, a type indicator will assist anyone attempting to 
+import the data.</FONT></P>
+<P><FONT size=3>Any number of characters of any value except &lt; may be added 
+after a field’s data or &lt;eor&gt; and before the start of the next field. This 
+is typically carriage returns and/or line-feeds to make the file easier to read 
+in a text viewer. For example:</FONT></P>
+<P><FONT 
+size=3>&lt;call:6&gt;WN4AZY&lt;band:3&gt;20M&lt;mode:4&gt;RTTY<BR>&lt;qso_date:8:d&gt;19960513&lt;time_on:4&gt;1305&lt;eor&gt;</FONT></P>
+<P><FONT 
+size=3>&lt;call:5&gt;N6MRQ&lt;band:2&gt;2M&lt;mode:2&gt;FM<BR>&lt;qso_date:8:d&gt;19961231&lt;time_on:6&gt;235959&lt;eor&gt;</FONT></P>
+<P>&nbsp;</P>
+<P><FONT size=3>In this example, a new line is inserted in the middle of each 
+record, and two newlines are inserted at the end of each record. This makes long 
+records easy to read in a text editor.</FONT></P>
+<P><FONT size=3>Optional header information may be included before the actual 
+data in the file. To include optional header info, the first character of the 
+file must be something other than &lt;. Any amount of header info of any value 
+except &lt;eoh&gt; may be included. The header info must be terminated with 
+&lt;eoh&gt;. Any number of characters of any value except &lt; may follow 
+&lt;eoh&gt;. The first &lt; after &lt;eoh&gt; is the start of the first field of 
+the first data record in the file. Here is an example:</FONT></P>
+<BLOCKQUOTE>
+  <P><FONT size=3>this data was exported using WF1B RTTY version 9, conforming 
+  to ADIF standard specification version 9.99&lt;eoh&gt;</FONT></P></BLOCKQUOTE>
+<BLOCKQUOTE>
+  <P><FONT size=3>&lt;call:4&gt;aa1a...</FONT></P></BLOCKQUOTE>
+<P><FONT size=3>If the first character of a file is &lt;, it is presumed to be 
+the first field of the first data record.</FONT></P>
+<P><FONT size=3>The ADIF version may be included in the header info as follows: 
+<B>&lt;adif_ver:4&gt;1.00</B> is included as part of the header specification, 
+an importing program can easily determine the ADIF version used to create the 
+file. Note that this must not be at the beginning of the header info, because 
+<B>&lt;</B> as the first character indicates that there is no header.</FONT></P>
+<P><FONT size=3>It is important for the programmer importing ADIF data to note 
+that any number of characters of any value may follow the actual data in a 
+field. For example, carriage return/linefeed, or just a line feed. There is 
+nothing in the specifications to prevent an exporter from placing a comment 
+after the actual data. Therefore, after reading a field’s data based on the 
+length specification, the programmer should read and discard characters until 
+the start of a new field (&lt;) or &lt;eor&gt; is encountered.</FONT></P>
+<P><FONT size=3>There is no specification for the order in which fields appear. 
+They may appear in any order. Unused fields may be omitted entirely. Therefore, 
+each record will not necessarily have the same fields. The specification does 
+not prohibit a zero-length field, so those writing import programs should allow 
+for this.</FONT></P>
+<P><FONT size=3>There is no specification for field length or maximum field 
+length in the Physical Specifications. Unless there is a length specification in 
+the Field Definition, exporters simply export all data in their field. Importers 
+import as much data as their program can accept.</FONT></P>
+<P><FONT size=3>Note that while these examples have all been of simple ASCII 
+fields, the specification permits data of any type or length. It could be easily 
+used to transfer pictures or text documents, for instance.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>2. Field Type Definitions:</B></FONT></P>
+<TABLE cellSpacing=0 cellPadding=7 border=2>
+  <TBODY>
+  <TR>
+    <TD>
+      <P align=center><STRONG>Type</STRONG></P></TD>
+    <TD>
+      <P align=center><STRONG>Description</STRONG></P></TD></TR>
+  <TR>
+    <TD vAlign=top width=115><FONT size=3>Date</FONT></TD>
+    <TD vAlign=top width=835>A date specification in YYYYMMDD format</TD></TR>
+  <TR>
+    <TD>&nbsp;</TD>
+    <TD>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width=115><FONT size=3>Time</FONT></TD>
+    <TD vAlign=top width=835><FONT size=3>A time specification. May be 6 
+      characters long (HHMMSS) if seconds are included, 4 characters (HHMM) if 
+      seconds are not included. Time is in 24-hour format, from 0000 to 235959. 
+      A zero-length field or omission of the field indicates an empty time 
+      value.</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=115>&nbsp;</TD>
+    <TD vAlign=top width=835>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width=115><FONT size=3>M</FONT></TD>
+    <TD vAlign=top width=835><FONT size=3>Multi-line text field. For xBase 
+      MEMO and similar data.</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width=115>&nbsp;</TD>
+    <TD vAlign=top width=835>&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width=115><FONT size=3>C (Character)</FONT></TD>
+    <TD vAlign=top width=835><FONT size=3>So far everyone who has written an 
+      export program has not specified a type for character data. However, it is 
+      included in the specifications for consistency.</FONT></TD></TR></TBODY></TABLE>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>3. Field Definitions:</B></FONT></P>
+<TABLE cellSpacing=1 cellPadding=7 width=590 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3><B>Name</B></FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3><B>Type</B></FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3><B>Comment</B></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>ADDRESS</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>M</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>As it will appear on the mailing 
+      label</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>AGE</FONT></TD>
+    <TD vAlign=top width="11%">N</TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>ARRL_SECT</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>BAND</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>160M, 80M, 40M, 30M, 20M, 17M, 
+      15M, 12M, 10M, 6M, 2M, 70CM,23CM...see table below</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>CALL</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>CNTY</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%"><FONT size=3>US County in the format 
+      STATE,COUNTY. For example GA,BARROW. Use CQ County list</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>COMMENT</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Comment field for QSO</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>CONT</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%"><FONT size=3>Continent: 
+    NA,SA,EU,AF,OC,AS</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>CONTEST_ID</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Contest Indentifier -- SS, 
+      ARRLVHF, ARRLDX, etc.</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>CQZ</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>CQ Zone</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>DXCC</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Numeric identifiers from ARRL. See 
+      table below</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>FREQ</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>in Megahertz</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>GRIDSQUARE</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>4, 6, or 8 or however many 
+      characters</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>IOTA</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%"><FONT size=3>HYPHEN MUST BE INCLUDED. Example: 
+      NA-001 IOTA PROVIDES DISK IN THIS FORMAT</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>ITUZ</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>ITU Zone</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>MODE</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT 
+      size=3>SSB,CW,RTTY,TOR,PKT,AM,FM,SSTV,ATV,PAC=PACTOR,CLO=CLOVER</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>NAME</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>NOTES</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>M</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Long text for digital copy, third 
+      party traffic, etc.</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>OPERATOR</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Callsign of person logging the 
+      QSO</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>PFX</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%"><FONT size=3>WPX prefix</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>PROP_MODE</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QSLMSG</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>M</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Personal message to appear on qsl 
+      card</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QSLRDATE</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>D</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>QSL Rcvd Date</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QSLSDATE</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>D</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>QSL Sent Date</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QSL_RCVD</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Y=Yes, N=No, R=Requested, I=Ignore 
+      or Invalid</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QSL_SENT</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Y=Yes, N=No, R=Requested, I=Ignore 
+      or Invalid</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QSL_VIA</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QSO_DATE</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>D</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>YYYYMMDD in UTC</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>QTH</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>RST_RCVD</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>RST_SENT</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>RX_PWR</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Power of other station in 
+      Watts</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>SAT_MODE</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%"><FONT size=3>Satellite Mode</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>SAT_NAME</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%"><FONT size=3>Name of satellite</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>SRX</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Received serial number for a 
+      contest QSO</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>STATE</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>US state</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>STX</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Transmitted serial number for a 
+      contest QSO</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>TEN_TEN</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>TIME_OFF</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>HHMM or HHMMSS in UTC</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>TIME_ON</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>C</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>HHMM or HHMMSS in UTC</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>TX_PWR</FONT></TD>
+    <TD vAlign=top width="11%"><FONT size=3>N</FONT></TD>
+    <TD vAlign=top width="64%"><FONT size=3>Power of this station in 
+      watts</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="25%"><FONT size=3>VE_PROV</FONT></TD>
+    <TD vAlign=top width="11%">C</TD>
+    <TD vAlign=top width="64%"><FONT size=3>2-letter abbreviations: AB, BC, 
+      MB, NB, NF, NS, NT, ON, PE, QC, SK, YT</FONT></TD></TR></TBODY></TABLE>
+<P><FONT size=3>Band designations:</FONT></P>
+<TABLE cellSpacing=0 cellPadding=7 width=590 border=2>
+  <TBODY>
+  <TR>
+    <TD><STRONG>Band</STRONG></TD>
+    <TD><STRONG>Frequency</STRONG></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>160m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>80m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>40m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>30m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>20m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>17m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>15m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>12m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>10m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>6m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>2m</FONT></TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>1.25m</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>220MHz</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>70cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>432</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>35cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>902</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>23cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>1300</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>13cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>2300</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>9cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>3300</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>6cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>5660</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>3cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>10000</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>1.25cm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>24000</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>6mm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>47 GHz</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>4mm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>75</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>2.5mm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>120</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>2mm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>142</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><FONT size=3>1mm</FONT></TD>
+    <TD vAlign=top width="50%"><FONT size=3>241</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%">&nbsp;</TD>
+    <TD vAlign=top width="50%">&nbsp;</TD></TR></TBODY></TABLE>
+<P>&nbsp;</P>
+<P><FONT size=3>DXCC country codes:</FONT></P>
+<P><FONT size=3>Handling transfer of DXCC(tm) country info has been a common 
+problem due to lack of an official list. The ARRL maintains everyone's DXCC 
+status using numeric codes. We have adopted their codes for ADIF transfer of 
+data. We wish to thank the ARRL for making this list available.</FONT></P>
+<TABLE cellSpacing=1 cellPadding=7 width=590 border=1>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3><B>Code</B></FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3><B>Country</B></FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3><B>Deleted</B></FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>1</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CANADA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>2</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ABU AIL IS</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>3</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AFGHANISTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>4</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AGALEGA &amp; ST BRANDON</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>5</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ALAND IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>6</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ALASKA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>7</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ALBANIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>8</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ALDABRA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>9</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AMERICAN SAMOA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>10</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AMSTERDAM &amp; ST PAUL</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>11</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ANDAMAN &amp; NICOBAR IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>12</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ANGUILLA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>13</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ANTARCTICA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>14</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ARMENIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>15</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ASIATIC RUSSIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>16</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AUCKLAND &amp; CAMPBELL</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>17</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AVES ISLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>18</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AZERBAIJAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>19</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BAJO NUEVO</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>20</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BAKER, HOWLAND IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>21</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BALEARIC IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>22</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BELAU (T8)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>23</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BLENHEIM REEF</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>24</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BOUVET</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>25</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BRITISH N. BORENO</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>26</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BRITISH SOMALI</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>27</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BELARUS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>28</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CANAL ZONE</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>29</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CANARY IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>30</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CELEBE/MOLUCCA IS</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>31</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>C KIRIBATI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>32</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CEUTA &amp; MELILLA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>33</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CHAGOS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>34</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CHATHAM IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>35</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CHRISTMAS IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>36</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CLIPPERTON IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>37</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>COCOS ISLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>38</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>COCOS-KEELING IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>39</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>COMOROS (FB8)</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>40</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CRETE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>41</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CROZET</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>42</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DAMAO, DUI</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>43</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DESECHEO IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>44</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DESROCHES</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>45</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DODECANESE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>46</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>EAST MALAYSIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>47</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>EASTER IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>48</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>EASTERN KIRIBATI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>49</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>EQUATORIAL GUINEA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>50</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MEXICO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>51</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ERITREA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>52</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ESTONIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>53</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ETHIOPIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>54</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>EUROPEAN RUSSIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>55</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FARQUHAR</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>56</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FERNANDO DE NORONHA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>57</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRENCH EQ. AFRICA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>58</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRENCH INDO-CHINA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>59</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRENCH WEST AFRICA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>60</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BAHAMAS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>61</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRANZ JOSEF LAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>62</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BARBADOS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>63</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRENCH GUIANA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>64</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BERMUDA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>65</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BRITISH VIRGIN IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>66</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BELIZE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>67</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRENCH INDIA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>68</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAUDI/KUWAIT N.Z.</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>69</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CAYMAN ISLANDS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>70</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CUBA ADIF:CM</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>71</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GALAPAGOS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>72</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DOMINICAN REPUBLIC</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>74</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>EL SALVADOR</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>75</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GEORGIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>76</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GUATEMALA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>77</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GRENADA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>78</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>HAITI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>79</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GUADELOUPE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>80</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>HONDURAS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>81</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GERMANY</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>82</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JAMAICA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>84</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MARTINIQUE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>85</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BONAIRE,CURACAO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>86</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NICARAGUA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>88</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PANAMA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>89</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TURKS &amp; CAICOS IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>90</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TRINIDAD &amp; TOBAGO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>91</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ARUBA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>93</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GEYSER REEF</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>94</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ANTIGUA &amp; BARBUDA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>95</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DOMINICA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>96</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MONTSERRAT</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>97</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST LUCIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>98</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST VINCENT</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>99</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GLORIOSO IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>100</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ARGENTINA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>101</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GOA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>102</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GOLD COAST/TOGOLND</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>103</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GUAM</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>104</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BOLIVIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>105</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GUANTANAMO BAY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>106</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GUERNSEY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>107</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>REPUBLIC OF GUINEA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>108</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BRAZIL</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>109</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GUINEA-BISSAU</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>110</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>HAWAII</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>111</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>HEARD IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>112</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CHILE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>113</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>IFNI</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>114</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ISLE OF MAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>115</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ITALIAN SOMALI</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>116</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>COLOMBIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>117</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ITU GENEVA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>118</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JAN MAYEN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>119</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JAVA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>120</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ECUADOR</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>122</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JERSEY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>123</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JOHNSTON IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>124</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JUAN DE NOVA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>125</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JUAN FERNANDEZ</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>126</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KALININGRAD</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>127</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KAMARAN IS</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>128</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KARELO-FINN REP</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>129</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GUYANA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>130</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KAZAKHSTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>131</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KERGUELEN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>132</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PARAGUAY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>133</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KERMADEC</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>134</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KINGMAN REEF</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>135</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KYRGYZSTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>136</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PERU</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>137</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOUTH KOREA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>138</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KURE ISLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>139</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KURIA MURIA IS</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>140</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SURINAME</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>141</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FALKLAND IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>142</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LACCADIVE ISLANDS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>143</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LAOS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>144</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>URUGUAY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>145</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LATVIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>146</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LITHUANIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>147</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LORD HOWE IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>148</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>VENEZUELA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>149</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AZORES</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>150</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AUSTRALIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>151</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALYJ VYSOTSKI IS (R1MV)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>152</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MACAO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>153</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MACQUARIE IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>154</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>YEMEN ARAB REP</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>155</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALAYA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>157</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NAURU</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>158</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>VANUATU</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>159</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALDIVE IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>160</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TONGA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>161</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALPELO IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>162</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NEW CALEDONIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>163</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PAPUA NEW GUINEA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>164</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MANCHURIA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>165</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MAURITIUS IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>166</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MARIANA IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>167</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MARKET REEF</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>168</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MARSHALL IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>169</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MAYOTTE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>170</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NEW ZEALAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>171</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MELLISH REEF</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>172</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PITCAIRN IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>173</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MICRONESIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>174</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MIDWAY IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>175</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRENCH POLYNESIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>176</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FIJI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>177</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MINAMI TORISHIMA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>178</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MINERVA REEF</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>179</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MOLDAVIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>180</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MT ATHOS (SY)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>181</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MOZAMBIQUE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>182</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NAVASSA IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>183</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DUTCH BORNEO</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>184</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NETHER N. GUNIEA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>185</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOLOMON ISLANDS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>186</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NEWFOUNDLAND/LAB</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>187</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NIGER</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>188</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NIUE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>189</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NORFOLK IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>190</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WESTERN SAMOA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>191</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>N COOK IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>192</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>OGASAWARA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>193</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>OKINAWA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>194</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>OKINO TORI-SHIMA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>195</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PAGALU (ANNOBAR IS)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>196</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PALESTINE</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>197</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PALMYRA &amp; JARVIS IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>198</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PAPUA TERR</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>199</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PETER I IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>200</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PORTUGUESE TIMOR</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>201</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PRINCE EDWARD &amp; 
+    MARION</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>202</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PUERTO RICO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>203</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ANDORRA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>204</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>REVILLA GIGEDO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>205</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ASCENSION ISLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>206</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>AUSTRIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>207</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>RODRIGUEZ IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>208</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>RUANDA-URUNDI</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>209</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BELGIUM</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>210</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAAR</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>211</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SABLE ISLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>212</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BULGARIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>213</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAINT MARTIN (FJ)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>214</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CORSICA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>215</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CYPRUS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>216</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAN ANDREAS &amp; 
+      PROVIDENCIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>217</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAN FELIX</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>218</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CZECHOSLOVAKIA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>219</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAO TOME &amp; PRINCIPE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>220</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SARAWAK</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>221</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DENMARK</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>222</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FAROE IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>223</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ENGLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>224</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FINLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>225</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SARDINIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>226</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAUDI/IRAQ N.Z.</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>227</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FRANCE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>228</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SERRANA BANK</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>229</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GERMAN DEM. REP.</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>230</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>FED REP OF GERMANY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>231</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SIKKIM</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>232</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOMALI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>233</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GIBRALTAR</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>234</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>S COOK IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>235</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOUTH GEORGIA IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>236</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GREECE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>237</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GREENLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>238</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOUTH ORKNEY IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>239</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>HUNGARY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>240</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOUTH SANDWICH ISLANDS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>241</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOUTH SHETLAND ISLANDS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>242</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ICELAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>243</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DEM REP OF YEMEN</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>244</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOUTHERN SUDAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>245</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>IRELAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>246</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALTA, SOVERIGN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>247</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SPRATLY IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>248</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ITALY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>249</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST KITTS &amp; NEVIS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>250</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST HELENA IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>251</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LIECHTENSTEIN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>252</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST PAUL ISLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>253</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST PETER &amp; ST PAUL 
+    RKS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>254</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LUXEMBOURG</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>255</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST MAARTEN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>256</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MADEIRA IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>257</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALTA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>258</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SUMATRA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>259</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SVALBARD IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>260</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MONACO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>261</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SWAN ISLAND</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>262</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TADZHIKISTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>263</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NETHERLANDS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>264</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TANGIER</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>265</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NORTHERN IRELAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>266</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NORWAY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>267</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TERR NEW GUINEA</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>268</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TIBET</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>269</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>POLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>270</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TOKELAU IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>271</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TRIESTE</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>272</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PORTUGAL</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>273</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TRINDADE &amp; MARTIN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>274</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TRISTAN DA CUNHA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>275</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ROMANIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>276</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TROMELIN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>277</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ST PIERRE &amp; MIQUELON</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>278</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAN MARINO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>279</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SCOTLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>280</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TURKMENISTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>281</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SPAIN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>282</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TUVALU</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>283</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>UK BASES ON CYPRUS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>284</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SWEDEN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>285</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>VIRGIN IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>286</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>UGANDA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>287</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SWITZERLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>288</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>UKRAINE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>289</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>HQ UNITED NATIONS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>291</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>UNITED STATES</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>292</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>UZBEKISTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>293</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>VIETNAM</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>294</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WALES</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>295</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>VATICAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>296</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>YUGOSLAVIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>297</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WAKE IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>298</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WALLIS &amp; FUTUNA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>299</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WEST MALAYSIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>301</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>W KIRIBATI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>302</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WESTERN SAHARA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>303</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WILLIS IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>304</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BAHRAIN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>305</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BANGLADESH</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>306</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BHUTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>307</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ZANZIBAR</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>308</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>COSTA RICA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>309</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MYANMAR</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>312</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KAMPUCHEA (CAMBODIA)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>315</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SRI LANKA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>318</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CHINA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>321</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>HONG KONG</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>324</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>INDIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>327</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>INDONESIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>330</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>IRAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>333</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>IRAQ</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>336</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ISRAEL</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>339</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JAPAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>342</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>JORDAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>345</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BRUNEI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>348</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KUWAIT</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>354</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LEBANON</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>363</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MONGOLIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>369</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NEPAL</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>370</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>OMAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>372</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PAKISTAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>375</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PHILIPPINES</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>376</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>QATAR</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>378</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SAUDI ARABIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>379</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SEYCHELLES</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>381</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SINGAPORE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>382</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>DJIBOUTI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>384</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SYRIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>386</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TAIWAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>387</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>THAILAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>390</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TURKEY</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>391</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>UNITED ARAB EMIRATES</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>400</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ALGERIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>401</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ANGOLA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>402</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BOTSWANA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>404</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BURUNDI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>406</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CAMEROON</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>408</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CENTRAL AFRICAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>409</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CAPE VERDE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>410</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CHAD</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>411</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>COMOROS (D6)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>412</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CONGO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>414</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ZAIRE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>416</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BENIN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>420</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GABON</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>422</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>THE GAMBIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>424</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>GHANA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>428</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>IVORY COAST</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>430</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>KENYA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>432</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LESOTHO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>433</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NORTH KOREA (HP)</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>434</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LIBERIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>436</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>LIBYA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>438</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MADAGASCAR</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>440</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALAWI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>442</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MALI</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>444</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MAURITANIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>446</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MOROCCO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>450</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NIGERIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>452</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ZIMBABWE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>453</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>REUNION</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>454</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>RWANDA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>456</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SENEGAL</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>458</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SIERRA LEONE</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>460</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ROTUMA IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>462</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SOUTH AFRICA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>464</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>NAMIBIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>466</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SUDAN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>468</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SWAZILAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>470</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TANZANIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>474</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TUNISIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>478</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>EGYPT</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>480</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BURKINA-FASO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>482</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>ZAMBIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>483</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>TOGO</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>488</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>WALVIS BAY</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>489</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CONWAY REEF</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>490</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BANABA ISLAND</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>492</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>YEMEN</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>493</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PENGUIN ISLANDS</FONT></TD>
+    <TD vAlign=top width="22%"><FONT size=3>Y</FONT></TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>497</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CROATIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>499</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SLOVENIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>501</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>BOSNIA-HERZEGOVINA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>502</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>MACEDONIA</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>503</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>CZECH REPUBLIC</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>504</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SLOVAK REPUBLIC</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>505</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>PRATAS IS</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR>
+  <TR>
+    <TD vAlign=top width="18%"><FONT size=3>506</FONT></TD>
+    <TD vAlign=top width="60%"><FONT size=3>SCARBOROUGH REEF</FONT></TD>
+    <TD vAlign=top width="22%">&nbsp;</TD></TR></TBODY></TABLE>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>4. File Definitions:</B></FONT></P>
+<P><FONT size=3>A log record is the data resulting from logging one QSO. ADIF 
+does not specify a minimum required set of fields for log data. Although a 
+record should contain at least :</FONT></P>
+<BLOCKQUOTE>
+  <P><FONT size=3>Call<BR>QSO_Date<BR>Time_On<BR>Band 
+<BR>Mode</FONT></P></BLOCKQUOTE>
+<P><FONT size=3>it is permissible to export data with any of these items 
+missing.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>ADIF, xBase and other formats</B></FONT></P>
+<P><FONT size=3>As xBase languages and utilities are very popular (perhaps 
+<I>the</I> most popular) for data handling applications, many parties to the 
+ADIF proposal discussion favored using xBase files as the physical 
+specification. However, this standard was not selected, since it is not easily 
+used by those not using an xBase language, and lacks the flexibility and 
+extensibility that ADIF features. However, a de-facto secondary xBase 
+specification exists. Those wishing to use xBase files that will be compatible 
+with each other may simply use ADIF field and record specifications. </FONT></P>
+<P><FONT size=3>We encourage development of public-domain utilities being made 
+available that convert ADIF/xBase files as well as other popular data formats 
+such as Lotus 123, Paradox, MS Access, etc.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>Usage of ADIF and limitations</B></FONT></P>
+<P><FONT size=3>In order to maintain the integrity of ADIF and public confidence 
+therein, these guidelines must be followed by anyone wishing to support ADIF. 
+</FONT></P>
+<P><FONT size=3>ADIF may be freely used by any individual or organization, 
+non-profit or commercial. Anyone claiming "ADIF compatibility" or "ADIF 
+support", or other language with similar meaning, must be able to import 
+<I>and</I> export ADIF data.</FONT></P>
+<P><FONT size=3>Of course data import is not necessary or desirable for all 
+programs. For example, in the case of contesting-only packages, the user will 
+probably want to export the contest data for use in a general logger, but not 
+care about importing data. Authors of such packages shall state they provide 
+"ADIF export compatibility" or "ADIF export support", or other language with 
+similar meaning.</FONT></P>
+<P><FONT size=3>Writing a software package that imports ADIF but cannot export 
+ADIF is not within keeping of the spirit and intent of ADIF. Such a package 
+cannot truthfully claim to be ADIF compatible or to support ADIF. Authors of 
+programs that only import must state that they support "ADIF import 
+compatibility" or "ADIF import support", or language with similar 
+meaning.</FONT></P>
+<P><FONT size=3>Packages that export and import ADIF may state that they support 
+"ADIF import and export" or a similar phrase. However, any claims of ADIF 
+support without any qualifiers shall mean that the program imports and 
+exports.</FONT></P>
+<P><FONT size=3>Export programs shall be written in good faith so that the data 
+will be of maximum usefulness to the user of the data. Products that export data 
+in such a manner that its usefulness is limited, for example by exporting only a 
+few fields or using non-standard formats or names for fields, cannot claim ADIF 
+compatibility. Export programs should include all data in the file to be 
+exported. If an author has fields that are not in the field list of the ADIF 
+specification, he may export the fields by choosing the most obvious field name, 
+and making a reasonable attempt to notify other ADIF supporters--for example via 
+the ADIF mailing list reflector. In time there will probably be an official 
+standards committee that will maintain the field list.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT face=Arial size=4><B>ADIF Mailing List Reflector and Web 
+sites</B></FONT></P>
+<P><FONT size=3>Those with Internet email may participate in the ADIF 
+discussion.</FONT></P>
+<P><FONT size=3>A number of amateurs have been discussing the difficulty in 
+transferring QSO data between the various ham radio software packages that are 
+available, and the desirability of having a standard format so that data can be 
+easily transferred between any two programs. This mailing list has been set up 
+to facilitate the formation of such a specification.</FONT></P>
+<P><FONT size=3>Any software developer or any ham who wishes to contribute to 
+this discussion is welcome to participate.</FONT></P>
+<P><FONT size=3>You may subscribe to these mailing lists by filling out a form 
+at the ADIF web page (<A 
+href="http://www.hosenose.com/adif">http://www.hosenose.com/adif</A>). You may 
+also subscribe via email as described below.</FONT></P>
+<P><FONT size=3>To subscribe to the ADIF Mailing List, send a message 
+to:</FONT></P>
+<P><FONT size=3>listserv@hosenose.com</FONT></P>
+<P><FONT size=3>In the SUBJECT field, enter </FONT></P>
+<P><FONT size=3>SUBSCRIBE ADIF</FONT></P>
+<P><FONT size=3>You will be sent a confirmation along with additional 
+information within 24-48 hours of subscribing.</FONT></P>
+<P><FONT size=3>This web site also contains links to other publishers who 
+support ADIF.</FONT></P>
+<P><FONT size=3>For any questions about this specification, contact 
+us!</FONT></P>
+<P>&nbsp;</P>
+<P><FONT size=3>Ray Ortgiesen, WF1B<BR>Wyvern Technology, Inc.<BR>35 Colvintown 
+Road<BR>Coventry, RI 02816-8509 </FONT></P>
+<P><FONT size=3>401-823-RTTY<BR>401-822-0554 Fax<BR><A 
+href="http://www.wf1b.com/">http://www.wf1b.com/</A><BR>E-Mail: <A 
+href="mailto:wf1b@wf1b.com">wf1b@wf1b.com</A><BR>RTTY Contest Reflector: <A 
+href="mailto:wf1b-rtty@wf1b.com">wf1b-rtty@wf1b.com</A></FONT></P>
+<P><FONT size=3>Publisher of the popular WF1B RTTY contesting 
+program.</FONT></P>
+<P>&nbsp;</P>
+<P><FONT size=3>Dennis Hevener, WN4AZY<BR>Personal Database Applications<BR>1323 
+Center Dr.<BR>Auburn, GA 30011-3318</FONT></P>
+<P><FONT size=3>770-307-1511<BR>770-307-0760 Fax<BR><A 
+href="mailto:pda@hosenose.com">pda@hosenose.com</A><BR><A 
+href="http://www.hosenose.com/">http://www.hosenose.com/</A></FONT></P>
+<P><FONT size=3>Makers of LOGic ham radio software, SARTek universal antenna 
+rotator interface, and other products for the computer in the shack.</FONT></P>
+<P><!--webbot bot="Timestamp" s-type="EDITED" s-format="%d-%b-%Y" startspan -->10-Jun-1998<!--webbot bot="Timestamp" endspan i-checksum="15856" --> 
+<!--webbot bot="Substitution" s-variable="Page-URL" startspan -->http://www.hosenose.com/adif/adif.html<!--webbot bot="Substitution" endspan i-checksum="35413" --></P></BODY></HTML>

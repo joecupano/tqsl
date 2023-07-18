@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>TrustedQSL Project Plan and Requirements</title>
+</head>
+
+<body>
+<H2>Introduction</H2>
+<P>The goal of the TrustedQSL project is to provide an open source API and frame 
+work to support the exchange of signed digital QSL called TrustedQSLs or tQSLs 
+for short.&nbsp; This includes the tools for implement a PKI (Public Key 
+Infrastructure) based upon the OpenSSL crypto library.&nbsp; Soon after the 
+project started ARRL contact us about using TrustedQSL as the client/PKI library 
+for the Logbook Of The World project.&nbsp;&nbsp; We worked out our minor 
+difference in the design concept and agreed to work together.&nbsp; The rest is 
+history as they say.&nbsp; Now the question is where do we go from here?&nbsp; I 
+have carved up the project in what I believe is a good grouping of 
+subprojects.&nbsp; </P>
+<P>The rest of the document will talk about the different subproject TrustedQSL 
+project.</P>
+<H2>Trusted Gabbi (Global Amateur Interchange)&nbsp; Formats </H2>
+<H3>Discussion:</H3>
+<P> <br>There are currently many 
+different interchange formats that are being used by amateur radio today. By far 
+the most popular is <A href="http://www.hosenose.com/adif">ADIF (Amateur Data 
+Interchange Format) </A>for good reason. It is a very elegant, robust, and easy 
+to read as raw data. It has many of the features found in XML without the need 
+for special libraries and their associated learning curve. Having said that ADIF 
+does have a short coming. It doesn't have any concept of record type. Today 
+discussions with the ADIF development group hasn't been fruitful. Therefore to 
+meet the requires of this project the standard must be forked. The new standard 
+will be called XADIF. It is hoped that the two standards will be merged at some 
+point in the future. Therefore a design goal is for Gabbi (Global Amateur 
+Interchange) format to be backward compatible with ADIF. This turns 
+out to be fairly easy to do by declaring the QSO/Logbook record as the default 
+record type.</P>
+<H3>Requirements:</H3>
+<UL>
+	<li>RecType Field.  This field will determine the record type
+	<li>        
+                
+              
+    An algorithm for determining the signing order of the fields must be specified.&nbsp;&nbsp;
+  <LI>In addition the currently define QSO/Logbook record, QSL and Station 
+  Records must be defined.
+  <LI>Field definitions is only significant to that record.&nbsp; For example a 
+  GRID_SQUARE field on a QSO would refer to the contact station grid 
+  square.&nbsp; GRID_SQUARE on a station record would refer to the grid square 
+  of the station submitting the QSL
+  <LI>A new field or possibly as well define virtual field 
+  (ie: call and number of seconds since epoch) which can be common to all records and required for tQSL 
+  records will be the GUID (<STRONG>G</STRONG>lobal <STRONG>U</STRONG>nique 
+  <STRONG>ID</STRONG>           
+          entifier).&nbsp; This is in 
+  order that different records can be uniquely connected to other records in 
+  a portable and database independent way.
+  <LI>           
+              
+            C/C++ functions 
+  that parse and create record strings.
+  <LI>        
+      Create a memory object that can store and sign a 
+  record.</LI></UL>
+<H3>Task:</H3>
+
+<ol>
+<li>Define specification for tQSL Records
+<li>Define specification for a trusted QTH/station record
+<li>Define specification Trusted Delegation record 
+  (deferred) 
+  <LI>Create functions and/or class to parse, format, read and write Gabbi 
+  records.
+  <LI>Create API usage document for #4</LI>
+ </ol>
+<H2>Public Key Infrastructure (PKI) Functions</H2>
+<H3>Discussion:</H3>
+<P>The PKI functions is the heart of TrustedQSL.&nbsp; It 
+allows LoTW and others to authenticate&nbsp;tQSL using public key digital 
+signature PKDS technology PKI are by there very nature complex 
+and many of the policy issues are address by the LoTW design 
+document.&nbsp; The scope of this document is to provide the API 
+functions required to support a PKI such as LoTW will require.&nbsp; 
+It is beyond the scope of this project to define any of the 
+procedures or policies for the operation of a 
+CA. </P>
+<P>Currently most PKDS uses the RSA encryption Algorithm, however in many 
+countries the use of strong encryption software is illegal to 
+use, own, import and/or export.&nbsp; Because of this the initial release 
+will use the DSS (Digital Signature Standard) for created and authentication of 
+digital signatures.&nbsp; The low level design will be able to support RSA in 
+the event that laws change such as would permit the free use of RSA.  DSA 
+(Digital Signature Algorithms) claims to be able to be used for digital 
+signatures, therefore there is no known restrictions placed on it by any 
+government.</P>
+<P>PKDS are relative simple in nature requiring only basic 
+math to compute.&nbsp; What makes PKDS complex and hard to deal with is the uses 
+of big numbers.&nbsp; Most computers today are 32 bits, some are 64 bits 
+and a few special purpose computers are 128 bits.&nbsp; The smallest number used 
+by DSA is 160 bits and goes up to 1024 bits.&nbsp; Therefore it takes special 
+routines to deal with these big numbers.&nbsp; Fortunately another open 
+source project <A href="http://www.openssl.org">OpenSSL</A> has taken care of 
+all the low level work.&nbsp; There is two important things that makes the 
+OpenSSL project appealing.&nbsp; 1) The licenses does plan any restrictions on product that uses 
+any of the OpenSSL libraries, unlike the GPL license that requires the release of all 
+source.&nbsp; 2) It is native C code and has been ported to every 
+major platform/OS including Win32, Mac, Linux and Unix.&nbsp; It doesn't not however support 16 
+bit OS such as MS-DOS.&nbsp; Also there is no direct support for Java.&nbsp; It 
+is believed that Java support can be done with 
+some of the encryption class that are available for Java. </P>
+<H3>Task:&nbsp;</H3>
+<ol>
+<li>Crypto support libraries and ports.<br>
+The OpenSSL library is in itself a large library.  Most of the functions provide
+by the OpenSSL crypto library will not be used by TrustedQSL.  To make it as simple as
+possible for software vendors, the library should be reduce to a subset of functions that
+will be used directly or indirectly by TrustedQSL API.  This is most important for Win32
+platform because of the large base of users, but should also be done for Mac as
+well.  Linux isn't a issue because OpenSSL comes fairly standard on Linux or can
+be compiled and installed without any trouble.
+<li>Key Management
+<li>Cert, CertReq and CRL Management
+<li>TrustedQSL API library 
+  
+<li>Programmers Guide to TrustedQSL/LoTW 
+  
+<li>Cert and digital signature format</li>
+</ol>
+<P><STRONG>Create class/libraries for different transport 
+protocols</STRONG> 
+<ol>
+<li>HTTP Upload 
+  
+<li>SNAIL Mail support 
+  
+<li>Create a method to send a tQSL message as an 
+  attachment 
+  
+<li>Create a http client that 
+will format and send tQSL messages </li>
+</ol>
+<P><STRONG>Create sample client programs that uses 
+TrustedQSL library</STRONG>        </P>
+<ol>
+<li>Format translator ADIF-&gt;Gabbi 
+  
+<li>Cabrillo-&gt;Gabbi 
+  
+<li>Stand alone tQSL</li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,212 @@
+QUICK-START GUIDE for TQSL version 2.6
+========================================
+
+TQSL is an application used to digitally sign and upload QSOs to the ARRL's
+Logbook of the World (LoTW) online service, and to manage the Callsign
+Certificates used when digitally signing. TQSL accepts QSOs in a log file whose
+format is either ADIF or Cabrillo, which many logging applications can create.
+
+To digitally sign the QSOs in a log file, TQSL requires you to present a 
+Callsign Certificate issued to you by the ARRL, and requires you to specify the
+location from which you operated when making every QSO in that log file.
+To make this easy, TQSL lets you define and name a Station Location that
+specifies your Callsign Certificate and operating location.
+
+Documentation for TQSL is available via its Help menu's "Display Documentation"
+command; on OS X, documentation is available via the Help menu's "Contents" 
+command). The information in this Quick-Start Guide is a subset extracted from
+the documentation.
+
+TQSL can be installed and executed on Windows, Mac OS X, and Linux.
+
+
+Installation
+============
+
+To install TQSL on Windows, download and execute the .msi file to start the 
+TQSL installer. The installer makes TQSL accessible via the Windows
+Start/Programs/TrustedQSL menu unless you direct it to use a different menu. The
+installer also provides the option of creating a Desktop shortcut for TQSL.
+
+To install on Mac OS X, download and open the package file (.pkg) to invoke
+the OSX installer.
+
+On a Mac OS X 10.8 or later system, you may need to grant permission for
+the TQSL application to run: right-click or control-click on the application
+icon, and then choose "Open"; when an "Are you sure" dialog box appears, click
+the "Open" button to permit TQSL to start. You will only need to do this when
+installing a TQSL release.
+
+To install on Linux, consult the instructions in the INSTALL document included
+with the source code.
+
+
+If you're updating an existing TQSL installation
+================================================
+
+Note that this version of TQSL includes the Callsign Certificate management
+functionality previously provided by TQSLCert; TQSLCert is no longer required,
+and has been removed from your computer. To request, load, save, renew, or
+delete a Callsign Certificate, use the "Callsign Certificates" tab on TQSL's
+main window and its "Callsign Certificate" menu commands.
+
+TQSLCert was by default configured to hide both "replaced" and "expired"
+certificates. TQSL displays all Callsign Certificates on its main window's 
+"Callsign Certificates" tab:
+
+- "replaced" Certificates are denoted by an A=>B icon
+
+- "expired" Certificates are denoted by an alarm clock icon. 
+
+You should delete each "replaced" or "expired" Callsign Certificate by clicking 
+its entry on the "Callsign Certificates" tab, and then selecting the "Callsign 
+Certificate" menu's "Delete Callsign Certificate" command. When a new Callsign
+Certificate is imported for a given callsign, TQSL will delete the expired and
+replaced certificates for that callsign.
+
+
+If you're installing TQSL for the first time
+============================================
+
+1) Request a Callsign Certificate
+
+When you start TQSL, you'll be informed that you have no Callsign Certificates
+and be asked if you want to request one. Choose "Yes", and proceed through the
+sequence of "Request a new Callsign Certificate" dialogs:
+
+   a) When prompted to specify a callsign, use your present callsign without
+   any portable identifiers.
+
+   b) The "QSO begin date" is the date of the earliest QSO you'll submit to
+   LoTW using the callsign you've specified; normally, this is date-of-issue 
+   for your license. Leave the "QSO end date" blank.
+
+   c) For US callsigns, your mailing address must match the address in the FCC's
+   database. If your address is now different than what you last filed with the
+   FCC, you must register your new address with the FCC.
+
+   d) You will be prompted to specify a password. If you're using a shared
+   computer, you should protect your Callsign Certificate by entering the same
+   password in both password textboxes; you'll be asked to provide this password
+   each time you direct TQSL to digitally sign a log file, so be sure not to 
+   forget it! If you control access to the computer you're using, you can leave 
+   both password textboxes empty, thereby avoiding the need to provide a
+   password each time you direct TQSL to digitally sign a log file.
+   
+   e) When given the option to digitally sign the Callsign Certificate request, 
+   choose "unsigned".
+
+   f) If your computer is connected to the internet, TQSL will offer to submit
+   your Callsign Certificate Request; choose "Yes". If you chose "No", you'll
+   be prompted to save a .tq5 file, which you should then attach to an email 
+   message to lotw-logs@arrl.org, or upload via the Web 
+   (https://www.arrl.org/lotw/). 
+
+   g) If you are a US licensee, you will receive a post card in the mail with
+   further instructions; the post card will be sent to your address in the FCC's
+   database, so make sure that's correct! If you are a non-US licensee, you must
+   submit proof of license and identity to receive your Callsign Certificate.
+   See http://www.arrl.org/lotw/ for details.
+
+   NOTE! Do not delete the Callsign Certificate Request (the red-lined
+   "pending" icon) from TQSL's "Callsign Certificates" tab after the Request
+   has been conveyed. Each Certificate Request is unique and must match the
+   Callsign Certificate that you will receive from the ARRL. If you direct TQSL
+   to delete the Certificate Request, you will not be able to load the Callsign 
+   Certificate the ARRL sends you in response.
+
+   
+2) Accept the Callsign Certificate
+
+Your Callsign Certificate will arrive as a file with a .TQ6 suffix attached to
+an email message sent to the email address that you specified in the "Request a
+new Callsign Certificate" dialog. 
+
+You must accept the Callsign Certificate using the same computer on which you 
+generated the Callsign Certificate Request in step 1 above. Attempting to accept
+a Callsign Certificate using a different computer will fail.
+
+Double-click the email attachment in the received email message to launch TQSL
+and direct it to load the .TQ6 file. If double-clicking the attachment does not
+start TQSL, then save the attached .tq6 file to a folder, start TQSL, and use
+its Callsign Certificate menu's "Load Callsign Certificate From File" command
+to load your Callsign Certificate. This certificate will appear on TQSL's
+"Callsign Certificates" tab with a yellow medal icon indicating that it is
+valid.
+
+
+3) Backup the Callsign Certificate
+
+This step is strongly recommended: if you fail to make a backup and later lose
+your Callsign Certificate to a hard-drive crash or operating system failure,
+your certificate will not be recoverable. Select the File menu's "Backup
+Station Locations, Certificates, and Preferences..." command, and create a
+backup on a flash (thumb) drive, an external hard drive, or on a cloud storage
+service like DropBox, Google Drive, or Microsoft Sky Drive.
+
+
+4) Request Additional Callsign Certificate
+
+Logbook of the World treats a callsign with a portable identifier (e.g. NU1AW/4
+or KP2/W1AW) as distinct from its home callsign. To submit QSOs made with a 
+portable callsign, you must obtain a Callsign Certificate for that portable
+callsign.
+After you have received your Callsign Certificate for your home callsign, repeat
+steps 1, 2, and 3 above, but 
+
+- in step 1a specify your portable callsign
+
+- in step 1e digitally sign the request with the Callsign Certificate for your
+  present callsign
+
+  
+5) Create a Log File
+
+TQSL accepts log files saved from logging applications in either ADIF or
+Cabrillo format.
+
+If you're not yet using a logging application and want to create a log file
+containing a few QSOs, start TQSL, select the "Log Operations" tab, and click
+the "Create an ADIF file for signing and uploading" button.
+
+Because new modes may not yet be specified in ADIF, and because LoTW may not
+accept all modes specified in ADIF, TQSL enables you to "map" a new mode to a 
+mode or mode group recognized by LoTW; this most often takes the form of mapping
+a new digital mode to the DATA mode group. Previous versions of TQSL would allow
+you to map modes accepted by LoTW. This version of TQSL will refuse to map a mode 
+that is recognized by LoTW. Any existing mappings of modes recognized by LoTW 
+will be automatically removed on startup.
+
+6) Define a Station Location
+
+Select TQSL's "Station Locations" tab and click the "Create a new Station
+Location" button.
+A sequence of "Add Station Location" dialogs will prompt you for the location
+of the station used to make all of the QSOs in the log file you'll be
+submitting, and will enable you to specify a name that identifies the Station
+Location you've defined, e.g., "Home" or "Portable in EM29".
+
+
+7) Digitally Sign and Submit a Log File
+
+In TQSL, select the "Log Operations" tab and click the "Sign a log and
+upload it automatically to LoTW" button. In the "Select File to Sign" dialog, 
+specify either ADIF (.adi) or Cabrillo (.cbr or .log) format, navigate to the
+folder containing your log file, select your log file, and click the "Open" 
+button. In the "Select Station Location" dialog, select the Station Location 
+from which you were operating when you made all of the QSOs in the log file, 
+and click the "OK" button; TQSL will digitally sign your QSOs and submit them 
+to LoTW via the internet.
+
+When submitting log files in Cabrillo format, previous versions of TQSL
+submitted FM and PH modes as PHONE. TQSL now submits FM mode as FM, and PH
+mode as SSB.
+
+
+8) Visit the Logbook of the World Web site at https://www.arrl.org/lotw/ to
+view your submitted QSOs and confirmed QSOs, and to apply for award credits.
+Using TQSL, you can navigate there by clicking the "Log Operations" tab's "Log
+in to the Logbook of the World Site" button.
+
+
+9) For assistance or to report defects, send email to lotw-help@arrl.org.

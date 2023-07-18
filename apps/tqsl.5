@@ -1,0 +1,127 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH TQSL 5 "August  28, 2013"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.ll -5
+.SH NAME
+TQSL \- digitally sign amateur radio contact logs
+.SH SYNOPSIS
+.B tqsl
+.RI \-i\ [ certificate-file ] "" ...
+.PP
+.B tqsl
+.RI [ OPTIONS ]
+.RI [ log-file ] "" ...
+.SH DESCRIPTION
+.B TrustedQSL
+is a file format and set of procedures that is used to send digitally signed
+QSL information (logs of contacts between amateur radio operators).  One
+notable service that makes use of TrustedQSL is ARRL's
+.I Logbook of the World.
+.PP
+The \fBtqsl\fP program is used to digitally sign contact log files using a
+digital certificate. It is also used to generate requests for digital
+certificates and to store the resulting received digital certificates.
+(Certificates used to be handled by a separate program, \fBtqslcert\fP, but
+all functions are now handled by tqsl).
+.PP
+This manual page briefly documents the \fBtqsl\fP program.  Complete
+documentation is also available:
+.sp
+  \fBtqsl\fP: file:///usr/share/TrustedQSL/help/tqslapp/main.htm
+.SH OPTIONS
+
+.PP
+\fBtqsl\fP accepts these command line options:
+
+.TP
+.B \-b \fIbegin_date\fP and \-e \fIend_date\fP
+Supply a start date and end date for QSOs to be signed. If present, any QSOs
+before the begin date will be ignored, and any after the end date will be
+ignored. If either begin or end are omitted, then the corresponding limit is
+ignored. You should specify \fI-d\fP with this option to suppress the normal
+date range dialog as these options will override the user-specified dates if
+given.
+.TP
+.B \-d
+Suppress date-range dialog. If present, the QSO date-range dialog will not be
+shown for files that follow this option on the command line.
+
+.TP
+.B \-l \fIlocation_name\fP
+Selects an existing station location. This location will be used for the
+commands that follow. If the station location doesn't exist, \fBtqsl\fP will
+just exit.
+
+.TP
+.B \-o \fIoutput_file\fP
+Writes the resulting signed log file to \fIoutput_file\fP instead of a default
+name based on the input \fIlog-file\fP name.
+
+.TP
+.B \-s
+Add or edit station location. If there is a preceding -l option the specified
+location will be edited. If there is no preceding -l option, a new station
+location is being added.
+
+.TP
+.BR \-x " (or) " \-q
+Exit \fBtqsl\fP. If this argument is used it should be the last one on the
+command line. If this argument is not present, \fBtqsl\fP will begin normal
+operation after successfully processing all command-line arguments.
+
+.TP
+.B \-u
+Upload log file. If this argument is used, the input files will be signed
+then automatically uploaded to the Logbook of the World web site for
+processing.
+
+.TP
+.B \-v
+Display the version number of \fBtqsl\fP and exit.
+
+.TP
+.B \-i filename
+Import a certificate - either a signed response (.tq6) or a certificate
+stored with a private key in PKCS#12 format (.p12).
+.TP
+.B \-t filename
+Open a diagnostic trace file at startup. This file will log internal TQSL
+function calls for debugging purposes.
+.TP
+.B log-files
+Any command-line parameter that is not an option or an option's argument will
+be treated as the name of a log file (ADIF or Cabrillo) to be signed. The
+resulting signed file (.tq8) will be placed in the same directory as the log
+file, overwriting any existing .tq8 file of the same name. (Note: If this
+option is not preceded by a -l option that selects the station location to be
+used for signing, the Select Station Location for Signing dialog will be
+presented.) File names that contain spaces or other shell-special characters
+should be quoted in a manner suitable for the operating system and shell that's
+being used. If -u is used, the signed log is not saved to disk but is instead
+uploaded and submitted to Logbook of the World.
+.sp
+N.B.: If the private key needed to sign a log is protected by a
+password, the user will be prompted to supply that password for each file being
+signed.
+
+.SH AUTHOR
+trustedqsl was written by "American Radio Relay League, Inc." and the
+TrustedQSL authors. Please see the AUTHORS.txt file in the source distribution
+for a list of contributors.
+.PP
+This manual page was originally prepared by Kamal Mostafa <kamal@whence.com>,
+for the Debian project (and may be used by others).

@@ -1,0 +1,26 @@
+BODY { font-family: Helvetica,Arial,sans-serif; font-size: small }
+H1 { text-align: center; font-size: x-large }
+H2 { font-size: large }
+CODE { font-size: medium }
+A.qindex {}
+A.qindexRef {}
+A.el { text-decoration: none; font-weight: bold; }
+A.elRef { font-weight: bold }
+A.code { text-decoration: none; font-weight: normal; color: #4444ee }
+A.codeRef { font-weight: normal; color: #4444ee }
+A:link { color: #0000ff }
+A:visited { color: #0066cc }
+DL.el { margin-left: -1cm }
+DIV.fragment { width: 100%; border: none; background-color: #eeeeee }
+DIV.ah { background-color: black; margin-bottom: 3; margin-top: 3 }
+TD.md { background-color: #f2f2ff }
+DIV.groupHeader { margin-left: 16; margin-top: 12; margin-bottom: 6; font-weight: bold }
+DIV.groupText { margin-left: 16; font-style: italic; font-size: smaller }
+FONT.keyword       { color: #008000 }
+FONT.keywordtype   { color: #604020 }
+FONT.keywordflow   { color: #e08000 }
+FONT.comment       { color: #800000 }
+FONT.preprocessor  { color: #806020 }
+FONT.stringliteral { color: #002080 }
+FONT.charliteral   { color: #008080 }
+TD { font-size: small }

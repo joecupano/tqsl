@@ -1,0 +1,62 @@
+<HTML><HEAD><TITLE>Adding and Deleting ADIF Mode Mappings</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Adding and Deleting ADIF Mode Mappings</H3>
+<P>
+Because new modes may not yet be specified in <A HREF="glossary.htm#adif">ADIF</a>, and because LoTW may not accept all modes specified in ADIF, TQSL enables you to "map" a new mode to a mode or mode group
+recognized by LoTW. This most often takes the form of mapping a new digital mode <code>CoolNewDigitalMode</code> to the <code>DATA</code> mode group. Note that TQSL will
+refuse to map a mode that is accepted by LoTW.
+
+<P>
+<H5>Adding ADIF Mode Mappings</H5>
+To create a mapping from a new mode to an existing mode or mode group,
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Select the <b>File</b> menu's <b>Display or Modify Preferences...</b> command (on <b>OS X</b>, select the <b>Application</b> menu's <b>Preferences</b> command) to display TQSL's <B>Preferences</B> dialog.</td></tr>
+	<tr><td>2.</td><td>In the <b>Preferences</b> dialog, select the <b>ADIF Modes</b> tab; TQSL will display any mappings you've already defined.</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td><img src="pref-adi1.bmp" width=469 height=316 border=0></td></tr>
+</table>
+<P>
+In the example shown above, when <I>BPSK</I> appears in the MODE field of an ADIF record during digital signing, the QSO will specify <i>PSK31</i> in the digitally signed log file.
+<P>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>3.</td><td>Click the <b>Add...</b> button.</td></tr>
+	<tr><td>4.</td><td>In the <b>Add ADIF mode</b> dialog,</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.a</td><td>Type the mode to be mapped into the <b>ADIF Mode</b> box.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.b</td><td>Select the mode to which the specified mode should be mapped in the <b>Resulting TQSL mode</b> list.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td><img src="pref-adi2.bmp" width=279 height=311 border=0></td></tr>
+</table>
+<P>
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.c</td><td>Click the <b>OK</b> button.</td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td><img src="pref-adi3.bmp" width=469 height=316 border=0></td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td>&nbsp;&nbsp;</td><td>Now, when <I>MCW</I> appears in the MODE field of an ADIF record during digital signing, the QSO will specify <i>CW</i> in the digitally signed log file. 
+	Were <I>MCW</I> a mode accepted by LoTW, TQSL would refuse to add the mapping when the <b>OK</b> button was clicked.</td></tr>
+</table>
+<P>
+<H5>Deleting ADIF Mode Mappings</H5>
+
+To delete a mapping that you've already specified,  click on the list entry to select it, then choose <B>Delete</b>.
+
+<table border="0" valign="top">
+	<tr><td>1.</td><td>Select the <b>File</b> menu's <b>Display or Modify Preferences...</b> command (on <b>OS X</b>, select the <b>Application</b> menu's <b>Preferences</b> command) to display TQSL's <B>Preferences</B> dialog.</td></tr>
+	<tr><td>2.</td><td>In the <b>Preferences</b> dialog, select the <b>ADIF Modes</b> tab; TQSL will display the mappings you've already defined.</td></tr>
+	<tr><td>3.</td><td>Click on the entry for the mapping you wish to delete, and then click the <b>Delete</b> button.</td></tr>
+</table>
+<P>
+</BODY></HEAD>

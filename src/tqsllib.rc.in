@@ -1,0 +1,32 @@
+#include <windows.h>
+
+1 VERSIONINFO
+FILEVERSION @TQSLLIB_VERSION_MAJOR@, @TQSLLIB_VERSION_MINOR@, 0, 0
+PRODUCTVERSION @TQSLLIB_VERSION_MAJOR@, @TQSLLIB_VERSION_MINOR@, 0, 0
+FILEFLAGSMASK 0
+FILEFLAGS VS_FFI_FILEFLAGSMASK
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_DLL
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    // Language type = U.S. English(0x0409) and Character Set = Windows, Multilingual(0x04e4)
+    BLOCK "040904E4"              // Matches VarFileInfo Translation hex value.
+    BEGIN
+      VALUE "CompanyName", "American Radio Relay League, Inc.\000"
+      VALUE "FileDescription", "TrustedQSL Library\000"
+      VALUE "FileVersion", "@TQSLLIB_VERSION@\000"
+      VALUE "InternalName", "TQSLLIB\000"
+      VALUE "LegalCopyright", "Copyright  2020 American Radio Relay League.\000"
+      VALUE "OriginalFilename", "tqsllib@DLLVER@.dll\000"
+      VALUE "ProductName", "TQSLLIB\000"
+      VALUE "ProductVersion", "@TQSLLIB_VERSION@\000"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 0x04e4    // U.S. English(0x0409) & Windows Multilingual(0x04e4) 1252
+  END
+END
+

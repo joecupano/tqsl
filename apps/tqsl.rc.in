@@ -1,0 +1,36 @@
+TQSL_ICON1	ICON	"@srcdir@/key.ico"
+TQSL_ICON2	ICON	"@srcdir@/tqsl-new.ico"
+TQSL_ICON3	ICON	"@srcdir@/tqsl-key1.ico"
+TQSL_ICON4	ICON	"@srcdir@/tqsl.ico"
+#include "wx/msw/wx.rc"
+
+1 VERSIONINFO
+FILEVERSION @TQSL_VERSION_MAJOR@, @TQSL_VERSION_MINOR@, @TQSL_VERSION_UPDATE@, 0
+PRODUCTVERSION @TQSL_VERSION_MAJOR@, @TQSL_VERSION_MINOR@, @TQSL_VERSION_UPDATE@, 0
+FILEFLAGSMASK 0
+FILEFLAGS VS_FFI_FILEFLAGSMASK
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_APP
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    // Language type = U.S. English(0x0409) and Character Set = Windows, Multilingual(0x04e4)
+    BLOCK "040904E4"              // Matches VarFileInfo Translation hex value.
+    BEGIN
+      VALUE "CompanyName", "American Radio Relay League, Inc.\000"
+      VALUE "FileDescription", "TrustedQSL\000"
+      VALUE "FileVersion", "@TQSLVERSION@\000"
+      VALUE "InternalName", "TQSL\000"
+      VALUE "LegalCopyright", "Copyright  2005-2022 American Radio Relay League.\000"
+      VALUE "OriginalFilename", "tqsl.exe\000"
+      VALUE "ProductName", "TQSL\000"
+      VALUE "ProductVersion", "@TQSLVERSION@\000"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 0x04e4    // U.S. English(0x0409) & Windows Multilingual(0x04e4) 1252
+  END
+END
+

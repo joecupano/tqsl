@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?define var.langSrc="lang"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dirE4A716247CC340B3A903F82385867288" Name="ca_ES" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dirDA8577371C3B761FBCA66742F426ABDC" Name="de" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir68D9308D96ECB98AEB8347284978A013" Name="es" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir7F5D468FF0E64ED9B73F8F7B892A8EFA" Name="fi" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dirD7430CCE8E23EAC3B55DD85B038538CA" Name="fr" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir9C2F38E32B32494C905FBBB588E98A38" Name="hi_IN" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir87830DC9C2DED45B7E26F428A1DA8251" Name="it" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir2325DE467EB3C09A2BCC4942D90AC105" Name="ja" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dirD008988B9EE240A981862D98D2EB80E1" Name="pl_PL" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dirE7D57DDBD1E700871049BD47E755B20D" Name="pt" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dirC332EE54B19E15D0A758A1C5E6D52056" Name="ru" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir571B6E00D2194A4B900A750CEDC99436" Name="sv_SE" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dirD0E6D5EEDC6345B4A3A09DBAAAE899B1" Name="tr_TR" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir63EA1CA485864639A749E7071E2B735E" Name="zh_CN" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Directory Id="dir0EB912D8DF5C474CBA0F35A3474D3F76" Name="zh_TW" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="LangDirs">
+      <Component Id="cmp7344f5FA19AC4679824BEB4E3A97CA9F" Directory="dirE4A716247CC340B3A903F82385867288" Guid="*">
+        <File Id="fileAC3BBB37A8AF4E5789384B1507201AA1" KeyPath="yes" Source="$(var.langSrc)\ca_ES\tqslapp.mo" />
+      </Component>
+      <Component Id="cmpAC65D03CF06F477587703CF0469C51BB" Directory="dirE4A716247CC340B3A903F82385867288" Guid="*">
+        <File Id="file6D669932EC6E459F808921E2DC63B814" KeyPath="yes" Source="$(var.langSrc)\ca_ES\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmp701E9CE13EE2E668BBA72B1CA4F191D7" Directory="dirDA8577371C3B761FBCA66742F426ABDC" Guid="*">
+        <File Id="fil7BCEEBA899FBBC10FDAF76776D0AD6DA" KeyPath="yes" Source="$(var.langSrc)\de\tqslapp.mo" />
+      </Component>
+
+      <Component Id="cmp2F4C47119DD24952AFD520C1D43A0A85" Directory="dirDA8577371C3B761FBCA66742F426ABDC" Guid="*">
+        <File Id="fil29B4255ED2564CADA2B82D9421F0D8F4" KeyPath="yes" Source="$(var.langSrc)\de\wxstd.mo" />
+      </Component>
+      <Component Id="cmp018BE15D98577FD851F456FF667C3AD1" Directory="dir68D9308D96ECB98AEB8347284978A013" Guid="*">
+        <File Id="fil68A99CF3308E3D4794B73E63EDA2E94D" KeyPath="yes" Source="$(var.langSrc)\es\tqslapp.mo" />
+      </Component>
+      <Component Id="cmp3812BF00268E43DC96737334831DD3C7" Directory="dir68D9308D96ECB98AEB8347284978A013" Guid="*">
+        <File Id="fil5fDE8DE28AA54C19B8BE88EFAFA6BD7F" KeyPath="yes" Source="$(var.langSrc)\es\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpADA0923F5E964EA78B209B2093A9F5CC" Directory="dir7F5D468FF0E64ED9B73F8F7B892A8EFA" Guid="*">
+        <File Id="fil295DA9C2D151479B98114B1050A896F9" KeyPath="yes" Source="$(var.langSrc)\fi\tqslapp.mo" />
+      </Component>
+      <Component Id="cmpB3720ADF742545F9BAAE1B04DAEC847E" Directory="dir7F5D468FF0E64ED9B73F8F7B892A8EFA" Guid="*">
+        <File Id="filDBD82A8515DB4403BD9F09582813501C" KeyPath="yes" Source="$(var.langSrc)\fi\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmp23FB2944D40F3F7463008B7B0ECBABD4" Directory="dirD7430CCE8E23EAC3B55DD85B038538CA" Guid="*">
+        <File Id="fil251B75DD8839E718810B77650CE1BE7B" KeyPath="yes" Source="$(var.langSrc)\fr\tqslapp.mo" />
+      </Component>
+      <Component Id="cmp1C39054F9F3D48A9ABEBA4A27E5D54E1" Directory="dirD7430CCE8E23EAC3B55DD85B038538CA" Guid="*">
+        <File Id="fil8D6F380B7D894F55970AED9CC7E5CCE5" KeyPath="yes" Source="$(var.langSrc)\fr\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpC95923836AD3438FAA1F1822EFD73D65" Directory="dir9C2F38E32B32494C905FBBB588E98A38" Guid="*">
+        <File Id="fil41B7659285534198A4669108347BD60E" KeyPath="yes" Source="$(var.langSrc)\hi_IN\tqslapp.mo" />
+      </Component>
+      <Component Id="cmpA552877FA66B45F8945E39B7D7959B38" Directory="dir9C2F38E32B32494C905FBBB588E98A38" Guid="*">
+        <File Id="fileA44627EC402246D7BFE2CCD7B5938F4C" KeyPath="yes" Source="$(var.langSrc)\hi_IN\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmp03C541E3239F387DC9BBA7E29B204380" Directory="dir87830DC9C2DED45B7E26F428A1DA8251" Guid="*">
+        <File Id="fil4C7B28D9431F64C171934E2ADB89E881" KeyPath="yes" Source="$(var.langSrc)\it\tqslapp.mo" />
+      </Component>
+      <Component Id="cmpF8b3feb99eed435e9b777C843F349E72" Directory="dir87830DC9C2DED45B7E26F428A1DA8251" Guid="*">
+        <File Id="file48dee3f8d49465b9568fae072ae6e31" KeyPath="yes" Source="$(var.langSrc)\it\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmp4A37025CE52B7B42A87bbdfffeb978B0" Directory="dir2325DE467EB3C09A2BCC4942D90AC105" Guid="*">
+        <File Id="fil228219907990D3C20BA820247296E40B" KeyPath="yes" Source="$(var.langSrc)\ja\tqslapp.mo" />
+      </Component>
+      <Component Id="cmp9375E74F9EC6417F84723B412D0D99E5" Directory="dir2325DE467EB3C09A2BCC4942D90AC105" Guid="*">
+        <File Id="fil84F8A399FC064A79A5AB60C786B915B2" KeyPath="yes" Source="$(var.langSrc)\ja\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpBF7B965CCBD64C5CAC75FE9EB615B0F2" Directory="dirD008988B9EE240A981862D98D2EB80E1" Guid="*">
+        <File Id="fil5D9FF2B3D6554B5B815E8E35D098FA3E" KeyPath="yes" Source="$(var.langSrc)\pl_PL\tqslapp.mo" />
+      </Component>
+      <Component Id="cmp72F892FDF5FD4112A18B3DCEBBECC8FA" Directory="dirD008988B9EE240A981862D98D2EB80E1" Guid="*">
+        <File Id="file4EDA39C325DA443AAABD333E8B4EF944" KeyPath="yes" Source="$(var.langSrc)\pl_PL\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpD034F2F1F0808F51CC8FAEDB2272EDCB" Directory="dirE7D57DDBD1E700871049BD47E755B20D" Guid="*">
+        <File Id="fil5DFFBCC7D22EE96E4820414EF99CD614" KeyPath="yes" Source="$(var.langSrc)\pt\tqslapp.mo" />
+      </Component>
+      <Component Id="cmpF8B3FEB99EED435E9B777C843F349E72" Directory="dirE7D57DDBD1E700871049BD47E755B20D" Guid="*">
+        <File Id="filFEF84E9BED60415094E8A5F5E2192409" KeyPath="yes" Source="$(var.langSrc)\pt\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpE50C1FDDB0557814727BFBC71334B3B1" Directory="dirC332EE54B19E15D0A758A1C5E6D52056" Guid="*">
+        <File Id="filED6C3ABA1D28500F713D96C0D844D9CB" KeyPath="yes" Source="$(var.langSrc)\ru\tqslapp.mo" />
+      </Component>
+      <Component Id="cmp956327FA375C38F32F3A37AD6A178952" Directory="dirC332EE54B19E15D0A758A1C5E6D52056" Guid="*">
+        <File Id="fil936DBB25DF52CB70D9E6330A7134B221" KeyPath="yes" Source="$(var.langSrc)\ru\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpCB49E8B83F624DA28038634900C91168" Directory="dir571B6E00D2194A4B900A750CEDC99436" Guid="*">
+        <File Id="fileFF1F228D5AF84CA894CDAAF4364AF3D9" KeyPath="yes" Source="$(var.langSrc)\sv_SE\tqslapp.mo" />
+      </Component>
+      <Component Id="cmpE1B264C1CE554A36A2C7649DBAB1BE6C" Directory="dir571B6E00D2194A4B900A750CEDC99436" Guid="*">
+        <File Id="file74E6DCD1D5B6411CA3C9D7BA7B31B34E" KeyPath="yes" Source="$(var.langSrc)\sv_SE\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpA15A521703D54A2C908076E3C9097864" Directory="dirD0E6D5EEDC6345B4A3A09DBAAAE899B1" Guid="*">
+        <File Id="fil2208B0C91EAE4E8AAB478C0310884CAC" KeyPath="yes" Source="$(var.langSrc)\tr_TR\tqslapp.mo" />
+      </Component>
+      <Component Id="cmpBBEB7843204C4FEC94699E593BDE2ADA" Directory="dirD0E6D5EEDC6345B4A3A09DBAAAE899B1" Guid="*">
+        <File Id="file5A6571619FB04AD58AF34552986B3017" KeyPath="yes" Source="$(var.langSrc)\tr_TR\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpD89D453955A847CC8E921B4CF5CE8959" Directory="dir63EA1CA485864639A749E7071E2B735E" Guid="*">
+        <File Id="fil0FDBD577B1EA40A498FA8372ABBEA2A4" KeyPath="yes" Source="$(var.langSrc)\zh_CN\tqslapp.mo" />
+      </Component>
+      <Component Id="cmp3CA0324D257D472F9092828A73036811" Directory="dir63EA1CA485864639A749E7071E2B735E" Guid="*">
+        <File Id="fil9D59C5188D284E1283F5E2EB72B51C94" KeyPath="yes" Source="$(var.langSrc)\zh_CN\wxstd.mo" />
+      </Component>
+
+      <Component Id="cmpB84D64BF49D44B7E8325E217335DABAB" Directory="dir0EB912D8DF5C474CBA0F35A3474D3F76" Guid="*">
+        <File Id="fil4C14AEE74AA24A788933C86475C3123B" KeyPath="yes" Source="$(var.langSrc)\zh_TW\tqslapp.mo" />
+      </Component>
+      <Component Id="cmp5A418E0524D443FC8FC0571246632E30" Directory="dir0EB912D8DF5C474CBA0F35A3474D3F76" Guid="*">
+        <File Id="filCB05CB5FC91346648832BEB9FD720083" KeyPath="yes" Source="$(var.langSrc)\zh_TW\wxstd.mo" />
+      </Component>
+
+    </ComponentGroup>
+  </Fragment>
+</Wix>

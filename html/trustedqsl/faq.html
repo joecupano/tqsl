@@ -1,0 +1,158 @@
+<html><title>Trusted QSLs FAQ Page</title>
+
+
+<body>
+<h1>Trusted QSL FAQ</h1>
+<OL>
+  <li><STRONG>Q.</STRONG> What is the difference between E-QSLs and tQSLs? <br><STRONG>A.</STRONG> &nbsp;&nbsp; tQSL is a special form of E-QSL that 
+  has been signed by the originator with a strong digital signature. 
+  <P></P>
+  
+  <LI><STRONG>Q.</STRONG> What type of service does TrustedQSL.org offer?<br><STRONG>A.</STRONG> TrustedQSL.org doesn't really offer 
+  services.&nbsp;We provides information about TrustedQSL system and Open Source tools. 
+  <P></P>
+  
+  <LI><STRONG>Q.</STRONG> Is DSA (Digtial Signature Algorithm) really secure?<br><STRONG>A.</STRONG> Yes, the only known attack against DSA is 
+  brute force. The public key is&nbsp;1024 bits long. (talk about big numbers) 
+  <P></P>
+  
+  <LI><STRONG>Q.</STRONG> What is wrong with the <A 
+  href="http://www.eQSL.cc">www.eQSL.cc</A>          ?<br><STRONG>A.</STRONG> 
+  First the tQSL does NOT exclude the use of a logbook server such as eQSL.cc or 
+  LoTW, it just add a strong third party trust protocol and removes the server 
+  for being the trusted arbitrator.&nbsp; In fact LoTW will use TrustedQSL 
+  libraries to protect the system. 
+  <P></P>
+  
+  <LI><STRONG>Q.</STRONG> What is a Certification Authority(CA) and why are they 
+  important?<br><STRONG>A.</STRONG> &nbsp; A public key 
+  is just a very large number.&nbsp; In itself it has no meaning except that it 
+  has a matching private key.&nbsp; The trusted CA takes the public using a 
+  trusted means such as postal mail or other secure means and wraps it up into a 
+  signed certificate.&nbsp; If there is any question about the certificate being 
+  authenticated, it can be validated with the CA's certificate. 
+  <P></P> 
+   
+  <LI><STRONG>Q.</STRONG> Who grants CA status?<br><STRONG>A.</STRONG> &nbsp; 
+  Any person or group can become a CA.&nbsp; It is the award sponsors who must 
+  endorse the CA as being trusted for their program.&nbsp; It is outside the 
+  scope of this group to set policy for the award sponsors. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> Who are the CAs?<br><STRONG>A.</STRONG> &nbsp; 
+  Currently isn't any CAs because the software isn't finished, but ARRL will be 
+  the first CA.&nbsp; Since they are a major award sponsor they&nbsp;should be 
+  ones to grant CA status.&nbsp; &nbsp;TrustedQSL.ORG will issue "TEST" 
+  Certificate, but trustedQSL isn't going to be in the certificate business. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> Why should we trust TrustedQSL.org?<br><STRONG>A.</STRONG> There is no need to trust TrustedQSL.org. We 
+  just provide open source tools. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> What is a certificate (cert)?&nbsp; Is it the same as a public key?<br><STRONG>A.</STRONG> A cert contains the 
+  public key, call sign and other information, plus a signature of the CA that 
+  signed and endorse the public key. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> What can I sign with my cert?<br><STRONG>A.</STRONG> 
+  Nothing. Certs are only for validating signatures. You use a private key to 
+  sign a message. Any message can be signed. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> What is to stop an untrusted party from becoming a CA?<br><STRONG>A.</STRONG> Anyone can become a CA. The award sponsors has 
+  to endorse a CA before it has any trust. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> What happens if my cert get stolen?<br><STRONG>A.</STRONG> It doesn't matter. It is public information 
+  used to validate your signature. You can't anything bad with it. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> What happens if my secret key get stolen?<br><STRONG>A.</STRONG> This is a problem. You will need to contact 
+  your CA to have them revoke it. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> What is the down side of DSA signature?<br><STRONG>A.</STRONG> Public key signatures systems can be complex 
+  and hard to understand. Our goal is to make it as simple as possible. The other 
+  down side is that public keys has to be certificated which requires a little 
+  effort. 
+  <P></P>
+  <LI><STRONG>Q.</STRONG>        
+                  
+  &nbsp; If digital signatures and certs are complex why force the users to use 
+  them? <br>
+  <STRONG>A</STRONG>.&nbsp; The 
+  most complex issue that users will have to deal with is authentication.&nbsp; 
+  Using PKI isn't what is complex.&nbsp; Even if ARRL used a standard password 
+  model the authentication would be the same.&nbsp;
+  <p></p></LI>
+  <P></P>
+  <P></P>
+  <LI><STRONG>Q.</STRONG> Can paper cards have a DSA signature?<br><STRONG>A.</STRONG> Yes, it could be done with bar code or printed 
+  on the card, but there isn't any current plan to support paper cards.  <br> 
+  
+  <LI><STRONG>Q.</STRONG> Do I need to be connected to the Internet to sign QSLs?<br><STRONG>A.</STRONG> No. TrustedQSL can be signed and send by any 
+  means. Included but not limited to packet radio, floppy disk, CD-R/RW, Paper 
+  QSL cards. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG> Do I need to be connected to the Internet to validate tQSLs?<br><STRONG>A</STRONG> . No, you just need a trusted means to obtain 
+  the CAs certs. 
+  <P></P> 
+  
+  <LI><STRONG>Q.</STRONG>  What is Open Source? Why is it important to TrustedQSLs to be open source?<br><STRONG>A.</STRONG>&nbsp;&nbsp; Open 
+  Source concept is where the copyright holder wishes that the source code be 
+  open to anyone to use.&nbsp; There are different types of open source 
+  licenses.&nbsp; Some open source licenses requires that any derived work also 
+  be open source.&nbsp; TrustedQSL uses a much less restrictive licenses.&nbsp; 
+  We want for proprietor software vendors to use our libraries and our licenses 
+  allows them to do so without a licenses fee or requirement to disclose their 
+  source code.&nbsp; For tQSL to become the standard much the ADIF is for 
+  format, then nothing&nbsp;should kept vendors of software logbooks from using 
+  it. One way to do this is to make the source and the standard open. Anyone can 
+  use it without fee. 
+  <P></P> 
+  
+
+<li><STRONG>Q.</STRONG> Your effort duplicates commercial product. 
+  Products such as Adobe Acrobat, while not free, do offer digital signatures 
+  with non-repudiation today. These are now legal to use in commerce.<br><STRONG>A.</STRONG> 
+  See last answer. 
+  <P></P> 
+
+<li><STRONG>Q.</STRONG> The system you propose is certainly open to fraud, 
+  in that a group of users could easily conspire. Perhaps this won't happen, but 
+  we've seen cases of this among VEs, which is troubling. <br><STRONG>A.</STRONG> It can happen. Another solution would be for a 
+  major groups such as the ARRL to become CAs. Any system will not be perfect. 
+  Just ask Verisign and Microsoft. 
+  <P></P>
+  
+
+<li><STRONG>Q.</STRONG>          
+                  
+               
+       &nbsp; Will ARRL and other award sponsors accept tQSL? <br><STRONG>A.</STRONG> TrustedQSL has been selected as the PKI for 
+  the ARRL LoTW.&nbsp;</li>
+  <P></P>          
+                 
+          
+  
+
+<li><STRONG>Q.</STRONG> You guys are doing some cool stuff. Can 
+  I be apart of it?  <br>
+  <strong>A.</strong>Sure join the TrustedQSL reflector and drop me a line wa1gon@arrl.net
+  and tell me a little about yourself.
+  </li></OL>
+<P></P>
+<P></P>
+<P></P>
+<P></P>
+  
+
+<p>
+                  
+               
+        
+  </p>
+</body>
+</html>

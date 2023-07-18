@@ -1,0 +1,102 @@
+<HTML><HEAD><TITLE>Copying Callsign Certificates and Station Locations from One Computer to Another</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Copying Callsign Certificates and Station Locations from One Computer to Another</H3>
+<P>
+
+If you have TQSL running on one computer (the <i>source</i>) and wish to set it up on a second computer (the <i>destination</i>), you must
+
+<UL>
+<LI><a href="installation.htm">Install TQSL on the <i>destination</i> computer</a></li>
+<LI>Copy each of your <a href="glossary.htm#callsign_certifcate">Callsign Certificates</a> from the <i>source</i> to the <i>destination</i></li>
+<LI>Copy each of your <a href="glossary.htm#station_location">Station Locations</a> from the <i>source</i> to the <i>destination</i></li>
+</UL>
+<p>
+<H5>Copying All Callsign Certificates and Station Locations to Another Computer</H5>
+You can copy all of your Callsign Certificates and Station Locations at once by
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Directing TQSL to <a href="backuprestore.htm#backup">create a Backup File</a>.</td></tr>
+	<tr><td>2.</td><td>Copying the Backup File from the <i>source</i> computer to the <i>destination</i> computer.</td></tr>
+	<tr><td>3.</td><td>On the <i>destination</i> computer, directing <b>TQSL</b> to <a href="backuprestore.htm#restore">restore Callsign Certificates, Station Locations, and Preferences</a> from the copied Backup File.</td></tr>
+</table>
+<p>
+<H5>Copying One Callsign Certificate to Another Computer</H5>
+A <a href="files-icons.htm">Callsign Certificate (.tq6) file</a> cannot be copied from one computer to another. 
+Only a <a href="files-icons.htm">Certificate Container (.p12) file</a> can be copied in this manner. 
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>If you have not created a Certificate Container file for the Callsign Certificate you wish to copy,</td></tr>
+</table>
+	
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>1.a</td><td>Start TQSL on the <i>source</i> computer.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>1.b</td><td>On the <b>Callsign Certificates</b> tab, click on the Callsign Certificate you wish to copy, and then click the <b>Save callsign certificate</b> button.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>1.c</td><td>In the <b>Enter the name for the new Certificate Container file</b> dialog,</td></tr>
+</table>
+	
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<col style="width:50px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>1.c.1.</td><td>Set <b>Save in</b> to <CODE>C:\MyLotWCertificates</CODE></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>1.c.2.</td><td>Note the <b>File name</b> specified.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>1.c.3.</td><td>Click the <b>Save</b> button.</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">	
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>1.d</td><td>In the <b>Certificate Container Passphrase</b> dialog, leave the <b>New passphrase</b> and <b>Enter again to confirm</b> boxes empty unless you are using a shared computer, in which case you should specify the same passphrase in both boxes.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>1.e</td><td>In the <b>Click the <b>OK</b> button</td></tr>
+</table>
+	
+<table border="0" valign="top">
+	<col style="width:30px">	
+	<tr><td>2.</td><td>Copy the Certificate Container file from <CODE>C:\MyLotWCertificates</CODE> on the <i>source</i> computer to <CODE>C:\MyLotWCertificates</CODE> on the <i>destination</i> computer.</td></tr>
+	<tr><td>3.</td><td>On the <i>destination</i> computer, start<b>TQSL</b> and select the <b>Callsign Certificate</b> tab, which lists your Callsign Certificates.</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.a</td><td>Click the <b>Load a Callsign Certificate</b> button; in the <b>Select Certificate file</b> dialog that appears,</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<col style="width:50px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.a.1.</td><td>Set <b>Look in</b> to <CODE>C:\MyLotWCertificates</CODE></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.a.2.</td><td>Set the <b>Files of type</b> selector (on <b>OS X</b>, set the  <b>Enable</b> selector) to <CODE>Callsign Certificate container files (*.p12)</CODE></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.a.3.</td><td>Click on the Certificate Container file you copied in step 2.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.a.3.</td><td>Click the <b>Open</b> button.</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.b</td><td>In the <b>Load Certificate file</b> dialog, enter the passphrase you specified when you created the Certificate Container file (if any), and click the <b>Next</b> button; the <b>New Passphrase</b> dialog will appear.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.c</td><td>In the <b>New Passphrase</b> dialog,</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<col style="width:50px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.c.1.</td><td>If your computer is shared, specify a passphrase in both textboxes; otherwise leave these boxes blank.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.c.2.</td><td>Click the <b>Ok</b> button; the <b>Load Certificate file</b> dialog will display <I>Loading complete</i>.</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.d</td><td>In the <b>Load Certificate file</b> dialog, click the <b>Finish</b> button.</td></tr>
+</table>
+	
+</BODY>

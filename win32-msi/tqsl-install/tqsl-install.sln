@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "tqsl-install", "tqsl-install.wixproj", "{1DFA6E6B-1725-4FA3-81D7-64D8A82CB824}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DFA6E6B-1725-4FA3-81D7-64D8A82CB824}.Debug|x86.ActiveCfg = Debug|x86
+		{1DFA6E6B-1725-4FA3-81D7-64D8A82CB824}.Debug|x86.Build.0 = Debug|x86
+		{1DFA6E6B-1725-4FA3-81D7-64D8A82CB824}.Release|x86.ActiveCfg = Release|x86
+		{1DFA6E6B-1725-4FA3-81D7-64D8A82CB824}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

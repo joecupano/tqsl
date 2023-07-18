@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title></title>
+</head>
+
+<body>
+<P align=center><STRONG>Trusted QSL API</STRONG></P>
+<P align=center><STRONG></STRONG>&nbsp;</P>
+<pre>struct PubInfo</P>
+{
+	char	name[NAME_SIZE];
+	char	callSign[CALLSIGN_SIZE];
+	char	pubkey[KEY_SIZE];
+};
+
+struct CertInfo
+{
+	PubInfo		pubKeyInfo;
+	char		CA[CA_SIZE];
+	char		CAUrl[URL_SIZE];
+	char		expiration[DATE_SIZE];
+	char		CASignature[SIGN_SIZE];
+};
+
+</pre>
+<P align=left>&nbsp;</P>
+<P align=left>int tQSL_genKeyPair(char *secretKeyRing, char *pubKeyRing, struct 
+KeyInfo *keyInfo);</P>
+<P align=left>int tQSL_deleteKey(char *keyRing,struct keyId);</P>
+<P align=left>int tQSL_genCert(struct pubKeyId kid,struct KeyId keyId,struct 
+CertInfo cert);</P>
+<P align=left>int tQSL_signMessage(struct KeyId keyid,char *secretKeyRing,char 
+*message,char *sign);</P>
+<P align=left>int tQSL_authMessage(struct KeyId keyid,char *pubKeyRing,char 
+*message,char *sign);</P>
+<P align=left>&nbsp;</P>
+
+
+</body>
+</html>

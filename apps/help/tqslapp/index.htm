@@ -1,0 +1,106 @@
+<HTML><HEAD><TITLE>TQSL Introduction</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Introduction</H3>
+<P>
+<b>TQSL</b> is an application used to <A HREF="glossary.htm#digital_signature">digitally sign</A> and upload QSOs to the ARRL's <a href="lotw.htm">Logbook of the World</a> (LoTW) online service, and to manage the <A HREF="glossary.htm#callsign_certificate">Callsign Certificates</A> used when digitally signing. 
+<P>
+TQSL accepts QSOs in a <A HREF="glossary.htm#log_file">log file</A> whose format is either <A HREF="glossary.htm#adif">ADIF</a>
+or <A HREF="glossary.htm#cabrillo">Cabrillo</a>, which many logging applications can export. TQSL also includes a simple
+<A HREF="qsodata.htm">QSO Data Editor</a> that can be used to create and edit log files in ADIF format.
+
+<P>
+To digitally sign the QSOs in a log file, TQSL requires you to present a <A HREF="certreq.htm">Callsign Certificate issued to you by the ARRL</A>, 
+and requires you to specify the location from which you operated when making every QSO in that log file. To make this easy, TQSL lets you
+<A HREF="stnloc.htm">define and name a Station Location</A> that specifies your operating location and optionally a Callsign Certificate.
+<P>
+TQSL provides the ability to <a href="pref-adi.htm">map modes</a> not defined by the <A HREF="glossary.htm#adif">ADIF</a> standard to modes that
+it can recognize, and the ability to <a href="pref-cab.htm">specify information about less popular Cabrillo formats</a> that it needs to properly
+interpret the QSO data in a Cabrillo-format log file.
+<p>
+When you start TQSL, it will inform you if
+<UL>
+    <LI>an existing <A HREF="glossary.htm#callsign_certificate">Callsign Certificate</A> will expire within the next 60 days</li>
+    <LI>a new version of <A HREF="configxml.htm">Configuration Data</A> file is available</li>
+	<LI>a new version of TQSL is available</li>
+</UL>
+<p>
+When you start TQSL, it will check each existing <A HREF="glossary.htm#callsign_certificate">Callsign Certificate</A> and mark any expired entries on the <b>Callsign Certificates</b> tab with an <i>expired</i>
+icon <img src="expired.bmp" width=16 height=16>&nbsp;. If internet access is available, TQSL will also check the validity of each existing Callsign Certificate with LoTW, and mark any
+obsolete entries on the <b>Callsign Certificates</b> tab with a <i>replaced</i> icon <img src="replaced.bmp" width=16 height=16>&nbsp;; this over-the-internet check is made no more than once each day.
+
+<H5>Getting Started with LoTW</H5>
+
+Before you can submit QSOs to LoTW, you must first
+<UL>
+    <LI><A HREF="installation.htm">Install TQSL</A></li>
+    <LI><A HREF="certreq.htm">Request your Initial Callsign Certificate</A></li>
+    <LI><A HREF="certaccept.htm">Accept your Initial Callsign Certificate</A> (using the same computer with which you generated the request for an Initial Callsign Certificate)</li>
+    <LI><A HREF="stnloc.htm">Define your Station Location</A></li>
+</UL>
+<p>
+Then you'll be able to 
+<UL>
+	<LI><A HREF="signupload.htm">Submit a Log File to LoTW via the Internet</a></li>
+	<LI><A HREF="signing.htm">Submit a Log File from a Computer without Internet Access</a></li>
+	<LI><A HREF="login.htm">Log in to your LoTW Web Account to View your QSOs and QSLs</a></li>
+	<LI><A HREF="update.htm">Check for Updates to TQSL</a></li> 
+</UL>
+
+<H5>Secondary Callsign Certificate Operations</H5>
+<UL>
+    <LI><A HREF="certificateproperties.htm">Viewing a Callsign Certificate's Properties</a></li>
+    <LI><A HREF="expiration.htm">Determining When a Callsign Certificate Expires</a></li>
+    <LI><A HREF="renewing.htm">Renewing a Callsign Certificate</a></li>
+    <LI><A HREF="certreplace.htm">Replace a Callsign Certificate</a></li>
+    <LI><A HREF="certificatevalidity.htm">Determining if a Callsign Certificate is Valid</a></li>
+    <LI><A HREF="certificatesecurity.htm">Maintaining Callsign Certificate Security</a></li>
+    <LI><A HREF="moving.htm">Copying Callsign Certificates from One Computer to Another</a></li>
+    <LI><A HREF="save-certificate.htm">Saving a Callsign Certificate to a File</a></li>
+    <LI><A HREF="load-certificate.htm">Loading a Callsign Certificate from a File</a></li>
+    <LI><A HREF="addcertreq.htm">Requesting an Additional Callsign Certificate</a></li>
+    <LI><A HREF="addcertaccept.htm">Accepting an Additional Callsign Certificate</a></li>
+    <LI><A HREF="deletecert.htm">Deleting a Callsign Certificate</a></li>
+    <LI><A HREF="restoredeletedcert.htm">Restoring a Deleted Callsign Certificate</a></li>
+</UL>
+<p>
+<H5>Secondary Station Location Operations</H5>
+<UL>
+<LI><A HREF="stnloc.htm">Defining, Modifying, or Deleting a Station Location</A></li>
+<LI><A HREF="restoredeletedstnloc.htm">Restoring a Deleted Station Location</A></li>
+<LI><A HREF="moving.htm">Copying Station Locations from One Computer to Another</a></li>
+</UL>
+<p>
+<H5>Configuration Operations</H5>
+<UL>
+    <LI><A href="configxml.htm">Checking and Updating TQSL's Configuration Data</a></li>
+    <LI><A href="pref-opt.htm">Setting TQSL Options</a></li>
+    <LI><A href="pref-log.htm">Setting TQSL Log Handling Options</a></li> 
+    <LI><A href="daterng.htm">Setting a Date Range</a></li>     
+    <LI><A href="pref-adi.htm">Adding and Deleting ADIF Mode Mappings</a></li>
+    <LI><A href="pref-cab.htm">Adding and Deleting Cabrillo Contest Definitions</a></li> 
+    <LI><A href="netproxy.htm">Configuring a Network Proxy for Internet Access</a></li>
+    <LI><A href="selectlanguage.htm">Selecting the Language Used by TQSL</a></li> 
+    <LI><A href="localization.htm">Localizing TQSL</a></li>  
+    
+</UL>
+<p>
+<H5>File Operations</H5>
+<P>
+<UL>
+    <LI><A HREF="qsodata.htm">Creating and Editing an ADIF File</a></li> 
+	<LI><A HREF="backuprestore.htm">Backing up and Restoring TQSL Information</a></li>
+	<LI><A href="diagmode.htm">Enabling and Disabling Diagnostic Mode</a></li> 
+</UL>
+<P>
+<H5>Additional Information</H5>
+<UL>
+   <LI><A HREF="glossary.htm">Glossary of Terms</A></li>
+   <LI><A href="files-icons.htm">LoTW Files and Icons</a></li>  
+   <LI><A href="certs-icons.htm">TQSL Callsign Certificate Icons</a></li> 
+   <LI><A href="cmdline.htm">Invoking TQSL via its Command Line Interface</a></li>  
+   <LI><A href="cab-modes.htm">Define custom Cabrillo modes</a></li>  
+</UL>
+</BODY></HEAD>

@@ -1,0 +1,181 @@
+TQSL/tqsllib
+==================
+
+TQSL is the TrustedQSL application suite and tqsllib is the 
+TrustedQSL library. These are the two major components of the
+TrustedQSL project:
+
+http://sourceforge.net/projects/trustedqsl/
+
+===================================================================
+Contents
+
+1) Prerequisites
+
+2) Building the Library under Linux/Unix
+
+3) Building the Library under Mac OS X
+
+4) Building the Library under Windows.
+
+===================================================================
+
+1) Prerequisites
+
+The TQSL applications depend upon the tqsllib library. First you
+should build and install that library and its prerequisites.
+
+The TrustedQSL library depends on several other libraries:
+
+OpenSSL (http://www.openssl.org/) - OpenSSL 1.1.1g was used for TQSL 2.5.5.
+expat 1.x XML parser library (http://expat.sourceforge.net/) - expat 2.2.9
+zlib (http://zlib.net/) zlib 1.2.11
+One of the following:
+    LMDB (Lightning Memory-mapped DataBase) - https://lmdb.readthedocs.io/ - lmdb 0.9.23
+    or 
+    Berkeley DB (http://www.oracle.com/technetwork/products/berkeleydb/downloads/index.html) - BDB 6.2.23
+wxWidgets (http://wxwidgets.org/downloads) - wxWidgets 2.8.12 or wxWidgets 3.1.2
+curl - (http://curl.haxx.se/download.html) - curl 7.70.0
+
+You will need the "developer" versions of these. The version numbers above aren't mandatory, they're just
+what was recenty used.
+
+Most Unix and unix-like workstations will have these available. For
+those systems that do not, the packages are easily built. Instructions
+for building under the Windows environment are given below under
+"Building under Windows."
+
+In the instructions that follow, the versions of other packages
+that were used to build the tqsllib package as of the date this
+document was last updated are given in parentheses.
+
+===================================================================
+
+2) Building under Linux/Unix
+
+Many Linux distributions have a version of TrustedQSL already built
+and ready to use. Try installing package "TrustedQSL" using whatever
+commands your distribution uses for package instals:
+sudo yum install TrustedQSL
+sudo dnf install TrustedQSL
+sudo dnf install trustedqsl
+sudo apt-get install TrustedQSL
+sudo pkg-add TrustedQSL
+etc.
+
+If you need to build from source, follow the directions below. This
+is not intended for casual users, as you'll need to be able to 
+install a C++ compiler and be able to search for and install the
+required development libraries.
+
+The quick answer:
+
+From the parent directory 
+cmake .
+make
+make install
+(If you're not running as root (good!) the last should be
+"sudo make install").
+
+That will install the library and applications under /usr/local. It
+also will install the needed header files under /usr/local/include.
+Configuration and help files will be installed in /usr/local/share.
+
+You can change the install location via:
+cmake -DCMAKE_INSTALL_PREFIX=/foo/bar .
+
+By default, only a shared version of the library is built.
+CMake option TQSLLIB_STATIC can be set to cause a static library to be
+built, either by using 'cmake -i' or by adding '-DTQSLLIB_STATIC=YES'
+to the cmake command above.
+
+If you installed the tqsllib library or its dependent libraries
+in locations that configure can't find, you'll need to specify
+those locations to cmake. For example, you can define the location for
+the Berkeley Database headers using BDB_PREFIX. (That points to the top-level
+directory, with /include for headers and /lib for libraries assumed below
+it.)
+
+If you choose to build with a different target directory (cmake with a
+pointer to the source), ensure that your build target/current directory is
+empty prior to invoking cmake. Vestiges of older builds can cause issues.
+
+===================================================================
+
+3) Building under Mac OS X
+
+You'll need to have the Mac developer's tools, Xcode 1.5, installed.
+
+This is done in much the same manner as building under Linux/Unix, above.
+
+You will need to download and compile Berkeley DB 5.3 or later. The version
+of Berkeley DB shipped with OS X (as of 10.8) is out of date.
+
+You also may not want to install the library into system directories:
+
+cmake -DBDB_PREFIX=$HOME/bdb -DCMAKE_INSTALL_PREFIX=$HOME/tqsllib .
+make
+sudo make install
+
+To build a universal binary with compatibility from MacOS 10.4 upwards through
+Mojave, use the following shell script:
+
+#!/bin/sh
+# 
+# Adjust this to where you've installed wxWidgets
+#
+PATH=$HOME/wx3/bin:$PATH
+#
+# Adjust this to where you've installed Berkeley DB 5.x
+#
+bdb=$HOME/bdb
+arch_flags="-arch ppc -arch i386"
+#
+# You need to download and install the OSX 10.4 universal SDK
+# to build a universal binary. gcc 4.0 is also needed.
+#
+sdk="/Developer/SDKs/MacOSX10.4u.sdk"
+ver_min="10.4"
+CMAKE_PREFIX_PATH="~/bdb/ ~/wx3/ ~/expat"
+
+cmake  \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DCMAKE_OSX_ARCHITECTURES="ppc;i386" \
+    -DCMAKE_LINKER=/usr/bin/gcc-4.0 \
+    -DCMAKE_CXX_COMPILER=/usr/bin/c++-4.0 \
+    -DCMAKE_C_COMPILER=/usr/bin/gcc-4.0 \
+    -DBDB_PREFIX=$bdb \
+    -DCMAKE_OSX_SYSROOT=$sdk \
+    -DCMAKE_CXX_FLAGS=" -I $HOME/bdb/include  -I /usr/include/c++/4.0.0 \
+        -I $sdk/System/Library/Frameworks/Carbon.framework/Headers \
+	-isysroot $sdk  -mmacosx-version-min=$ver_min \
+	-fno-stack-protector $arch_flags"  \
+    -DCMAKE_C_FLAGS=" -I $HOME/bdb/include  -I /usr/include/c++/4.0.0 \
+        -I $sdk/System/Library/Frameworks/Carbon.framework/Headers \
+	-isysroot $sdk  -mmacosx-version-min=$ver_min \
+	-fno-stack-protector $arch_flags"  \
+    -DCMAKE_EXE_LINKER_FLAGS=" -Wl,-syslibroot,$sdk \
+	-mmacosx-version-min=$ver_min  $arch_flags " \
+    -DCMAKE_SHARED_LINKER_FLAGS=" -Wl,-syslibroot,$sdk \
+	-mmacosx-version-min=$ver_min $arch_flags " \
+        $* .
+make
+
+The build will result in the directory apps/tqsl.app, which contains the
+complete Mac OS X application. You can simply move that folder to your
+system's Applications folder or the location of your choice, then launch
+the application from Finder.
+If you want to distribute the built application:
+
+./macos_createdmg.sh
+
+will make tqsl-2.x.x.dmg, a Mac distributable disk image
+containing the TrustedQSL applications folder and document files.
+It will also create tqsl-2.x.x.pkg, a standard Mac install package.
+
+===================================================================
+
+4) Building under Windows
+
+See file WindowsBuildSetup.txt in the top-level directory for details
+on how to set up MSVC to compile TQSL.

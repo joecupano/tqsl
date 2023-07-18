@@ -1,0 +1,185 @@
+
+<H1 align=center>TrustedQSL C API </H1>
+<P align=center><STRONG>by Darryl Wagoner WA1GON</STRONG> </P>
+<P align=center>and </P>
+<P align=center><STRONG>Jon Bloom KE3Z</STRONG>  </P>
+<P align=center>Last update: 04 June 2002</P>
+<H3>Summary&nbsp;&nbsp; </H3>
+<P>The TrustedQSL C API is a set of C++ methods with an ANSI 
+C calling interface.&nbsp; The API has both high level and low level 
+functions.&nbsp; For our purposes the differences being that low level functions 
+are called by the high level functions.&nbsp; For the most part the application 
+programmer doesn't need to call the low level functions unless they wish to 
+mimic a high level function.&nbsp;&nbsp; One possible example might be create a 
+new trusted file format or validating TrustedQSL from&nbsp;a database. </P>
+<H3>Requirements </H3>
+<H3>Discussions</H3>
+<P><STRONG>PKI Discussion</STRONG></P>
+<P>==============</P>
+<P>When a certificate request is generated, the key pair is stored in a file in 
+the key ring directory, with the private key encrypted via an operator-supplied 
+pass phrase.</P>
+<P>There are three certificate files in the certificate store: a file containing 
+user certificates, a file containing CA certificates, and a file containing 
+trusted (root) certificates.</P>
+<P>When a certificate file is received, the root and CA certificates are first 
+saved in their respective files. Then any user certificates are stored iff (1) 
+their signatures can be verified using the available CA and root certificates, 
+and (2) the public key in the certificate matches a key pair that's in the key 
+ring. Matching user certificates are saved in the user-certificate file.</P>
+<P>Note that certificates are opaque objects at the API level. And the 
+application program never messes with -- or even sees -- the key pairs. It just 
+passes the certificate objects supplied by tqsl_selectCertificates back to the 
+library when it needs to sign or verify something, and the library takes care of 
+selecting the private key needed.</P>
+<P>Another detail that probably bears mention is that if a root certificate is 
+being added, the operator should be prompted to accept it.</P>
+<P>By the way, the code for a good chunk of the above is written and partially 
+tested. :-)</P>
+<P><STRONG>Signing Discussion</STRONG></P>
+<P>==================</P>
+<P>I don't think functions to sign ADIF or Cabrillo file belong in the core tQSL 
+library. A separate utility (or library) that uses the tQSL library to convert 
+an ADIF or Cabrillo file to Gabbi would be better. As several people have 
+pointed out, ADIF is something of a moving target whose future direction is 
+uncertain. To a lesser degree, the same is true of Cabrillo. It would be better 
+to separate those functions from the core library IMHO.</P>
+<P>We also need additional functions to create the Gabbi file of QSLs. Here's my 
+cut:</P>
+<P>&lt; P &gt; &nbsp; </P>
+<P></P>
+<P>The application wanting to create a Gabbi submission of a log would do 
+something like:</P>
+<P>tQSL_Gabbi *g = tqsl_beginGabbi(&lt;initialization parameters&gt;);</P><PRE></PRE>
+<P>&lt;build station record&gt;</P>
+<P>tQSL_Cert **c = tqsl_selectCertificate(callsign, &lt;qso date from first log 
+record&gt;, NULL);</P>
+<P>if (&lt;number_of_certs&gt; &gt; 1) </P>
+<P>{</P>
+<P>&lt;select issuer to use for signing&gt;</P>
+<P>}</P>
+<P>tqsl_Cert *cur_c = NULL;</P>
+<P>for &lt;each_log_record&gt; {</P>
+<P>&lt;build contact record&gt;</P>
+<P>if (cur_c != NULL) {</P>
+<P>if (!tqsl_checkCertificate(cur_c, callsign, qso_date)) {</P>
+<P>tqsl_freeCertificate(cur_c);</P>
+<P>cur_c = NULL;</P>
+<P>}</P>
+<P>}</P>
+<P>if (cur_c == NULL) {</P>
+<P>tqsl_Cert **c = tqsl_selectCertificates(callsign, qso_date, issuer);</P>
+<P>if (*c == NULL) {</P>
+<P>&lt;no matching certs - can't sign this record&gt;</P>
+<P>}</P>
+<P>cur_c = *c;</P>
+<P>tqsl_beginSignVerify(cur_c);</P>
+<P>}</P>
+<P>tqsl_addGabbiQSLRecord(g, station, contact, cur_c);</P>
+<P>}</P>
+<P>tqsl_endGabbi();</P>
+<P>if (cur_c != NULL) {</P>
+<P>tqsl_freeCertificate(cur_c);</P>
+<P>}</P>
+<P>That leaves out quite a bit of detail, of course, but it shows the program 
+flow as seen by the application.<STRONG>List of Functions and data structures.</STRONG> </P>
+<P>All functions of the TrustedQSL API will be prefixed with tqsl_ and data 
+structures will be prefixed with tQSL_. The C API will be only a set up of C 
+wrappers for C++ class which will do the work. Data objects are opaque objects 
+which can't be access except thru TrustedQSL functions. </P>
+<H1 align=center>Function categories</H1>
+<H2 align=center>PKI functions: </H2>
+<P align=left><STRONG>tqsl_beginSignVerify(cert)</STRONG> - 
+Using a callback to get the password, decrypts a copy of the private key which 
+is kept in memory. (If has already been called with no intervening tqsl_endSignVerify, this becomes a 
+no-op.)</P>
+<P align=left><STRONG>tqsl_checkCertificate(cert, callsign, qso_date)</STRONG> - 
+Returns TRUE if cert is valid for signing a QSO with the specified callsign and 
+QSO date</P>
+<P align=left><STRONG>tsql_createCertReq()</STRONG> - Generate key pair and 
+certificate request file to send to CA. Uses a callback to get encryption pass 
+phrase.</P>
+<P align=left><STRONG>tqsl_endSignVerify(cert)</STRONG> - Blanks (zeroes) the 
+copy of the unencrypted private key in memory.</P>
+<P align=left><STRONG>tsql_freeCertificate(cert)</STRONG> - Frees any resources 
+acquired by the library for the certificate object. Certificate object must not 
+be used after this call. Implicitly calls <EM>tsql_endSignVerify</EM>.</P>
+<P align=left><STRONG>tqsl_importCertFile()</STRONG> - Import a file of 
+certificates. The file may consist of user, CA and/or root certificates. (See 
+discussion below.)</P>
+<P align=left><STRONG>tqsl_readCert()</STRONG> - Low level function, maybe private 
+to API. Read Certificate (and add to 
+certificate key ring ?)</P>
+<P align=left><STRONG>tqsl_readPrivateKey()</STRONG> - Low level, and may use call back to 
+vendor function.&nbsp; Read&nbsp;a private key from private key ring.&nbsp;</P>
+<P align=left><STRONG>tqsl_rsaGenKey()</STRONG> - Create a RSA key pair.</P>
+<P align=left><STRONG>tqsl_writePrivateKey()</STRONG> - Write&nbsp;a private key 
+to private key ring.&nbsp; Call back for pass phrase.</P>
+<P align=left><STRONG>tqsl_selectCertificates(callsign, qso_date, issuer, 
+with_expired)</STRONG> - Select one or more matching user certificates. Only 
+active certs are returned unless with_expired == TRUE. If all three selection 
+parameters are supplied and with_expired == FALSE, either 0 or 1 certificate 
+will be returned: a certificate that can be used to sign a QSO with those 
+parameters.</P>
+<P><STRONG>tqsl_sign*</STRONG> - TBD singing functions.</P>
+<P align=left><STRONG>tqsl_signQSLRecord</STRONG>(tStation *, tContact *,tKeys *) - Low level function 
+to sign a QSL record.&nbsp; This will call the low level function <EM>tqsl_sign 
+</EM>and <EM>tqsl_verify</EM>    
+  . </P>
+<P align=left><STRONG>tqsl_validateTQSLRecord*</STRONG> - Low level function to 
+ validates a trustedQSL record.</P>
+<H2 align=center>Gabbi Signing Functions</H2>
+<P align=left><STRONG>tQSL_Gabbi g = 
+tqsl_beginGabbi()</STRONG> - Initializes the Gabbi output. (What this exactly 
+means is TBD, but at minimum it emits the Gabbi header. 
+Have to set up the output stream/file, too.)</P>
+<P align=left><STRONG>tqsl_addGabbiQSLRecord(tQSL_Gabbi*, tQSL_Station*, 
+tQSL_Contact*, tQSL_Cert*)</STRONG> - Forms GABBI station, contact (w/signature) 
+and cert records, as needed, and outputs them.&nbsp;This calls the low level 
+function&nbsp;<EM>tqsl_signQSLRecord</EM>.</P>
+<P align=left><STRONG>tqsl_endGabbi(tQSL_Gabbi*)</STRONG> - Cleans up the Gabbi 
+output.</P>
+<P align=left><STRONG>tqsl_validateGabbiQslFile</STRONG>(inputfile)&nbsp; - Read 
+a Gabbi file and validate the tQSL information.&nbsp; Calls the low level 
+function <EM>tqsl_validateTQSLRecord.</EM></P>
+<P align=left><STRONG>tqsl_validateGabbiEnumFile(inputfile)</STRONG> - Read and 
+validate a Gabbi format enum file.</P>
+<P align=left><STRONG>tqsl_validateGabbiSigListFile(inputfile)</STRONG> - Read 
+and validate a Gabbi format&nbsp;signature list&nbsp;file.</P>
+<H2 align=center>Enumeration and Record Functions</H2>
+<P>tQSL_contact <STRONG>*tqsl_createContact()</STRONG> - return pointer to new 
+contact record. </P>
+<p>tQSL_signingList <strong>*tqsl_createSigningList()</strong> - 
+returns pointer to a new 
+signing list record. This is an object the has a list of fields for an award
+sponsor that must be signed if present.  This list will also specify the 
+required files for the award sponsor.  This list is signed by the awards sponsor.</p>
+<p>tQSL_station <strong>*tqsl_createStation()</strong> - returns pointer to a new 
+station record. </p>
+<P><STRONG>tqsl_enumFields()</STRONG> - Returns a list of available field names. 
+</P>
+<P><STRONG>tqsl_freeContact(tQSL_contact *)</STRONG> - frees the contact record. 
+</P>
+<P><STRONG>tqsl_freeStation(tQSL_station *)</STRONG> - frees the station record. 
+</P>
+<P><STRONG>tqsl_fieldType(tQSL_Station *, fieldName)</STRONG> - Given a 
+field_name (from the list returned by enum_fields), returns: </P>
+<OL>
+<li><P>&nbsp;A field type, </P>
+<li><P>&nbsp;a maximum length, </P>
+<li><P>&nbsp;an "enumerated" flag. </P></li></OL>
+<P><STRONG>tqsl_setField(tQSL_Station, fieldName, 
+value)</STRONG>   - set the value of a field in 
+the station_record that's being built. Parsing Functions: </P>
+<P>&nbsp;</P>
+<H2 align=center>Helper Functions.&nbsp; </H2>
+<P align=left>Helper functions are outside the TrustedQSL API, but maybe 
+included for completeness.&nbsp; </P>
+<P align=left><STRONG>tqsl_signAdifFile(tQSL_station *,tQSL_privateKey, char 
+*filename, char *gabbiOut,error</STRONG> <STRONG>Call back, tKeys)</STRONG> - 
+Read in and sign each record of an ADIF file and write a corresponding Gabbi 
+record to the output file.</P>
+<P align=left><STRONG>tqsl_signCabrilloFile(tQSL_station *,tQSL_privateKey, char 
+*filename, char *gabbiOut,error</STRONG> <STRONG>Callback, tKeys)</STRONG> - 
+Read in and sign each record of an&nbsp;Cabrillo file and write a corresponding 
+Gabbi record to the output file.</P>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <UI>
+      <Dialog Id="AlertUninstall" Width="260" Height="85" Title="Uninstall old version">
+        <Control Id="OK" Type="PushButton" X="40" Y="57" Width="80" Height="17" Default="yes" Text="Uninstall old version">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+          <Publish Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="140" Y="57" Width="80" Height="17" Cancel="yes" Text="Cancel installation">
+          <Publish Event="EndDialog" Value="Exit">1</Publish>
+        </Control>
+        <Control Id="Text" Type="Text" X="48" Y="22" Width="194" Height="30" Text="Any versions of TQSL now present will be removed so the new version can be installed. This will not affect your certificates or settings"/>
+        <Control Id="Icon" Type="Icon" X="15" Y="15" Width="24" Height="24" FixedSize="yes" IconSize="32" Text="WixUI_Ico_Info" />
+      </Dialog>
+    </UI>
+	</Fragment>
+</Wix>

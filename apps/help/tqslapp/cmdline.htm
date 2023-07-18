@@ -1,0 +1,222 @@
+<HTML><HEAD><TITLE>TQSL Command Line Interface</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Command Line Interface</H3>
+<P>
+When starting TQSL, you may specify command line options that 
+<UL>
+<LI>initiate the definition or editing of a <A HREF="glossary.htm#station_location">Station Location</A></LI>
+<LI>initiate the <A HREF="glossary.htm#signed_log_file">signing of a log file</A>
+<LI>initiate the <a HREF="qsodata.htm">display and editing</a> of an ADIF log file</A>
+<LI>direct that a signed log file be uploaded to LoTW via the internet</LI>
+</UL>
+Most command line options are single-letter switches, some of which require an argument; such arguments should be separated from the switch letter by one or more spaces. Arguments that
+contain spaces or other shell-special characters should be quoted in a manner suitable for the
+operating system and shell that's being used. If more than one command line switch is specified, each switch must be 
+separated from the preceding switch by one or more spaces.
+<P>
+A filename not preceded by a switch is assumed to be the name of a log file whose QSOs are to be signed <b><i>unless</i></b> the <A HREF="pref-opt.htm#adifedit">Open ADIF files in ADIF editor</a> box is checked, the named file has an <b>.ADI</b> extension, and the command line includes neither a <b>-q</b> or <b>-x</b> switch, in which case the named log file will be displayed in TQSL's <a HREF="qsodata.htm">ADIF Editor</a>.
+<P>
+After taking the actions specified by command line options, TQSL will enter its menu-driven mode of operation unless one of the <code>-q</code>, <code>-x</code>
+or <code>-n</code> switches are present, in which case it will terminate.
+<P>
+<TABLE BORDER=1 CALLPADDING=3 CELLSPACING=0 valign="top">
+<TR><TD><B>Option</B></TD><TD><B>Description</B></TD></TR>
+
+<TR><TD><code>-a</code></TD>
+<TD>The action to be taken if a already uploaded, out-of-date-range, or invalid QSO is encountered while signing a log file's QSOs:<BR>
+&nbsp;&nbsp;<code>-a ask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>a dialog will be provided that prompts the user to specify how to proceed<BR>
+&nbsp;&nbsp;<code>-a abort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>no QSOs will be signed<BR>
+&nbsp;&nbsp;<code>-a compliant&nbsp;&nbsp;</code>neither already uploaded QSO nor out-of-date-range QSOs will be signed; all other QSOs will be signed<BR>
+&nbsp;&nbsp;<code>-a all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code>all QSOs, including already uploaded and out-of-date-range QSOs, will be signed<P>
+If no <code>-a</code> switch is specified and a already uploaded or out-of-date-range QSO is encountered while signing QSOs, a dialog will be provided that prompts the user to specify how to proceed.
+</TD></TR>
+
+<TR><TD><code>-b&nbsp;date</code><br /><code>-e&nbsp;date</code></TD>
+<TD>Specifies the beginning <code>(-b)</code>date of QSOs to be signed or the end date <code>(-e)</code> for QSOs to be signed. QSOs before the begin date or after the end date will not be signed. If these are used, <code>-d</code> should also be specified to suppress the <A HREF="daterng.htm">QSO date-range dialog</A>.</TD></TR>
+
+<TR><TD><code>-c&nbsp;Callsign</code></TD>
+<TD>If present, specifies the <a href="glossary.htm#callsign_certificate">Callsign Certificate</A> to be used when signing log files, overriding any Callsign Certificate specified in the <A HREF="glossary.htm#station_location">Station Location</A> selected by <code>-l</code>. If the specified Callsign Certificate's DXCC entity does not match the DXCC entity specified in the Station Location selected by <code>-l</code>, an error message will be displayed and no QSOs will be signed. </TD></TR>
+
+<TR><TD><code>-d</code></TD>
+<TD>Suppress the date-range dialog; if this switch is present, the <A HREF="daterng.htm">QSO date-range dialog</A> will <i>not</i>
+be displayed before signing a log.</TD></TR>
+
+<TR><TD><code>-f</code></TD>
+<TD>This option instructs tqsl how to handle the MY_ fields in an
+ADIF log file. These specify the callsign, QTH details such as zones,
+gridsquare, state/county, etc. for a QSO. If the log includes this
+detail, TQSL can read these fields and take action to use that
+information to ensure that the Station Location is correct. By
+default, TQSL will report any discrepancies between QTH and the
+Station Location; TQSL can also be directed to ignore the QTH
+information.<BR>
+&nbsp;&nbsp;<code> -f ignore&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Directs TQSL to ignore the QTH information<BR>
+&nbsp;&nbsp;<code>-f report&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Directs TQSL to report any differences between the station location and the MY_ QTH details<BR>
+&nbsp;&nbsp;-f update&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Directs TQSL to overwrite the Station Location information with data from the log.
+<BR><BR>
+When using "-f update", the ideal practice should be to either specify all QTH information (state, county, grid, zones) in the ADIF "MY_" fields or to use an empty Station Location.
+</TD></TR>
+
+<TR><TD><code>-h</code></TD>
+<TD>Display command line help.</TD></TR>
+
+<TR><TD><code>-i&nbsp;Filename</code></TD>
+<TD>Load a specified <A HREF="files-icons.htm">Callsign Certificate File (.tq6)</A>, a <A HREF="files-icons.htm">Certificate Container File (.p12)</A>, or a <A HREF="configxml.htm">Configuration Data File (Config.tq6)</A> .</TD></TR>
+
+<TR><TD><code>-l&nbsp;Station_Location</code></TD>
+<TD>Select a defined <A HREF="glossary.htm#station_location">Station Location</A> to be used when signing log files. If the specified Station Location contains embedded spaces, it must be 
+quoted in a manner suitable for the operating system and shell that's being used. If the specified Station Location doesn't exist, no QSOs will be signed or uploaded unless <code>-s</code> is also specified. 
+If <code>-l</code> is not present and a log file is being signed, a dialog will be provided that prompts the user to select a Station Location.</TD></TR>
+
+<TR><TD><code>-n</code></TD>
+<TD>Checks for and reports the availablility of <BR>
+<UL>
+<LI>a new version of TQSL</LI>
+<LI>a new version of TQSL's <A HREF="configxml.htm">Configuration Data file</A></LI>
+<LI>expiring <a href="glossary.htm#callsign_certificate">Callsign Certificates</A> </LI>
+<LI>pending <a href="glossary.htm#callsign_certificate">Callsign Certificates</A> </LI>
+</UL>
+TQSL displays the above information (if any) to <b>stderr</b>, then exits without digitally signing any specified filename. This command line option should therefore not be used with any other command line option.
+</TD></TR>
+
+<TR><TD><code>-o&nbsp;Filename</code></TD>
+<TD>Specify the name of the <A HREF="glossary.htm#signed_log_file">digitally signed log file</A> to be created. If the specified Filename contains embedded spaces, it must be 
+quoted in a manner suitable for the operating system and shell that's being used. If <code>-o</code> is not present, the specified log filename with its extension set to <code>.tq8</code> will be used.</TD></TR>
+
+<TR><TD><code>-p&nbsp;Passphrase</code></TD>
+<TD>Specify the passphrase that gains access to a passphrase-protected Callsign Certificate when <A HREF="glossary.htm#signed_log_file">signing a log file</A>. If the specified Passphrase contains 
+embedded spaces or other shell-special characters, it must be 
+quoted in a manner suitable for the operating system and shell that's being used. If <code>-p</code> is not present, a log file is being signed,
+and the specified or selected Station Location includes a passphrase-protected Callsign Certificate, a dialog will be provided that prompts the user to specify the passphrase.</TD></TR>
+
+<TR><TD><code>-q</code></TD>
+<TD>Operate in batch mode: status information will be routed to <b>stderr</b>, and TQSL will terminate after taking the actions specified by command line options.</TD></TR>
+
+<TR><TD><code>-s</code></TD>
+<TD>If the <code>-l</code> switch is also present, a dialog will be provided that enables the specified <A HREF="glossary.htm#station_location">Station Location</A> to be edited;
+otherwise, a dialog will be provided that enables a new Station Location to be defined.</TD></TR>
+
+<TR><TD><code>-t&nbsp;Filename</code></TD>
+<TD>Enable <A HREF="diagmode.htm">Diagnostic Mode</A> and specify the name of the log file into which diagnostic information is written.</TD></TR>
+
+<TR><TD><code>-u</code></TD>
+<TD>Instead of saving the <A HREF="glossary.htm#signed_log_file">digitally signed log file</A>, upload it to LoTW over the Internet. After processing, the uploaded file will be shown in LoTW's 
+<b>Your Activity</b> list with the specified filename preceded by <code>&lt;TQSLUpl YYYYMMDD-HHMM&gt;</code>, where <code>YYYY</code> is the current year, <code>MM</code> is the current month,
+<code>DD</code> is the current day, <code>HH</code> is the current hour, and <code>MM</code> is the current minute.<p>
+</TD></TR>
+
+<TR><TD><code>-v</code></TD>
+<TD>Display TQSL version information, and terminate.</TD></TR>
+
+<TR><TD><code>-x</code></TD>
+<TD>Operate in batch mode: status information will be routed to <b>stderr</b>, and TQSL will terminate after taking the actions specified by command line options.</TD></TR>
+
+<TR><TD><code>Filename</code></TD>
+<TD>A command line option that is not a single-letter switch or the argument associated with a single-letter switch will be
+considered the name of the ADIF or Cabrillo log file to be <A HREF="glossary.htm#signed_log_file">digitally signed</A> using the specified or selected Station Location. If the specified Filename 
+contains embedded spaces, it must be quoted in a manner suitable for the operating system and shell that's being used.
+If <code>-u</code> is present, the resulting signed log file will be uploaded to LoTW via the internet. Otherwise, the resulting signed log file will be saved in the Filename specified by the <code>-o</code> switch; 
+if <code>-o</code> is not present, the resulting log file will be saved in the same directory as the log file using the <code>.tq8</code> extension, overwriting any
+existing <code>.tq8</code> file of the same name.
+<p>
+If the <A HREF="pref-opt.htm#adifedit">Open ADIF files in ADIF editor</a> box is checked, if the named file has an <b>.ADI</b> extension, and if the command line includes neither a <b>-q</b> or <b>-x</b> switch, then the named log file will be displayed in TQSL's <a HREF="qsodata.htm">ADIF Editor</a> rather than signed.
+</P>
+</TD></TR>
+
+</TABLE>
+
+<H5>Invocation Examples:</H5>
+
+Without displaying the QSO date-range dialog and ignoring already uploaded QSOs, digitally sign the &quot;<code>cqww log.adi</code>&quot; log file using the &quot;CQWW Portable&quot; Station Location, upload the digitally signed log file to LoTW, route <b>stderr</b> to the file <code>results.txt</code> and then terminate:
+<P>&nbsp;&nbsp;&nbsp;<CODE>
+  tqsl -d -u -a compliant  -x -l "CQWW Portable" "cqww log.adi" 2>results.txt
+</CODE>
+<P>
+Edit the &quot;Home&quot; station location before beginning menu-driven operation:
+<P>&nbsp;&nbsp;&nbsp;<CODE>
+  tqsl -l Home -s
+</CODE>
+<P>
+Add a station location, and then terminate:
+<P>&nbsp;&nbsp;&nbsp;<CODE>
+  tqsl -s -x
+</CODE>
+<p>
+Display the &quot;<code>cqww log.adi</code>&quot; log file in TQSL's <a HREF="qsodata.htm">ADIF Editor</a>:
+<P>&nbsp;&nbsp;&nbsp;<CODE>
+  tqsl "cqww log.adi"
+</CODE>
+<UL><LI>Note that the <A HREF="pref-opt.htm#adifedit">Open ADIF files in ADIF editor</a> box must be checked; otherwise, the &quot;<code>cqww log.adi</code>&quot; log file will be digitally signed.</LI></UL>
+<P>
+Check for new versions and expiring or pending Callsign Certificates, and then terminate:
+<P>&nbsp;&nbsp;&nbsp;<CODE>
+  tqsl -n 2>news.txt
+</CODE>
+<p>Note that in the above examples, the redirection of <b>stderr</b> is performed by the Command Processor, not by TQSL."
+
+<H5>Status Information</H5>
+
+If invoked with <code>-q</code> or <code>-x</code>, status information will be routed to <b>stderr</b>. The last line of <b>stderr</b> will have the following format:
+<code>HH:MM:SS AM/PM Final Status: Description (Code)</code>
+where
+<UL>
+<LI><code>HH:MM:SS AM/PM</code> is the timestamp</LI>
+<LI><code>Description</code> is a textual summary the status that contains no left or right parenthesis</LI>
+<LI><code>Code</code> is an integer uniquely identifying the status, as described in the following table</LI>
+</UL>
+<p>
+<TABLE BORDER=1 CALLPADDING=3 CELLSPACING=0 valign="top">
+<TR><TD><B>Code</B></TD><TD><B>Description</B></TD></TR>
+
+<TR><TD><code>0</code></TD><TD>success: all qsos submitted were signed and saved or signed and uploaded</td></tr>
+<TR><TD><code>1</code></TD><TD>cancelled by user</td></tr>
+<TR><TD><code>2</code></TD><TD>rejected by LoTW</td></tr>
+<TR><TD><code>3</code></TD><TD>unexpected response from TQSL server</td></tr>
+<TR><TD><code>4</code></TD><TD>TQSL error</td></tr>
+<TR><TD><code>5</code></TD><TD>TQSLlib error</td></tr>
+<TR><TD><code>6</code></TD><TD>unable to open input file</td></tr>
+<TR><TD><code>7</code></TD><TD>unable to open output file</td></tr>
+<TR><TD><code>8</code></TD><TD>No QSOs were processed since some QSOs were already uploaded or out of date range</td></tr>
+<TR><TD><code>9</code></TD><TD>Some QSOs were processed, and some QSOs were ignored because they were already uploaded or out of date range</td></tr>
+<TR><TD><code>10</code></TD><TD>command syntax error</td></tr>
+<TR><TD><code>11</code></TD><TD>LoTW Connection error (no network or LoTW is unreachable)</td></tr>
+</table>
+
+<H5>Status Examples:</H5>
+
+<code>05:57:39 PM: Warning: Signing cancelled</code><br>
+<code>05:57:39 PM: No records output</code><br>
+<code>05:57:39 PM: Final Status: cancelled by user (1)</code><br>
+<p>
+<code>06:05:56 PM: /home/rmurphy/k1mu.adi: 414 QSO records were already uploaded</code><br>
+<code>06:05:56 PM: /home/rmurphy/k1mu.adi: wrote 1 records to /home/rmurphy/k1mu.tq8</code><br>
+<code>06:05:56 PM: /home/rmurphy/k1mu.tq8 is ready to be emailed or uploaded.</code><br>
+<code>Note: TQSL assumes that this file will be uploaded to LoTW.</code><br>
+<code>Resubmitting these QSOs will cause them to be reported as already uploaded.</code><br>
+<code>06:05:56 PM: Final Status: Some QSOs were already uploaded or out of date range (9)</code><br>
+<p>
+<code>17:21:32 PM: /Signing using Callsign W4TV, DXCC Entity UNITED STATES OF AMERICA</code><br>
+<code>17:21:32 PM: /Warning: Your custom mode map WSPR conflicts with the standard mode definition for WSPR and was deleted.</code><br>
+<code>17:21:32 PM: /Attempting to upload 2 QSOs</code><br>
+<code>17:21:33 PM: /C:\Program Files\LogsAreUs\LotWUpload.ADI: Log uploaded successfully with result "File queued for processing"!</code><br>
+<code>17:21:33 PM: /After reading this message, you may close this program.</code><br>
+<code>17:21:33 PM: /Final Status: Success (0)</code><br>
+<p>
+in response to <code>-n</code><br>
+<code>17:21:32 PM: A new TQSL release (v2.0) is available.</code><br>
+<code>17:21:32 PM: A new TrustedQSL configuration file (V2.4) is available.</code><br>
+<code>17:21:32 PM: The certificate for VE6LB expires in 9 days.</code><br>
+<code>17:21:33 PM: The certificate for VE6LB/A3 expires in 15 days.</code><br>
+<code>17:21:33 PM: A Callsign Certificate for VE6LB/P5 is pending.</code><br>
+
+
+
+
+
+
+
+
+</BODY></HTML>

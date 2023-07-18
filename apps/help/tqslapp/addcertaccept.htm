@@ -1,0 +1,71 @@
+<HTML><HEAD><TITLE>Accepting an Additional Callsign Certificate</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Accepting an Additional Callsign Certificate</H3>
+<P>
+LoTW requires that you accept an additional <a href="glossary.htm#callsign_certificate">Callsign Certificate</a> using the same computer from which you generated the request for that additional Callsign Certificate.
+<P>
+These instructions assume that your Callsign Certificates reside in the folder <CODE>C:\MyLoTWCertificates</CODE> (if you've stored them in a different folder, adjust the instructions accordingly).
+<p>
+When you receive an email message from the ARRL with an attached file named <CODE>theCallsign.tq6</CODE> (for example, <CODE>K4CY.tq6</CODE>),
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Direct your email application to open the email message, and save the attached file into the folder <CODE>C:\MyLoTWCertificates.</CODE></td></tr>
+	<tr><td>2.</td><td>To proceed, the file <CODE>theCallsign.tq5</CODE> must be present in <CODE>C:\MyLoTWCertificates</CODE>; if you deleted this file, you'll have to start over by requesting a new certificate from the ARRL.</td></tr>
+	<tr><td>3.</td><td>Start <b>TQSL</b> and select the <b>Callsign Certificates</b> tab:</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.a</td><td>Click the <B>Load a Callsign Certificate</B> button; the <b>Select Certificate File</b> dialog will appear</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.b</td><td>In the <b>Select Certificate File</b> dialog,</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<col style="width:50px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.b.1.</td><td>Set the <b>Files of type</b> selector (on <b>OS X</b>, set the <b>Enable</b> selector) to <CODE>Certificate Request response files (*.tq6)</CODE></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.b.2.</td><td>Select the file <CODE>theCallsign.tq6</CODE> in your <CODE>C:\MyLotWCertificates</CODE> folder</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>3.b.3.</td><td>Click the <b>Open</b> button; a small <b>Install Certificate</b> dialog will appear.</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.c</td><td>In the <b>Install Certificate</b> dialog, you'll be asked if its okay to install a trusted root certificate; click the <b>Yes</b> button</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.d</td><td>In the <b>Load Certificate File</b> dialog, click the <b>Finish</b> button</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.e</td><td>The <b>Callsign Certificates</b> tab will show an entry for your Callsign Certificate, with a yellow medal <i>valid</i> icon: <img src="TQSLCert.bmp" width=17 height=19>.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.f</td><td>Protect your new Callsign Certificate by directing <b>TQSL</b> to create a <A HREF="backuprestore.htm#backup">Backup File</A>.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>3.g</td><td>You can terminate <b>TQSL</b> by selecting its <b>File</b> menu's <b>Exit</b> command (on <b>OS X</b>, by selecting the <b>Application</b> menu's <b>Quit tqsl</b> command).</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>4.</td><td>At the completion of these actions, the folder <CODE>C:\MyLoTWCertificates</CODE> will contain</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>*</td><td>the file <code>theCallsign.tq6</code> -- contains the actual Callsign Certificate, in a form that cannot be moved to another folder or saved on an archival storage device</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>5.</td><td>If you have <b>TQSL</b> installed on multiple computers, then perform the following steps on each such computer:</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>5.a</td><td>Delete the files <CODE>theCallsign.tq6</CODE> and <CODE>theCallsign.p12</CODE> if they are present, as these files now contain obsolete information</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>5.b</td><td>Obtain a copy of the <A HREF="backuprestore.htm#backup">Backup File</A> you created in step 3.f (via your home network, or by using a thumb drive)</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>5.c</td><td>Start <b>TQSL</b>, and direct it to <A HREF="backuprestore.htm#restore">Restore</A> from the backup file you obtained in step 5.b; 
+	this will update all Callsign Certificates, Station Locations, and Preferences on this computer to match those on the computer you used to accept the Callsign Certificate in step 3</td></tr>
+</table>
+
+</BODY>

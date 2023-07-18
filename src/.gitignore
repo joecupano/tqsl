@@ -1,0 +1,9 @@
+#linux-specific products
+libtqsllib.so
+
+#Windows build artifacts
+Debug
+Release
+
+#OSX binaries
+*.dylib

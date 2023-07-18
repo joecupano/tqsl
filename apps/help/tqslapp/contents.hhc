@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Introduction">
+		<param name="Local" value="main.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Primary Operations">
+		<param name="Local" value="primary.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Requesting an Initial Callsign Certificate">
+			<param name="Local" value="certreq.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Accepting an Initial Callsign Certificate">
+			<param name="Local" value="certaccept.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Defining a Station Location">
+			<param name="Local" value="stnloc.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Submitting a Log File via the Internet">
+			<param name="Local" value="signupload.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Submitting a Log File from a Computer without Internet Access">
+			<param name="Local" value="signing.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Logging in to your LoTW Web Account to View your QSOs and QSLs">
+			<param name="Local" value="login.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Checking for Updates">
+			<param name="Local" value="update.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Secondary Callsign Certificate Operations">
+		<param name="Local" value="secondarycertops.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Viewing a Callsign Certificate's Properties">
+			<param name="Local" value="certificateproperties.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Determining When a Callsign Certificate Expires">
+			<param name="Local" value="expiration.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Renewing a Callsign Certificate">
+			<param name="Local" value="renewing.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Replacing a Callsign Certificate">
+			<param name="Local" value="certreplace.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Determining if a Callsign Certificate is Valid">
+			<param name="Local" value="certificatevalidity.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Maintaining Callsign Certificate Security">
+			<param name="Local" value="certificatesecurity.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Copying Callsign Certificates from One Computer to Another">
+			<param name="Local" value="moving.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Saving a Callsign Certificate to a File">
+			<param name="Local" value="save-certificate.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Loading a Callsign Certificate from a File">
+			<param name="Local" value="load-certificate.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Requesting an Additional Callsign Certificate">
+			<param name="Local" value="addcertreq.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Accepting an Additional Callsign Certificate">
+			<param name="Local" value="addcertaccept.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Deleting a Callsign Certificate">
+			<param name="Local" value="deletecert.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Restoring a Deleted Callsign Certificate">
+			<param name="Local" value="restoredeletedcert.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Secondary Station Location Operations">
+		<param name="Local" value="secondarystnlocops.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Defining, Modifying, or Deleting a Station Location">
+			<param name="Local" value="stnloc.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Restoring a Deleted Station Location">
+			<param name="Local" value="restoredeletedstnloc.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Copying Station Locations from One Computer to Another">
+			<param name="Local" value="moving.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Configuration Operations">
+		<param name="Local" value="configops.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Checking and Updating TQSL's Configuration Data">
+			<param name="Local" value="configxml.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Setting TQSL Options">
+			<param name="Local" value="pref-opt.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Setting TQSL Log Handling Options">
+			<param name="Local" value="pref-log.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Setting a Date Range">
+			<param name="Local" value="daterng.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Adding and Deleting ADIF Mode Mappings">
+			<param name="Local" value="pref-adi.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Adding and Deleting Cabrillo Contest Definitions">
+			<param name="Local" value="pref-cab.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Configuring a Network Proxy for Internet Access">
+			<param name="Local" value="netproxy.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Selecting the Language Used by TQSL">
+			<param name="Local" value="selectlanguage.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Localizing TQSL">
+			<param name="Local" value="localization.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="File Operations">
+		<param name="Local" value="fileops.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Creating and Editing an ADIF File">
+			<param name="Local" value="qsodata.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Backing up and Restoring TQSL Information">
+			<param name="Local" value="backuprestore.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Enabling and Disabling Diagnostic Mode">
+			<param name="Local" value="diagmode.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Additional Information">
+		<param name="Local" value="additional-info.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Glossary of Terms">
+			<param name="Local" value="glossary.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="LoTW Files and Icons">
+			<param name="Local" value="files-icons.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="TQSL Callsign Certificate Icons">
+			<param name="Local" value="certs-icons.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Command Line Interface">
+			<param name="Local" value="cmdline.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Defining custom Cabrillo modes">
+			<param name="Local" value="cab-modes.htm">
+			</OBJECT>
+	</UL>
+</UL>
+</BODY></HTML>

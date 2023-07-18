@@ -1,0 +1,68 @@
+Summary: The TrustedQSL library
+Name: tqsllib
+Version: @VERSION@
+Release: 2
+Copyright: Custom BSD-like
+Group: Development/Libraries
+Source: tqsllib-%{version}.tar.gz
+BuildRoot: /var/tmp/%{name}-buildroot
+Requires: openssl expat zlib
+BuildPrereq: openssl-devel expat-devel zlib-devel
+
+%package devel
+Summary: The TrustedQSL Library development tools
+Group: System/Libraries
+
+%description
+The TrustedQSL library is used for generating digitally signed
+QSO records (records of Amateur Radio contacts). This package
+contains the library and configuration files needed to run
+TrustedQSL applications.
+
+%description devel
+The TrustedQSL library is used for generating digitally signed
+QSO records (records of Amateur Radio contacts). This package
+contains the header files needed to build TrustedQSL applications
+as well as a static tqsllib library and API documentation.
+
+%prep
+%setup -q -n tqsllib-%{version}
+
+%build
+# use --disable-docs because RPM handles docs itself
+cmake -DCMAKE_INSTALL_PREFIX=/usr .
+make
+
+%install
+make install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root)
+%doc LICENSE ChangeLog
+
+/usr/lib/libtqsllib.so
+/usr/lib/libtqsllib.so.1
+/usr/lib/libtqsllib.so.1.0.0
+/usr/share/tqsl/config.xml
+/usr/bin/dumptqsldata
+
+%files devel
+%defattr(-,root,root)
+%doc LICENSE ChangeLog doxygen/html
+
+/usr/lib/libtqsllib.a
+/usr/lib/libtqsllib.la
+/usr/include/tqsllib.h
+/usr/include/tqslerrno.h
+/usr/include/cabrillo.h
+/usr/include/adif.h
+/usr/include/tqslconvert.h
+
+%post
+/sbin/ldconfig
+
+%postun
+/sbin/ldconfig

@@ -1,0 +1,88 @@
+<HTML><HEAD><TITLE>Backing Up and Restoring Callsign Certificates, Station Locations, and Preferences</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Backing Up and Restoring Callsign Certificates, Station Locations, and Preferences</H3>
+<P>
+TQSL can be directed to save all of your <A HREF="glossary.htm#callsign_certificate">Callsign Certificates</A>, <A HREF="glossary.htm#station_location">Station Locations</A>, 
+and <A HREF="configops.htm">Preferences</A> in a single <b>Backup File</b> with a <CODE>.tbk</CODE> file extension. 
+If you copy this <b>Backup File</b> to a <i>safe place</i>, you'll be able to quickly recover from a computer failure by directing TQSL to restore 
+your Callsign Certificates, Station Locations, and Preferences. </p>
+<p>You can <A HREF="pref-opt.htm#backup">configure TQSL</a> to when terminating, automatically create a <b>Backup File</b> named <CODE>tqslconfig.tbk</CODE> in a specified folder. You can also 
+<A HREF="pref-opt.htm#backup">configure TQSL</a> to retain a specified number of such automatically-created <b>Backup Files</b>.
+</p>
+<a name="safeplace"></a>
+<H5>Safe Places to Store your Callsign Certificates, Station Locations, and Preferences</H5>
+<P>
+An external hard drive, a thumb drive, or another computer on your home network will provide <i>local</i> backup that you can quickly access, but will not provide protection against a local catastrophe.
+A free "cloud storage service" like <A HREF="http://www.dropbox.com/">DropBox</A> or <A HREF="http://support.google.com/drive/answer/2424384?hl=en">Google Drive</A>
+or <A HREF="http://windows.microsoft.com/en-us/skydrive/download">Microsoft SkyDrive</A> can provide better protection, but requires internet access for both backup and recovery. Ideally,
+important files should be saved both locally and in cloud storage.
+<P>
+<a name="backup"></a>
+<H5>Creating or Updating a Backup File</H5>
+To save your <A HREF="glossary.htm#callsign_certificate">Callsign Certificates</A>, <A HREF="glossary.htm#station_location">Station Locations</A>, 
+and <A HREF="configops.htm">Preferences</A> to a <b>Backup File</b>, 
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Select the <B>File</B> menu's <B>Backup Station Locations, Certificates, and Preferences...</B> command.</td></tr>
+	<tr><td>2.</td><td>In the <B>Enter file to save to</B> dialog that appears, </td></tr>
+</table>
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.a</td><td>Navigate to the Folder in which you want the <b>Backup File</b> created.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.b</td><td>Specify the <b>File name</b> of the <b>Backup File</b> to be created, or select an existing <b>Backup File</b> to be replaced with an updated version..</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.c</td><td>Click the <b>Save</b> button</td></tr>
+</table>
+<P>
+<H5>Configuring TQSL to Automatically Create a Backup File When Terminating</H5>
+To configure TQSL to automatically create a <b>Backup File</b> named <CODE>tqslconfig.tbk</CODE> when terminating,
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Select the <B>File</B> menu's <B>Display or Modify Preferences...</B> command (on <b>OS X</b>, select the <b>Application</b> menu's <b>Preferences</b> command).</td></tr>
+	<tr><td>2.</td><td>In the <B>Preferences</B> dialog that appears, select the <B>Options</B> tab; on this tab, </td></tr>
+</table>
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.a</td><td>Check the <B>Allow automatic configuration backup</B> box.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.b</td><td>Click the <B>Browse</B> button to the right of the <B>Backup File Folder</B> textbox and use the <B>Browse For Folder</B> dialog that 
+appears to select the folder in which <b>Backup Files</b> will automatically be created when terminating.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.c</td><td>Specify the <b>Number of Backups to retain</b> setting.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.d</td><td>Click the <B>OK</B> button.</td></tr>
+</table>
+
+The most recent automatically created <b>Backup File</b> is named <code>tqslconfig.tbk</code>. Older retained <b>Backup Files</b> are named <code>tqslconfig-yyyy-mm-dd-hh-nn</code>, where yyyy-mm-dd-hh-nn is the UTC date and time at which the <b>Backup File</b> was created:
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td><code>yyyy:</code></td><td><code>year</code></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td><code>mm:</code></td><td><code>month</code></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td><code>dd:</code></td><td><code>day</code></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td><code>hh:</code></td><td><code>hour</code></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td><code>nn:</code></td><td><code>minute</code></td></tr>
+</table>
+<P>
+<a name="restore"></a>
+<H5>Restoring from a Backup File</H5>
+To restore <A HREF="glossary.htm#callsign_certificate">Callsign Certificates</A>, <A HREF="glossary.htm#station_location">Station Locations</A>, 
+and <A HREF="configops.htm">Preferences</A> from a selected <b>Backup File</b>, 
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Select the <B>File</B> menu's <B>Restore Station Locations, Certificates, and Preferences...</B> command.</td></tr>
+	<tr><td>2.</td><td>In the <B>Select saved configuration file</B> dialog that appears, </td></tr>
+</table>
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.a</td><td>Navigate to the Folder that contains the Backup File you wish to restore.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.b</td><td>Select the <b>Backup File</b> to be restored.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>2.c</td><td>Click the <b>Open</b> button</td></tr>
+</table>
+
+</BODY></HEAD>

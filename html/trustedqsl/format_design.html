@@ -1,0 +1,100 @@
+<html>
+<head>
+	<title>TrustedQSL High Level Design Notes</title>
+</head> 
+
+<body>
+<H2 align=center>TrustedQSL High Level Virtual Record Design Notes</H2>
+<P align=center>by<br>
+Michael Keane K1MK<br>
+k1mk@alum.mit.edu</P>
+<OL type=I>
+<LI>Built-In (or Spec Defined) Signed Field
+ <UL type=disc>
+<li>The name of this field is included in a TBD list of field 
+names defined in the Gabbi specification.</<LI> 
+ 
+<li>Value of this field is incorporated into "virtual 
+    record" used for calculating digital signature 
+    
+<li>External representations of the value of this field 
+    shall be encoded using a TBD set of formatting rules given in the Gabbi 
+    
+<li>The formatting rules must result in an unambiguous 
+    bi-directionalmapping between a data value and its unique external 
+    represestation. 
+    
+<li>Database design must save the value of this field. 
+    
+<li>Database design may employ internal representations 
+    for storing the value of the field that differ from the external 
+    representation. E.g., numeric values maye be stored as a binary number 
+    rather than as a string of digit characters. 
+    
+<li>Only ASCII characters shall be used in field name 
+    and in the external representation of the value of this field [TBR] 
+    <P></P>           
+         
+</li>
+</UL>
+<LI>Built-In (or Spec Defined) Unsigned Field 
+   <UL type=disc>
+ <li>The name of this field is included in a TBD list of 
+    field names defined in the Gabbi specification. 
+    
+<li>Field name shall also employ a TBD mechanism 
+    designating this as an "unsigned" field 
+    
+<li>Value of field is omitted from the "virtual record" 
+    used for calculating digital signature 
+    
+<li>Database design may decline to save this field 
+    
+<li>Only ASCII characters shall be used in field name 
+    
+<li>Any valid Unicode characters may be used in the 
+    field value [TBR] 
+        </li>
+</UL>
+<p></p>
+<LI>User Defined Signed Field
+  <UL type=disc>
+<li>Field name is not in the union of the lists of 
+    signed and unsigned fields defined in the Gabbi spec 
+    
+<li>Value of field incorporated into "virtual record" 
+    for calculating digital signature 
+    
+<li>Database design must save the unprocessed octet 
+    strings representing this field's name and its value. These strings shall be 
+    saved in the functional equivalent of a table 
+    
+<li>Any valid Unicode characters may be used in the 
+    field name and field value [TBR] 
+    <P></P>           
+  
+  </li>
+  </UL>
+  
+<LI>User Defined Unsigned Field
+   <UL type=disc>
+<li>Field name is not in the union of the lists of 
+    signed and unsigned fields defined in the Gabbi specification 
+    
+<li>Field name shall also employ a TBD mechanism 
+    designating this as an "unsigned" field 
+    
+<li>Value of field is omitted from the "virtual record" 
+    used for calculating digital signature 
+    
+<li>Database design may decline to save this field 
+    
+<li>Any valid Unicode characters may be used in the field name 
+and field value [TBR]</li>
+</UL>    
+  
+ </LI>
+</OL>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+== Windows Build System setup for TrustedQSL ==
+ 
+ - By Robert, KC2YWE - Written 2/14/2013 -
+ 
+v1.0 - Initial writing
+V1.1 - Update to newer library versions, 7/25/2013
+
+-- Conventions --
+
+-- is a header
+ - is a sub-item
+'command' means type that command without the quotes; when quotes are needed,
+I use "" CAPS means extra important, not shouting
+
+When you need to get a file, I say:
+
+Download and run from: http://example.url/product
+	"Link text on page to follow" (comment about which one to choose, maybe)
+
+If I don't mention something about an installer, leave it at the default unless
+you have a reason to change it.
+
+	
+-- Prerequisites --
+
+This is a Windows-specific tutorial. You must be running a version of Windows.
+These instructions were written for a clean install of Windows 7 64-bit in a
+virtual machine with all updates applied; any places where the instructions
+will differ based on Windows version or 32/64 bit will be noted to the best of
+my knowledge. I don't believe the setup is too sensitive to specific versions.
+
+You must read the whole document. I know it's long, but don't try to skim it or
+you might miss something that ends up breaking things later (there's a lot of
+potential pitfalls)
+
+-- Abbreviations --
+
+TQSL = TrustedQSL
+VC, VC++ = Microsoft Visual C++
+VS, VS2008, VS2010, VS2012 = Microsoft Visual Studio (includes VC++) and a
+version
+
+-- Assumptions --
+
+The build system should be very flexible and should work with many versions of
+libraries, compilers, and platforms. But for simplicity's sake, the instructions
+given will be as specific as possible. In particular, this tutorial will focus
+on Visual Studio at the expense of MinGW (but it should work fine with MinGW).
+
+You should have familiarity with building software from source on Windows. Unix
+(including OSX) experience will mostly translate, and I'll give specific
+commands, but there's a lot of different ways this can go wrong and some
+troubleshooting experience will be helpful.
+
+You should have a lot of experience with C++ in particular. Most problems you
+run into will be in the form of compiler and linker errors.
+
+I will be using exact library versions, and even URLs. If you are reading this
+in several months, this will be out of date. YOU ARE ENCOURAGED TO USE NEWER
+VERSIONS, even if the instructions don't quite work - most of the instructions
+come from READMEs.
+
+I will store things directly in the C:\ directory. You can put them wherever
+you want, but you may need to help cmake find them. 
+
+-- Variables --
+
+This document will use VS2012 Express, which is free. It seems to be the nicest
+Visual Studio IDE, once you fix the menus. They will also work with VS2010 and
+VS2008, but I've only tested them with paid versions so I can't help with any
+express-only limitations. HOWEVER VS2012 WILL NOT TARGET WINDOWS 2000. It just
+won't work because the last version to target Win2K was VS2008. We still support
+Windows 2000, at least for a little longer, so "official" builds still need to
+be made with VS2008. I have it set up to use the 2008 compiler and runtimes as
+a "platform" in VS2012, but those directions are above the scope of this
+document.
+
+Feel free to use a "paid" version of Visual Studio, but the instructions may be
+slightly different.
+
+YOU MUST DECIDE IN ADVANCE WHAT RUNTIME YOU WILL USE. You can either statically
+link the Microsoft runtime, or dynamically link it. For distribution, I have
+everything statically linked, but if you are just running on your own personal
+machine(s) a dynamic runtime dependency may not bother you. It's just a DLL file
+that needs to be installed, and it is when you install Visual Studio, or you
+can install it separately (or may already have it). Whatever you decide, you
+need to decide before you start compiling stuff or else you'll have to
+re-compile *everything* due to weird linker errors.
+
+YOU MUST DECIDE IN ADVANCE WHAT COMPILER YOU WILL USE. Like the above, you will
+find yourself recompiling a lot if you try to switch compilers. In particular,
+much of the STL stuff is incompatible between versions.
+
+YOU MUST DECIDE IN ADVANCE WHETHER YOU WILL STATICALLY OR DYNAMICALLY LINK. All
+the libraries need to be compiled differently depending on your decision. Just
+like the runtime, this determines whether you have to schlep a bunch of DLLs
+along with you or not.
+
+NONE OF THESE AFFECT THE CODE. Static or dynamic runtimes or libraries, or
+compiler versions - the code will (should, in the case of compilers) be
+independent of these choices. These all affect YOUR setup, and most are
+irrelevant unless you try to move a binary somewhere else.
+
+DEFAULTS - this document is written for using a dynamic VC++ runtime and static
+libraries.
+
+-- Outline --
+
+1) Visual Studio, cmake, git, tqsl
+2) Getting the source
+3) Libraries (order irrelevant!)
+	- openssl
+	- zlib
+	- curl
+	- wxWidgets 2.8
+4) Running cmake
+5) Building
+
+-- 1) Visual Studio, cmake, git, tqsl --
+
+These downloads and installs should run in parallel. If you find yourself
+waiting, cycle to the next item.
+
+ - git
+  * This installer "pauses" the VS2012 installer, even though it doesn't work
+while the VS2012 installer is running anyway. So maybe wait until it's done
+before starting VS2012 Express, or else you'll have to wait until VS2012 is
+done.
+ 
+ Download msysgit as a prerequisite for TortoiseGit. TortoiseGit is optional if
+you're comfortable with the command line, but msysgit is required. 
+ 
+ Download and run from: http://code.google.com/p/msysgit/downloads/list?can=2&q="Full+installer+for+official+Git+for+Windows"
+	Git-1.8.1.2-preview20130201.exe
+
+ Next, etc. Uncheck 'Windows Explorer integration' if you're using TortoiseGit.
+You may find it convenient to have git in your command line (option 2). You
+should leave the line ending conversion as-is (checkout Windows/commit Unix,
+option 1).
+ 
+ Download and run from: http://code.google.com/p/tortoisegit/wiki/Download
+	"Download TortoiseGit 1.8.1.0 - 64-bit" (or 32 bit as appropriate)
+	
+ TortoiseGitPLink is probably the best choice.
+
+ - Visual Studio 2012 Express 
+ 
+ Download and run from: http://www.microsoft.com/visualstudio/eng#downloads
+	"Visual Studio Express 2012 for Windows Desktop" (not Windows 8!) -
+	"Install now"
+		
+ When the installer loads, read and agree to the license terms, then 'Install'
+and accept the prompt. While it downloads, work on the other stuff.
+ 
+ Next, etc. Add cmake to the current user path (3rd option); create an icon at
+your preference.
+ 
+ - CMake
+ 
+ Download and run from: http://www.cmake.org/cmake/resources/software.html
+	cmake-2.8.10.2-win32-x86.exe
+ 
+ - TrustedQSL
+ 
+ Yes, for now you should have TrustedQSL installed. It's the fastest way to get
+the correct folder structure, config files, registry entries, etc. 
+ 
+ Download and run from: http://www.arrl.org/instructions
+	"Step 1 - Download and install the software" > "Download the software
+	for Windows here"
+	
+-- 2) Get the source --
+
+ Decide where you want your source folder. I have mine in Documents\src. Right
+click in that folder and choose "Git clone...". Enter 
+git://git.code.sf.net/p/trustedqsl/tqsl, click OK, and wait. It should create a
+folder called 'tqsl' in the folder you right-clicked in. Check it out and
+observe the folder structure. You'll see this document in there too
+('WindowsBuildSetup.txt') - open it to make sure you're using the newest
+version. You should see a lot of Git options if you right-click in this folder;
+a Git tutorial will come later but you can play around for now. You can always
+delete the folder and re-clone it if you mess anything up.
+	
+-- 3) Libraries (order is irrelevant) --
+
+ Now that you have the source, let's install the libraries needed to make it
+work.
+
+ Most of these happen from the "Developer Command Prompt for VS2012". Open it
+and run 'nmake' and 'cl'; for 'cl' make sure it says "for x86". 64-bit builds
+should work (they do on Linux) but I've never tested it on Windows so I don't
+recommend it for now. 
+
+
+ - openssl
+ 
+ You'll need Perl, sorry.
+ 
+ Download and run from: http://www.activestate.com/activeperl/downloads
+	"Download ActivePerl 5.16.2 for Windows (64-bit, x64)" (or 32 bit as
+	appropriate) - you don't have to fill out the survey.
+	
+	Leave it at the defaults.
+	
+ While that's going, you'll also need something to open a .tar.gz, if you don't
+have anything. I recommend 7zip
+ 
+ Download and run from: http://www.7-zip.org/
+	"64-bit x64" (or 32 bit as appropriate) - the install can't run at the
+same time as Perl.
+	
+ You'll also need the Netwide Assembler (nasm). It's not strictly required, but
+the assembly routines in OpenSSL only work with it, and apparently they're
+rather a lot faster. 
+ 
+ Download and run from: http://www.nasm.us/
+	"2.10.07/win32/nasm-2.10.07-installer.exe"
+	
+ Once you can open a .tar.gz, download OpenSSL -
+ 
+ Download and extract to C:\openssl-src: http://www.openssl.org/source/
+	"openssl-1.0.1e.tar.gz"
+	
+ Go to the developer command prompt. Run 'set path=%localappdata%\nasm;%path%'.
+Make sure you can run 'nasm' and 'perl' (Ctrl-C to exit Perl).
+'cd \openssl-src\openssl-1.0.1e'
+ 
+ The below comes from "INSTALL.W32". Read it for more details if needed
+ 
+	'perl Configure VC-WIN32 --prefix=c:\openssl'
+	'ms\do_nasm' - observe a half-dozen 'perl' commands
+	
+	'nmake -f ms\nt.mak' (for dynamic, ntdll.mak). It should build without
+	error.
+	'nmake -f ms\nt.mak test' (can be skipped but might avoid a headache).
+	Look for "passed all tests"
+	'nmake -f ms\nt.mak install'
+	
+ Make a new directory called "VC" and move "libeay32.lib" and "ssleay32.lib"
+into it. This is a CMake problem that will hopefully go away pretty soon, but
+it hasn't happened yet.
+ 
+ - wxWidgets 
+ 
+ YOU NEED TO USE WXWIDGETS 2.8 for now; 2.9 has been tried and almost works but
+there are still some problems.
+ 
+ Download and run from: http://wxwidgets.org/downloads/
+	"wxMSW" (under "Current Stable Release: wxWidgets 2.8.12")
+	
+ 
+ The below comes (mostly) from "BuildCVS.txt". Read it for more details if
+needed.
+ 
+	In your developer command prompt, 'cd \wxWidgets-2.8.12\'
+	You need to edit a file to fix a bug; comment out line 110 in
+	src\msw\window.cpp ("//#include <pbt.h>")
+	- Ref https://groups.google.com/d/msg/wx-dev/SFpDUR89zgY/et1UjdbAfO4J
+	'cd build\msw'
+	'nmake -f makefile.vc BUILD=release SHARED=0' (these should be the
+	defaults, but specify them anyway)
+	'nmake -f makefile.vc BUILD=debug SHARED=0' (you need this or else
+	debug builds won't link)
+		!! You need to do work here if you want to use a static runtime
+		!! as this builds with a dynamic one by default.
+		!! See the wxWidgets wiki at
+		!! wiki.wxWidgets.org/Compiling_WxWidgets_with_MSVC_(2) for
+		!! info on how to do this.
+
+ - curl
+ 
+ Download and extract to C:\ (will make a new folder):
+	http://curl.haxx.se/download.html
+	"curl-7.39.0.tar.gz"
+	
+ The below comes from winbuild\BUILD.WINDOWS
+ 
+	In your developer command prompt, 'cd \curl-7.39.0\winbuild'
+	'nmake -f Makefile.vc mode=static ENABLE_WINSSL=yes'
+	
+	Verify that a folder called
+	'builds\libcurl-vc-x86-release-static-ipv6-sspi-spnego-winssl' has been
+	created. The 'winssl' part of that string is the most important because
+	it means it will use the Windows APIs (and thus certificates) for SSL.
+	
+ - expat
+ 
+ Download and run from: http://sourceforge.net/projects/expat/
+	"Download: expat-win32bin-2.1.0.exe"
+	- Change the install folder to "C:\expat" to match our naming scheme
+	
+ Unfortunately, the binaries are DLLs. Go to C:\expat\Source and open the
+file 'expat.dsw'. Agree to convert it. Switch to the release config. Open the
+properties for 'expat_static', go to Librarian - General and change Output file
+to '..\..\Bin\libexpat.lib'. Go to the expat\Bin directory and verify that
+libexpat is about 500KB, which means it's statically linked. Delete all but
+libexpat.lib.
+	
+ - zlib
+ 
+ Download and extract to C:\ (will make a new folder): http://zlib.net/
+	"zlib source code, version 1.2.8, tar.gz format" - "US (zlib.net)"
+
+ ZLIB seems to disagree with running a release version in a debug build and
+crashes. So you'll want both. cmake will automatically set up the correct one
+to link based on the build type.
+ 
+ Also, we'll get our first taste of cmake.
+  - Open your developer command prompt; 'cd \zlib-1.2.8'.
+  - Type 'cmake .'
+  - Type 'msbuild /p:Configuration=Debug ALL_BUILD.vcxproj'
+  - Type 'msbuild /p:Configuration=Release ALL_BUILD.vcxproj'
+
+ - Berkeley DB
+
+ Download from http://download.oracle.com/berkeley-db/db-6.0.20.NC.zip
+ and unzip to c:\db-6.0.20.NC. From Visual Studio, open the 
+ build_windows\Berkeley_DB.sln project and upgrade it when prompted. Update
+ the project to build static libraries (Configuration Properties/General/
+ Configuration Type). You can now build the Debug and Release libraries.
+ Only the 'db' project needs to be built.
+
+-- 4) Running cmake --
+
+ Almost there! Open a command prompt and run cmake . -DCMAKE_LIBRARY_PATH="C:\expat\Bin" -DCMAKE_INCLUDE_PATH="C:\expat\Source\lib" -DwxWidgets_ROOT_DIR="C:\wxWidgets-2.8.12" -DBDB_INCLUDE_DIR="C:\db-6.0.20.NC\build_windows" -DBDB_LIBRARY="C:\db-6.0.20.NC\build_windows\Win32\Release\db.lib"
+
+
+-- 5) Building --
+
+ Whew! You thought this would be hard after all the rest, didn't you? Nope.
+Open TrustedQSL.sln and build. Both debug (default) and release will work.
+You'll find the binaries in tqsl\bin\Debug or tqsl\bin\Release as appropriate.
+
+
+== Final Thoughts ==
+
+This is actually a lot simpler than the old process (even though it doesn't
+seem simpler!) because you still had to get all the libraries, but you also had
+to set up the compiler itself, which was rather more unpleasant than installing
+VS2012 Express.
+
+If you hate the all-caps menus in VS2012, you can turn them off easily. Create
+a key in HKEY_CURRENT_USER\Software\Microsoft\WDExpress\11.0\General\ called
+"SuppressUppercaseConversion", type DWORD, value 1
+
+The cmake command line should be a lot shorter. I'm working on that.
+
+If you want to run any of these binaries on a new machine, all you have to do
+is install the 2012 redistributable:
+http://www.microsoft.com/en-us/download/details.aspx?id=30679 if it's not
+already installed.
+
+Please let me know if you have any trouble and I'll try to improve the document.
+Thanks for reading and I hope it helped!

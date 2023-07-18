@@ -1,0 +1,178 @@
+<HTML><HEAD><TITLE>Submitting a Log File to LoTW via the Internet</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Submitting a Log File to LoTW via the Internet</H3>
+<P>
+
+To <A HREF="glossary.htm#digital_signature">digitally sign</A> a <A HREF="glossary.htm#log_file">log file</A> and upload via the Internet to the ARRL's <a href="lotw.htm">Logbook of the World</a> (LoTW) online service, 
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Verify that all of the QSOs in the log file were made with the same <i>Station Callsign</i> (the callsign you used over the air during the QSO), and from the same location. If this isn't the case, use your logging application or a text editor to split the log file into multiple log files, each of whose QSOs were made with the same Station Callsign from the same operating location, and separately submit each log file.</td></tr>
+	<tr><td>2.</td><td>Start <b>TQSL</b>. If you do this before receiving your <b>Initial Callsign Certificate</b>, an <b>Alert</b> window will appear that informs you that you have no Certificate, and asks if you want to request one; click the <b>Yes</b> button, and proceed as described <a href="certreq.htm">here</a>.</td></tr>
+	<tr><td>3.</td><td>Select the <B>Log Operations</B> tab</td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td><img src="logopstab.bmp" width=575 height=406></td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td>and click the <B>Sign a log and upload it automatically to LoTW</B> button.</td></tr>
+	<tr><td>4.</td><td>In the <b>Select File to Sign</b> dialog,</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.a</td><td>Set the <b>Files of type</b> selector (on <b>OS X</b>, set the  <b>Enable</b> selector) to <i>ADIF files</i> or <i>Cabrillo files</i>.
+	</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">
+	<col style="width:50px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>*</td><td>You can digitally sign Cabrillo log files for <A HREF="cabrillo.htm">these contests</A> without <A HREF="pref-cab.htm">additional configuration</A>.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>*</td><td>When submitting a Cabrillo log file, mode <code>PH</code> is submitted as <code>SSB</code></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>*</td><td>If your logging application does not ensure that only new or newly modified QSOs are presented to TQSL for submission to LoTW, enabling the <A HREF="pref-opt.htm#daterange">Prompt for QSO Date Range option</a> will help
+ spare LoTW from having to process QSOs that it's already processed.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>*</td><td>You can <A HREF="pref-opt.htm#extensions">change the file extensions</A> displayed when you set the <b>Files of type</b> selector.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>*</td><td>You can <A HREF="pref-opt.htm#nonamateur">enable or disable the submission of nonamateur callsigns.</A></td></tr>
+</table>
+	
+<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">	
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.b</td><td>Navigate to the folder containing the log file you wish to submit</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.c</td><td>Select log file you wish to submit</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.d</td><td>Click the <b>Open</b> button</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>5.</td><td>If you've <A HREF="stnloc.htm">defined exactly one Station Location</A>, TQSL will automatically use that Station Location and display the <b>TQSL - Verify QTH details dialog</b> dialog (proceed to step 6). Otherwise, it will display the <b>Select Station Location for Signing</b> dialog so you can select the <A HREF="glossary.htm#station_location">Station Location</A> that specifies the operating location used to make the log file's QSOs, and then click the <b>Ok</b> button.</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<tr><td>&nbsp;&nbsp;</td><td><img src="stnloc.bmp" width=484 height=282 border=2></td></tr>
+</table>
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>&nbsp;&nbsp;</td><td>If you select a <A HREF="stnloc.htm">Station Location that doesn't specify a Callsign Certificate</A> (its <b>Call Sign</b> is set to <CODE>[None]</CODE>),</td></tr>,
+</table>
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>&nbsp;&nbsp;</td><td>* </td><td>if you have exactly one Callsign Certificate whose DXCC entity matches the DXCC entity in the selected Station Location, TQSL will submit your QSOs with that Station Location and Callsign Certificate</td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td>* </td><td>if you have more than one Callsign Certificate whose DXCC entity matches the DXCC entity in the selected Station Location, TQSL will prompt you to select the Callsign Certificate with which to submit your QSOs:</td></tr>
+</table>
+<table border="0" valign="top"></td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td><img src="promptforcall.bmp" width348 height=338 border=2></td></tr>
+</table>
+<p>
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>6.</td><td>In the <b>TQSL - Verify QTH details</b> dialog, verify that the information displayed is correct, and click the <b>OK</b> button. If any of the characteristics of this <i>Station Location</i> are incorrect, click the <b>Cancel</b> button and select a correct Station Location.</td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td><img src="stnprop.bmp" width=596 height=383 border=2></td></tr>
+
+	<tr><td>7.</td><td>If <A HREF="pref-opt.htm#daterange">TQSL is configured</A> to not submit QSOs that lie outside a specified date range</A>, 
+	the <A HREF="daterng.htm">QSO Date Range</a> dialog will appear; specify the desired <b>Start Date</b> and <b>End Date</b>, and click the <b>Ok</b> button. 
+	<P>If your logging application does not ensure that only new or newly modified QSOs are presented to TQSL for submission to LoTW,
+	the <A HREF="daterng.htm">QSO Date Range</a> dialog can help prevent the submission of QSOs that have already been uploaded and processed.<p></td></tr>
+	<tr><td>8.</td><td>If the Callsign Certificate associated with the selected Station Location is passphrase-protected, the <b>Enter passphrase</b> dialog will appear; enter the passphrase, and click the <b>OK</b> button.</td></tr>
+	<tr><td>9.</td><td>If TQSL detects any QSOs in the log file that have already been submitted to LoTW and haven't been subsequently modified, it will display the <b>Already Uploaded QSOs Detected</b> dialog:</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td><img src="duplicate.bmp" width=548 height=142 border=2></td></tr>
+</table>
+
+</table>
+	<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>9.a</td><td>Click the <b>New QSOs Only</b> button to continue processing, ignoring the already uploaded QSOs (recommended)</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>9.b</td><td>Click the <b>Cancel</b> button to abandon processing so you can either select a log file that doesn't contain already uploaded QSOs, or use the <A HREF="pref-opt.htm#daterange">QSO Date Range</a> dialog to exclude already uploaded QSOs</a></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>9.c</td><td>Click the <b>Re-Upload QSOs</b> button to submit the already uploaded QSOs; note that the <A HREF="glossary.htm#digital_signature">digitally signed</a> log file submitted to LoTW will be marked as containing already uploaded QSOs</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;</td><td>Note: if all QSOs in the log file are already uploaded, the <b>New QSOs Only</b> button will not be displayed</td></tr>
+</table>
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>10.</td><td>The <b>Status Log</b> in TQSL's main window will display the results of the operation, including the number of QSOs ignored because their dates were outside of the specified <A HREF="daterng.htm">Date Range</a>, and the number of already uploaded QSOs detected:</td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td><img src="signupload1.bmp" width=575 height=428></td></tr>
+</table>
+</table>
+	<table border="0" valign="top">
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>10.a</td><td>If the upload to LoTW failed, a dialog box will be displayed offering to repeat the upload; click <b>Yes</b> to upload the digitally signed file again, or click <b>No</b> to abandon the operation.</td></tr>
+
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>10.b</td><td>If TQSL detects any of the following errors in a QSO, it displays an <strong>Errors Detected</strong> window with the details:</p>
+	<ul>
+		<li>the QSO does not specify a valid amateur callsign and the <A HREF="pref-opt.htm#nonamateur">Allow nonamateur call signs</a> option is not enabled; a valid amateur callsign
+			<table>
+				<tbody>
+					<tr>
+						<td>&nbsp;&nbsp;</td>
+						<td>- contains only the letters A through Z, the digits 0 through 9, and the slash character</td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;</td>
+						<td>- contains at least one number and one letter</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>-&nbsp;is at least three characters in length</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>-&nbsp;does not begin or end with a slash character</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>-&nbsp;does not begin with 0</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>-&nbsp;does not begin with 1 unless it begins with 1A, 1M, or 1S</td>
+					</tr>
+				</tbody>
+			</table>
+			Note: LoTW will not accept QSOs with callsigns that don't comply with the above requirements, so leaving TQSL's <A HREF="pref-opt.htm#nonamateur">Allow nonamateur call signs</a> option disabled is recommended.
+			<table>
+				<tbody>
+					<tr>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+		<li>the QSO's callsign could not be identified within a Cabrillo record because the callsign is not at least 4 characters in length with at least one letter and one number: &nbsp;
+			<table>
+				<tbody>
+					<tr>
+						<td><span style="font-family:courier new,courier,monospace;">Unable to find a valid call-worked field</span></td>
+					</tr>
+					<tr>
+						<td>This error can be overcome by <A HREF="pref-cab.htm">specifying a Cabrillo Contest Definition</a> that identifies the position of the callsign within each record</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+		<li>the QSO does not specify a valid band</li>
+		<li>the QSO does not specify a valid mode</li>
+		<li>the QSO does not specify a valid date and time</li>
+		<li>the QSO's date and time are inconsistent with the date range in the Callsign Certificate specified by the Station Location you selected when digitally signing the file containing the QSO</li>
+		<li>the QSO specifies am invalid Satellite name</li>
+		<li>the QSO specifies a Satellite name, but the QSO's propagation mode is not set to SAT</li>
+		<li>the Callsign Certificate (specified by the Station Location you selected when digitally signing the file containing the QSO) has expired or been superceded</li>
+		<li>the exact same QSO has already been submitted to LoTW (this is referred to as <em>already uploaded</em>)</li>
+	</ul>
+	</td></tr>
+</table>
+ 
+<table border="0" valign="top">
+	<col style="width:30px">	
+	<tr><td>11.</td><td>After processing, the uploaded file will be shown in LoTW's <b>Your Activity</b> list with the filename selected in step 4.c above preceded by
+	<code>&lt;TQSLUpl YYYYMMDD-HHMM&gt;</code>, where <code>YYYY</code> is the current year, <code>MM</code> is the current month, <code>DD</code> is the current day, 
+	<code>HH</code> is the current hour, and <code>MM</code> is the current minute.</td></tr>
+	</table>
+
+&nbsp;<p>
+</BODY></HEAD>

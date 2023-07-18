@@ -1,0 +1,88 @@
+<HTML><HEAD><TITLE>Adding and Deleting Cabrillo Contest Definitions</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Adding and Deleting Cabrillo Contest Definitions</H3>
+<P>
+TQSL can <A HREF="glossary.htm#digital_signature">digitally sign</A> and submit Cabrillo logs for the set of contests described in the <A HREF="configxml.htm">Configuration Data</A> file. When directed to digitally sign a Cabrillo log for a contest that is not in this set, TQSL will attempt to extract the necessary information from each QSO by searching for valid callsigns. If this process succeeds, the log will be digitally signed; if this process fails, you will be prompted 
+to define a  Contest Definition that specifies
+
+<ul>
+<li>the contest's <b>Type</b>: <i>HF</i>, or <i>VHF</i> (and above)</li>
+<li>the contest's <b>Field</b>: the numeric designator of the field of a QSO line in a Cabrillo log file that contains the callsign of the station that was worked</li>
+</ul>
+
+<p>
+The Cabrillo contest log file format varies depending on the particular contest; details of the Cabrillo format can be found 
+at <b><code>http://www.kkn.net/~trey/cabrillo/</code></b> . 
+<p>
+<P>
+Note that Cabrillo fields are numbered with 1 being
+the first field after the &quot;QSO:&quot; line tag. For example:
+<PRE>
+QSO: 21042 CW 1997-11-01 2101 N5KO     1 B 74 SCV WA2VRR   1 A 74 VA
+</PRE>
+In the ARRL Sweepstakes Cabrillo log line immediately above, the callsign worked (WA2VRR) appears in field 10.
+<P>
+
+Use the <b>Preferences</b> dialog's <B>Cabrillo Specs</B> tab to specify the required information.
+
+
+<H5>Adding a Cabrillo Contest Definition</H5>
+
+To specify <b>Type</b> and <b>Field</b> information for a contest, 
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Select the <b>File</b> menu's <b>Display or Modify Preferences...</b> command (on <b>OS X</b>, select the <b>Application</b> menu's <b>Preferences</b> command) to display TQSL's <B>Preferences</B> dialog.</td></tr>
+	<tr><td>2.</td><td>In the <b>Preferences</b> dialog, select the <b>Cabrillo Specs</b> tab; TQSL will display any Cabrillo information you've already defined.</td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<tr><td>&nbsp;&nbsp;</td><td><img src="pref-cab1.bmp" width=469 height=316 border=0></td></tr>
+</table>
+<P>
+In the above example, a Cabrillo file that contains <I>DL-DX-RTTY</I> in the CONTEST line
+will be treated as an HF contest that contains the callsign worked in field 8 of
+each QSO line. 
+<P>
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>3.</td><td>Click the <b>Add</b> button, and the <B>Add Contest</b> dialog will appear.</td></tr>
+	<tr><td>4.</td><td>In the <b>Add Contest</b> dialog, </td></tr>
+</table>
+<P>
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.a</td><td>Type the <b>CONTEST Name</b> as it will appear in the CONTEST line of the Cabrillo log file.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.b</td><td>Check <B>HF<b> or <b>VHF</b> box as appropriate (VHF includes UHF and microwave contests).</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.c</td><td>Type the field number of the callsign worked field.</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;</td><td><img src="pref-cab2.bmp" width=208 height=252 border=0></td></tr>
+</table>
+
+<table border="0" valign="top"></td></tr>
+	<col style="width:30px">
+	<col style="width:40px">
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>4.d</td><td>Click the <B>OK</B> button:</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;</td><td><img src="pref-cab3.bmp" width=469 height=316 border=0></td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;</td><td>Now, a Cabrillo file with a contest name of <I>JIDX-CW</I> will also be treated as an HF contest that contains the callsign worked in field 8 of each QSO line.</td></tr>
+</table>
+
+
+<P>
+
+<H5>Deleting a Cabrillo Definition</H5>
+
+To delete a Cabrillo contest definition, select it by clicking on the entry in the list, then click the <b>Delete</b> button.
+
+<table border="0" valign="top">
+	<col style="width:30px">
+	<tr><td>1.</td><td>Select the <b>File</b> menu's <b>Display or Modify Preferences...</b> command (on <b>OS X</b>, select the <b>Application</b> menu's <b>Preferences</b> command) to display TQSL's <B>Preferences</B> dialog.</td></tr>
+	<tr><td>2.</td><td>In the <b>Preferences</b> dialog, select the <b>Cabrillo Specs</b> tab; TQSL will display the Cabrillo information you've already defined.</td></tr>
+	<tr><td>3.</td><td>Select the definition you wish to delete, and click the <b>Delete</b> button.</td></tr>
+</table>
+
+<P>
+</BODY></HEAD>

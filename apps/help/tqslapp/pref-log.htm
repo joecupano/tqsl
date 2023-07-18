@@ -1,0 +1,101 @@
+<HTML><HEAD><TITLE>Setting TQSL Log Handling Options</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Setting TQSL Log Handling Options</H3>
+<P>
+To inspect or change TQSL's log handling options, select the <B>File</B> menu's <B>Display or Modify Preferences...</B> command (on <b>OS X</b>, select the <b>Application</b> menu's <b>Preferences</b> command) to display its <B>Preferences</B> dialog; this dialog's <B>Log Handling</B> tab provides control over several settings that govern TQSL's log signing operations:
+<UL>
+<LI><a href="pref-log.htm#extensions">Specify ADIF and Cabrillo File Extensions</a></li>
+<LI><a href="pref-log.htm#nonamateur">Allow Nonamateur Callsigns</a></li>
+<LI><a href="pref-log.htm#daterange">Prompt for QSO Date Range</a></li>
+<LI><a href="pref-log.htm#dupdetails">Display details of already uploaded QSOs when signing a log</a></li>
+<LI><a href="pref-log.htm#seconds">Ignore seconds in QSO times</a></l
+<LI><a href="pref-log.htm#qthops">Specify how to handle QTH details in ADIF logs</a></li>
+</UL>
+
+<P>
+<a name="extensions"></a>
+<H5>Specify ADIF and Cabrillo File Extensions</H5>
+Because there are no standard file extensions (.XXX) consistently used
+for ADIF AND Cabrillo files, TQSL lets you specify the extensions used on your system for each
+file types. The <a href="signupload.htm">Select File to Sign and Upload</a> and
+<a href="signupload.htm">Select File to Sign and Save</a> dialogs set their <b>Files of type</b>
+selectors based on the extensions specified on this tab:
+<p>
+<img src="pref-opt.bmp" width=429 height=417 border=0>
+<P>
+In the example shown above, files whose names end in <code>.log</code> or <code>.cab</code>
+will be treated as Cabrillo files, while those with names ending in <code>.adi</code> or
+<code>.ADI</code> are ADIF files. When using an operating system like <b>Windows</b> that doesn't distinguish
+case in file names, the two ADIF entries shown in this example would be unnecessary.
+<P>
+<a name="nonamateur"></a>
+<H5>Allow Nonamateur Callsigns</H5>
+The <B>Allow nonamateur call signs</b> checkbox lets you to choose whether TQSL
+should treat a nonamateur call-worked as an error. An amateur callsign must meet these requirements:
+<UL>
+<LI>contains only the letters A through Z, the digits 0 through 9, and the slash character</LI>
+<LI>contains at least one number and one letter</LI>
+<LI>is at least three characters in length</LI>
+<LI>does not begin or end with a slash character</LI>
+<LI>does not begin with 0</LI>
+<LI>does not begin with 1 unless it begins with 1A, 1M, or 1S</LI>
+</UL>
+<P>LoTW will not accept a QSO whose callsign does not conform to the above requirements so you should leave TQSL's <b>Allow nonamateur call signs</b> box unchecked.</P>
+<P>
+<a name="daterange"></a>
+<H5>Prompt for QSO Date Range</H5>
+This checkbox determines whether <b>TQSL</b> will display the <A HREF="daterng.htm"> QSO Date Range dialog</a>
+when <a href="signupload.htm">Submitting a Log File to LoTW via the Internet</a> or when
+<a href="signupload.htm">Submitting a Log File from a Computer without Internet Access</a>. 
+<p>
+The <b>QSO Date Range</b> dialog can be used to prevent QSOs already submitted to LoTW that haven't been subsequently modified from being submitted again,
+sparing LoTW from processing QSOs that have already been processed. 
+<P>
+<a name="dupdetails"></a>
+<H5>Display details of already uploaded QSOs when signing a log</H5>
+If, when <a href="signupload.htm">signing and uploading a file</a> or <a href="signupload.htm">signing and saving a file</a>, TQSL encounters QSOs that have already been submitted to LoTW, then if this box is checked the details of each <i>already uploaded</i> QSO will be reported in the <b>Status Log</b>; if this box is not checked, no details will be reported.
+<p>
+<a name="seconds"></a>
+<H5>Ignore seconds in QSO times</H5>
+If, when <a href="signupload.htm">signing and uploading a file</a> or <a href="signupload.htm">signing and saving a file</a>,  and this box is checked, then the seconds part of the QSO time are set to zero. This is useful if your log contains mistakenly logged QSOs, such as those from WSJT-X when the station contacted sends multiple confirmations. The duplicate QSOs can then be ignored when signing a log.
+
+<a name="qthops"></a>
+<H5>Set options for handling QTH details in ADIF logs</H5>
+If, when <a href="signupload.htm">signing and uploading a file</a> or <a href="signupload.htm">signing and saving a file</a>, TQSL encounters station information in the log that indicates callsign, DXCC entity, or QTH information such as gridsquare, zone, state, etc. TQSL can verify this against the <A HREF="stnloc.htm">Station Location</a> and either report on or update the <A HREF="stnloc.htm">Station Location</a> with the information from the log. This set of options allows either ignoring, reporting on, or updating the <A HREF="stnloc.htm">Station Location</a> using the log data.
+<p>
+The <b>Handle QTH information in ADIF logs with what action?</b> selection dictates what action TQSL takes when procssing QTH indications in an ADIF file. 
+<p>
+<b>TQSL</b> uses the <b>Station Callsign</b> and fields such as <b>MY_STATE</b> or <b>MY_GRIDSQUARE</b> as indications of what station was used to make a particular QSO.
+
+<p> The <b>Handle QTH information in ADIF logs with what action?</b> selection allows selection of one of three options.
+<ul>
+<li>If the <b>Ignore QTH details from your log</b> option is selected, station details are ignored.
+<li>If the <b>Report on QTH differences</b> option is selected, TQSL will report on any differences between a QSO and the selected <A HREF="glossary.htm#callsign_certificate">Callsign Certificate</a> and <A HREF="stnloc.htm">Station Location</a>.
+<li>If the <b>Override Station Location with QTH details from your log</b> option is selected, TQSL will track changes in the <b>Station Callsign</b> and location data and use that data for each QSO signed. It is possible to have unique Station Callsigns and QTH data for each QSO in a log.
+</ul>
+The <b>Override</b> option requires that you have a valid <A HREF="glossary.htm#callsign_certificate">Callsign Certificate</a> for any callsign changes. Note that any change to QTH data is "sticky" - for example, if you sign a QSO with <b>MY_ITU_ZONE</b> set to "5", then subsequent QSOs will continue to use that until another QSO with a different zone value is processed.
+<p>
+If you are using <b>Override</b> and the ADIF file being signed has complete QTH and Station Callsign information, you may wish to use "[NONE]" as the callsign for the <A HREF="stnloc.htm">Station Location</a> chosen for signing, as well as setting minimal data for that  <A HREF="stnloc.htm">Station Location</a>. This eliminates the risk of misusing this <A HREF="stnloc.htm">Station Location</a> for logs which lack complete station data.
+<a name="qthfields"></a>
+<H5>ADIF fields defininng station data</H5>
+<p>
+The following ADIF fields will be used when included with a QSO in an ADIF file.
+<table border="2" valign="top">
+<tbody>
+<tr><td>MY_CNTY</td><td>County (secondary administrative subdivision)</td></tr>
+<tr><td>MY_COUNTRY</td><td>County (DXCC Entity)</td></tr>
+<tr><td>MY_CQ_ZONE</td><td>CQ Zone number</td></tr>
+<tr><td>MY_DXCC</td><td>DXCC Entity number</td></tr>
+<tr><td>MY_GRIDSQUARE</td><td>Maidenhead Gridsquare</td></tr>
+<tr><td>MY_IOTA</td><td>IOTA reference number</td></tr>
+<tr><td>MY_ITU_ZONE</td><td>ITU Zone number</td></tr>
+<tr><td>MY_STATE</td><td>State/Province/Oblast (primary administrative subdivision)</td></tr>
+<tr><td>MY_VUCC_GRIDS</td><td>List of up to four Maidenhead Gridsquares</td></tr>
+<tr><td>OPERATOR</td><td>Callsign used [only used if STATION_CALLSIGN is not provided.]</td></tr>
+<tr><td>STATION_CALLSIGN</td><td>Callsign used for QSOs</td></tr>
+</tbody>
+</table>
+</BODY></HEAD>

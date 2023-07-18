@@ -1,0 +1,472 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./GAbbISample_files/filelist.xml">
+<title>Sample GAbbI File</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Michael Keane</o:Author>
+  <o:LastAuthor>Michael Keane</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2002-05-16T19:20:00Z</o:Created>
+  <o:LastSaved>2002-05-16T19:21:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>505</o:Words>
+  <o:Characters>2580</o:Characters>
+  <o:Company>BFGoodrich</o:Company>
+  <o:Lines>117</o:Lines>
+  <o:Paragraphs>58</o:Paragraphs>
+  <o:CharactersWithSpaces>3541</o:CharactersWithSpaces>
+  <o:Version>9.3821</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+code
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+tt
+	{mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Courier New";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<meta name=Template content="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</head>
+
+<body lang=EN-US link=blue vlink=blue style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<table border=0 cellspacing=0 cellpadding=0 width="100%" style='width:100.0%;
+ mso-cellspacing:0in;mso-padding-alt:0in 0in 0in 0in'>
+ <tr>
+  <td width="46%" colspan=2 style='width:46.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>/*&nbsp; </span></code></p>
+  </td>
+  <td width="54%" style='width:54.0%;padding:0in 0in 0in 0in'>
+  <p>&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=3 style='padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>Trusted
+  Global Amateur Interchange Format Data for LOTW&nbsp; </span></code></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>*/ </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderCategory">category</a>:4&gt;tQSL </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p><span style='font-size:10.0pt;font-family:"Courier New"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderRec_Type">Rec_Type</a>:6&gt;Header </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>GAbbI header record, all fields are optional&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderVersion">GAbbI_Version</a>:4&gt;1.00 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>GAbbI Version&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderNStation">GAbbI_#_STATION_Recs</a>:1&gt;1 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Optional, but shall be correct if present&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderNContacts">GAbbI_#_CONTACT_Recs</a>:1&gt;1 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Optional, but shall be correct if present&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderSender">GAbbI_Sender</a>:4&gt;K1MK </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderCreated_By">GAbbI_Created_By</a>:12&gt;CT2LoTW
+  1.00&nbsp; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Name and version of log program&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderCreated_On">GAbbI_Created_On</a>:20&gt;2001-11-30T00:10:00Z&nbsp;
+  </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>ISO 8601 Date &amp; Time&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#HeaderSign">GAbbI_Sig_Algorithm</a>:3&gt;RSA </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>RSA (default), DSA or ECDSA&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#EOR">eor</a>&gt; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>End of GAbbI header record&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&nbsp; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationRec_Type">Rec_Type</a>:8&gt;tSTATION </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>The <span style='font-size:10.0pt;font-family:"Courier New"'>tSTATION</span>
+  record</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationCall">Call</a>:4&gt;K1MK </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>In the <span style='font-size:10.0pt;font-family:"Courier New"'>tSTATION</span>
+  record, the <span style='font-size:10.0pt;font-family:"Courier New"'>Call</span>
+  field is &quot;My&quot; call&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationDXCC">DXCC</a>:3&gt;291 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>DXCC Entity</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationState">State</a>:5&gt;US<u>-</u>CT </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>U.S. State&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationCnty">Cnty</a>:5&gt;CT005 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>U.S. County&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationCQZ">CQZ</a>:2&gt;05&nbsp; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>CQ Zone&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationITUZ">ITUZ</a>:2&gt;08&nbsp; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>ITU Zone&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationGridSquare">GridSquare</a>:6&gt;FN31ko&nbsp; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Maidenhead Grid Square&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationStation_GUID">Station_GUID</a>:1&gt;1 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Format of UID/GUID is still TBD&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationCert_Guid">Cert_GUID</a>:10&gt;0123456789 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Format of Certificate # is still TBD&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#EOR">eor</a>&gt; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>End of <span style='font-size:10.0pt;font-family:"Courier New"'>tSTATION</span>
+  record</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#EOH">eoh</a>&gt; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>End of header area&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&nbsp; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactRec_Type">Rec_Type</a>:8&gt;tCONTACT </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>The <span style='font-size:10.0pt;font-family:"Courier New"'>tCONTACT</span>
+  record</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactCall">Call</a>:5&gt;CN8WW </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Here the <span style='font-size:10.0pt;font-family:"Courier New"'>CALL</span>
+  field is &quot;His&quot; call&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactBand">Band</a>:4&gt;160M </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Band is required</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactFreq">Freq</a>:6&gt;1.8271 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Frequency in MHz is optional&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactDate">QSO_Date</a>:10&gt;2001-11-27 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>YYYY-MM-DD&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactTime">QSO_Time</a>:9&gt;00:00:15Z </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>HH:MM:[SS]Z (UTC)&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationMode">Mode</a>:2&gt;CW </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>2 x Mode&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactRST">RST_Sent</a>:3&gt;599 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>RST&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#ContactStation_GUID">Station_GUID</a>:1&gt;1 </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Format of UID/GUID still TBD&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#StationSig">LoTW_Sign</a>:172&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ</span></code><span
+  style='font-size:10.0pt;font-family:"Courier New"'><br>
+  </span><code><span style='font-size:10.0pt;font-family:"Courier New"'>abcdefghijklmnopqratuvwxyz0123456789./ABC</span></code><span
+  style='font-size:10.0pt;font-family:"Courier New"'><br>
+  </span><code><span style='font-size:10.0pt;font-family:"Courier New"'>DEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqr</span></code><span
+  style='font-size:10.0pt;font-family:"Courier New"'><br>
+  </span><code><span style='font-size:10.0pt;font-family:"Courier New"'>stuvwxyz0123456789./ABCDEFGHIJKLMNOPQRSTU</span></code><span
+  style='font-size:10.0pt;font-family:"Courier New"'><br>
+  </span><code><span style='font-size:10.0pt;font-family:"Courier New"'>VWXYZabcdefghijklmnop==
+  </span></code></p>
+  </td>
+  <td width="56%" colspan=2 valign=top style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>Signature w/1024-bit RSA key</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#EOR">eor</a>&gt; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>End of <span style='font-size:10.0pt;font-family:"Courier New"'>tCONTACT</span>
+  record&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width="44%" style='width:44.0%;padding:0in 0in 0in 0in'>
+  <p><code><span style='font-size:10.0pt;font-family:"Courier New"'>&lt;<a
+  href="gabbi.htm#EOF">eof</a>&gt; </span></code></p>
+  </td>
+  <td width="56%" colspan=2 style='width:56.0%;padding:0in 0in 0in 0in'>
+  <p>End of GAbbI logical file object&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td width=608 style='width:364.8pt;padding:0in 0in 0in 0in'>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><span
+  style='font-size:0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+  </td>
+  <td width=28 style='width:16.8pt;padding:0in 0in 0in 0in'>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><span
+  style='font-size:0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+  </td>
+  <td width=746 style='width:447.6pt;padding:0in 0in 0in 0in'>
+  <p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><span
+  style='font-size:0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

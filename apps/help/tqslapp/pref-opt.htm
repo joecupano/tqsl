@@ -1,0 +1,48 @@
+<HTML><HEAD><TITLE>Setting TQSL Options</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Setting TQSL Options</H3>
+<P>
+To inspect or change TQSL's options, select the <B>File</B> menu's <B>Display or Modify Preferences...</B> command (on <b>OS X</b>, select the <b>Application</b> menu's <b>Preferences</b> command) to display its <B>Preferences</B> dialog; this dialog's <B>Options</B> tab provides control over several settings that govern TQSL's operation:
+<UL>
+<LI><a href="pref-opt.htm#backup">Enable automatic Backup File creation on termination</a></li>
+<LI><a href="pref-opt.htm#adifedit">Open ADIF files in ADIF editor</a></li>
+<LI><a href="pref-opt.htm#statustab">Display status messages in a separate tab</a></li>
+<LI><a href="pref-opt.htm#signcert">Enable passphrases for Callsign Certificates</a></li>
+</UL>
+
+<P>
+<a name="backup"></a>
+<H5>Enable automatic Backup File creation on termination</H5>
+If you want TQSL to automatically create a <a href="backuprestore.htm#backup">Backup File</a> when it terminates, check the <b>Allow automatic configuration backup</b> box, 
+click the <b>Browse</b> button to the right of the <b>Backup File Folder</b> textbox, and use the <b>Browse For Folder</b> dialog that appears to select the folder in which <b>Backup Files</b> will 
+automatically be created when terminating. The most recent <b>Backup File</b> created on TQSL termination will be named <code>tqslconfig.tbk</code>. TQSL will automatically retain the number of previous 
+<b>Backup Files</b> specified by the <b>Number of Backups to retain</b> setting, deleting the oldest <b>Backup Files</b> in excess of this setting. Retained <b>Backup Files</b> will include the date and time of their creation in their filename.
+
+<P>
+<a name="adifedit"></a>
+<H5>Open ADIF files in ADIF editor</H5>
+If this box is checked and TQSL is started with a <a href="cmdline.htm">command line</a> that specifies a file with an <b>.ADI</b> extension but does not specify <b>-q</b> or <b>-x</b> switches, then TQSL will display the contents of the specified ADIF file in its <a HREF="qsodata.htm">ADIF Editor</a> instead of signing the contents of the ADIF file; if this box is not checked, then when started from a <a href="cmdline.htm">command line</a> that specifies an ADIF file, TQSL will always sign the files contents.
+<p>
+
+<a name="statustab"></a>
+<H5>Display status messages in a separate tab</H5>
+With this box unchecked, TQSL displays status messages in a <b>Status Log</b> pane below the three <b>Log Operations</b>, <b>Station Locations</b>, and <b>Callsign Certificates</b> tabs:
+<p>
+<img src="MainNoStatusTab.bmp" width=575 height=629 border=0>
+<P>
+Enabling this option and then restarting this TQSL adds a fourth <b>Status Log</b> tab to the right of the other three. This enables more <b>Station Locations</b> and <b>Callsign Certificates</b> to be visible without scrolling:
+<p>
+<img src="MainWithStatusTab.bmp" width=1172 height=629 border=0>
+<P>
+Any change to the <b>Display status messages in a separate tab</b> option will take effect after TQSL is next restarted.
+<p>
+
+<a name="signcert"></a>
+<H5>Enable passphrases for Callsign Certificates</H5>
+If this box is checked, when a user creates a new <b>Callsign Certificate</b>, they will be prompted for a passphrase to protect that file. This option is not recommended unless the <b>Callsign Certificate</b> is stored on a shared computer system.
+<p>
+
+</BODY></HEAD>

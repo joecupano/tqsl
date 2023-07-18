@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?define UpgradeCode = "BA40FA93-F9D6-44E2-BB81-82B0A676E731" ?>
+<?define BadUpgradeCode = "BA40FA94-F9D6-44E2-BB81-82B0A676E741" ?>
+<?define tqslVersion = "2.6.5" ?>
+<?define beta = "" ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Name="Trusted QSL $(var.tqslVersion)$(var.beta)" Id="*" UpgradeCode="$(var.UpgradeCode)" Version="$(var.tqslVersion)" Manufacturer="The TrustedQSL Developers" Language="1033">
+    <Package Id="*" Description="Installer for TrustedQSL $(var.tqslVersion)" Compressed="yes"/>
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" MigrateFeatures="yes"/>
+    <!-- Remove versions with the bad upgrade code -->
+    <Upgrade Id="$(var.BadUpgradeCode)">
+	<UpgradeVersion Minimum="1.0.0.0" Maximum="2.4.7" 
+			Language="1033,1034" Property="BADOLDERINSTALLED"
+			IncludeMinimum="yes" IncludeMaximum="yes" />
+    </Upgrade>
+
+    <Condition Message="This application requires Windows 2000 or newer">
+      NOT Version9X
+    </Condition>
+    <MediaTemplate EmbedCab="yes"/>
+
+    <!--<Property Id="ApplicationFolderName" Value="TrustedQSL"/>-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="APPLICATIONFOLDER" Name="TrustedQSL">
+          <Component Id="tqslComp" Guid="E18B1D1D-F8DC-4FEA-AF50-A7E2D62D7B11">
+            <RemoveFolder Id="RemoveApplicationFolder" On="uninstall"/> <!-- this isn't necessary unless we are an install following an uninstall of an inno version -->
+            <File Id="tqslExe" Name="tqsl.exe" Source="tqsl.exe" KeyPath="yes">
+              <Shortcut Id="startmenuTqsl" Directory="ProgramMenuDir" Name="TQSL" WorkingDirectory="APPLICATIONFOLDER" Icon="tqsl.exe" IconIndex="0" Advertise="yes"/>
+            </File>
+            <ProgId Id="tq6file" Description="TrustedQSL Callsign Certificate" Icon="tqslExe" Advertise="no">
+              <Extension Id="tq6">
+                <Verb Id="import" Command="Import" TargetFile="tqslExe" Argument='"-i %1"'/>
+              </Extension>
+            </ProgId>
+          </Component>
+          <Component Id="tqsllib2Comp" Guid="FD0C2985-070B-4AFD-ACD2-0FCE885CCFD5">
+            <File Id="tqsllib2Dll" Name="tqsllib2.dll" Source="tqsllib2.dll" KeyPath="yes"/>
+          </Component>
+          <Component Id="configXMLComp" Guid="A3CCC8F2-1958-4376-8B4C-C7783F839551">
+            <File Id="configXML" Name="config.xml" Source="config.xml" KeyPath="yes"/>
+          </Component>
+          <Component Id="langDatComp" Guid="1C8A8FCA-3409-4F0D-B021-A3907ED271FD">
+            <File Id="langDat" Name="languages.dat" Source="languages.dat" KeyPath="yes"/>
+          </Component>
+          <Component Id="cabDatComp" Guid="60e0425e-7c0b-432e-92cb-6c187a9da851">
+            <File Id="cabDat" Name="cab_modes.dat" Source="cab_modes.dat" KeyPath="yes"/>
+          </Component>
+          <Component Id="MachineRegKeys" Guid="1A582184-DC79-470D-B322-1D18D1391603">
+            <RegistryKey Root="HKLM" Key="Software\TrustedQSL">
+              <RegistryValue Name="InstallPath" Value="[APPLICATIONFOLDER]" Type="string"/>
+              <RegistryValue Name="HelpDir" Value="[APPLICATIONFOLDER]help" Type="string"/>
+            </RegistryKey>
+          </Component>
+
+	  <Component Id="QuickStartComp" Guid="B3A4DC55-D157-4700-9282-A62330091566">
+            <File Id="QuickStart" Name="quick.txt" Source="quick" KeyPath="yes">
+              <Shortcut Id="startmenuQuickStart" Directory="ProgramMenuDir" Name="Quick Start" Advertise="yes"/>
+            </File>
+          </Component>
+
+          <Component Id="LicenseComp" Guid="EB41E86C-5B84-4024-9149-6AF6CA09EE32">
+            <File Id="License" Name="LICENSE.txt" Source="LICENSE" KeyPath="yes"/>
+          </Component>
+
+          <Component Id="ChangeLogComp" Guid="7EC4628F-3870-4C49-BF93-0DC004066EEE">
+            <File Id="ChangeLog" Name="ChangeLog.txt" Source="ChangeLog.txt" KeyPath="yes"/>
+          </Component>
+          <Component Id="CABundleComp" Guid="032B203C-FCF3-4603-95A6-DFB3F213ED8E">
+            <File Id="CABundle" Name="ca-bundle.crt" Source="ca-bundle.crt" KeyPath="yes"/>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="TrustedQSL">
+          <Component Id="ProgramMenuDir" Guid="D4A53E26-58B9-4EE9-B6CF-2D14AE36B5C3">
+            <RemoveFolder Id="ProgramMenuDir" On="uninstall"/>
+            <RegistryValue Root="HKCU" Key="Software\tqslapp" Type="string" Value="" KeyPath="yes"/> <!-- unfortunately we must do it this way because program menu dir is per-user and can't have a HKLM key path -->
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <Component Id="DesktopShortcut" Guid="DD9D5C92-2DE7-4B23-9917-B6E36B2B2E12">
+          <Condition>INSTALLDESKTOPSHORTCUT</Condition>
+          <RegistryValue Root="HKCU" Key="Software\tqslapp" Name="sc" Type="integer" Value="1" KeyPath="yes"/> <!-- this goes away on uninstall -->
+          <Shortcut Id="desktopTqsl" Target="[APPLICATIONFOLDER]tqsl.exe" Directory="DesktopFolder" Name="TQSL" WorkingDirectory="APPLICATIONFOLDER" Icon="tqsl.exe" IconIndex="0" Advertise="no"/>
+        </Component>
+      </Directory>
+    </Directory>
+    <Feature Id="Complete" Level="1" Title="TrustedQSL" Display="expand" ConfigurableDirectory="APPLICATIONFOLDER" Absent="disallow">
+      <ComponentRef Id="tqslComp"/>
+      <ComponentRef Id="tqsllib2Comp"/>
+      <ComponentRef Id="ProgramMenuDir"/>
+      <ComponentGroupRef Id="HelpDir"/>
+      <ComponentGroupRef Id="LangDirs" />
+      <ComponentRef Id="configXMLComp"/>
+      <ComponentRef Id="langDatComp"/>
+      <ComponentRef Id="MachineRegKeys"/>
+      <ComponentRef Id="QuickStartComp"/>
+      <ComponentRef Id="LicenseComp"/>
+      <ComponentRef Id="ChangeLogComp"/>
+      <ComponentRef Id="DesktopShortcut"/>
+      <ComponentRef Id="CABundleComp"/>
+      <ComponentRef Id="cabDatComp"/>
+    </Feature>
+
+    <Icon Id="tqsl.exe" SourceFile="key.ico"/>
+    
+    
+    <!-- uninstall old version -->
+    
+    <Property Id="ISINNOINSTALLED">
+      <RegistrySearch Id="nonMSItqsl" Type="directory" Root="HKLM" Key="Software\TrustedQSL" Name="InstallPath">
+        <DirectorySearch Id="CheckFileDir" Path="[ISINNOINSTALLED]" Depth="0">
+          <FileSearch Id="CheckFile" Name="unins000.exe"/>
+        </DirectorySearch>  
+      </RegistrySearch>
+    </Property>
+    
+    <!-- remember previous install dir -->
+
+    <Property Id="APPLICATIONFOLDER">
+      <RegistrySearch Id='PreviousInstall' Type='directory'  Root='HKLM' Key='Software\TrustedQSL' Name='InstallPath' />
+    </Property>
+    
+    <InstallExecuteSequence>
+      <Custom Action="RemoveInnoVersion" After="InstallInitialize">ISINNOINSTALLED</Custom>
+      <!-- Not needed with MajorUpgrade -->
+      <!-- <RemoveExistingProducts Before="InstallInitialize" / -->
+      <Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
+    </InstallExecuteSequence>
+    <CustomAction Id="RemoveInnoVersion"  Property="ISINNOINSTALLED" ExeCommand="/silent /suppressmsgboxes" Return="check" Impersonate="no" Execute="deferred"/> <!-- don't UAC prompt twice -->
+    
+    <Property Id="NOTEPAD">notepad.exe</Property>
+    <CustomAction Id="CAChangelog" Property="NOTEPAD" ExeCommand="[APPLICATIONFOLDER]ChangeLog.txt" Return="asyncNoWait"/>
+    <CustomAction Id="CAQuickstart" Property="NOTEPAD" ExeCommand="[APPLICATIONFOLDER]quick.txt" Return="asyncNoWait"/>
+    <CustomAction Id='NoDowngrade' Error='A newer version of [ProductName] is already installed.' />
+
+    <Property Id="QSONEXIT" Value="1"/>
+    <UI>
+      <Publish Dialog="MyExitDialog" Control="Finish" Event="DoAction" Value="CAChangelog">CLONEXIT AND NOT Installed</Publish>
+      <Publish Dialog="MyExitDialog" Control="Finish" Event="DoAction" Value="CAQuickstart">QSONEXIT AND NOT Installed</Publish>
+      <!--<Publish Dialog="MyExitDialog" Control="Finish" Order="1" Event="DoAction" Value="CAQuickStart">CBShowQuickStart</Publish>-->
+    </UI>
+    
+    <Property Id="INSTALLDESKTOPSHORTCUT" Value="1"/>
+    <WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf"/>
+    <Property Id="ARPPRODUCTICON" Value="tqsl.exe"/>
+    <Property Id="ARPHELPLINK" Value="http://trustedqsl.sourceforge.net"/>
+    <!--<Property Id="WixAppFolder" Value="WixPerMachineFolder"/>
+    <WixVariable Id="WixUISupportPerUser" Value="0"/>-->
+    <Property Id="WIXUI_DONTVALIDATEPATH" Value="1"/>
+    <Property Id="ALLUSERS" Value="1"/>
+    <Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONFOLDER"/>
+    <UIRef Id="MyWixUI_InstallDir"/>
+    <UIRef Id="WixUI_ErrorProgressText"/>
+  </Product>
+</Wix>

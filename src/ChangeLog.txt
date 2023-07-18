@@ -1,0 +1,419 @@
+TQSLLIB changes
+===============
+
+2.5
+---
+Don't allow illogical combinations of CQ and ITU zones in a station location.
+
+Allow cr-delimited Cabrillo files (files from very old Mac apps).
+
+Be more aggressive about deleting a corrupt upload database. If a get or put
+returns EINVAL (Oracle-speak for corrupt database), close and delete it before
+returning an error.
+
+Don't generate a warning for an already uploaded QSO where the changes are
+only cases where previously omitted station location details were added. For
+example, adding a CQ Zone to a station location that previously omitted it.
+
+Return true for the expiry check for callsign certificates where
+the certificate has an invalid serial number.
+
+Add initialization for legacy crypto provider for OpenSSL to allow
+TQSL certificate algorithms to work.
+
+Update Cabrillo values for 2mm and 2.5mm bands to accept various
+band names (119G, etc.)
+
+Update tqsllib docs, new jquery.js to avoid ClamAV warning
+
+When handling a log in update mode, and the callsign changes, don't 
+default to the first DXCC entity for that call - use the selected
+DXCC entity from the log.
+
+Correct list of ADIF type specifiers. TQSL was expecting "C" when "S" is
+the correct specifier for a String field.
+
+Accept "AO-07" for Satellite AO-7.
+
+Fix handling of Oblast "YN" where LoTW uses an incorrect "JN" abbreviation
+internally so that "YN" isn't called out as a mismatch.
+
+When reporting errors in ADIF input files, TQSL would report the line number
+of the "eor" (end-of-record) marker, not the ADIF field having the error. TQSL
+now reports the actual input line when that is possible.
+
+TQSL could crash if a log being signed in update mode changed the DXCC entity
+such that the zones were no longer valid. TQSL now changes those to "none" if
+there is no match.
+
+When processing a "QSO" record in a Cabrillo file that's badly formatted - no
+band or callsign, for example - TQSL would loop on the same bad record until
+terminated. TQSL now reports the error and ignores the QSO.
+
+Fix handling of "QC" where LoTW uses the older "PQ" abbreviation internally
+so that QC isn't called out as a mismatch.
+
+Allow full administrative subdivision names so that loggers that emit
+"New York" versus "NY" in a MY_STATE field will be accepted.
+
+When comparing DXCC grid sets (multiple grids due to operating on a
+boundary between gridsquares) allow the grids to be in any order and
+still match.
+
+Allow ADIF parser to return arbitrary ADIF fields.
+
+Update to latest LoTW configuration file.
+
+Callsigns, counties, etc. should not be case sensitive. Upper case
+before using.
+
+Don't issue error when CA cert has expired when importing a .p12 file.
+(Or silently fail.)
+
+Fuzzy match county names to allow existing variations to work.
+
+Ignore OWNER_CALLSIGN as that's not intended to be used as any kind of
+call used during an operation, it's who owns the station.
+
+Prioritize callsign search to try to use OPERATOR.
+
+Ignore non-calls in STATION_CALLSIGN and OWNER_CALLSIGN.
+
+Don't complain about logs providing data that is empty in the station
+location. Just use the data from the log.
+
+Fix callsign certificate selection while signing to also check for
+matching DXCC entity. This fixes the problem where the wrong callsign
+certificate is chosen for a call with callsign certificates for multiple
+DXCC entities.
+
+Allow leading zeroes in MY_CQZ and MY_ITUZ.
+
+Strip leading and trailing whitespace in ADIF field data
+
+Attempt to recover from Unicode/UTF-8 format Cabrillo files by ignoring
+the extra bytes before the "START-OF-LOG" signal.
+`
+Ensure that expired or otherwise invalid certificates in the chain
+verifying a user Callsign Certificate are properly reported. This
+fixes an issue where in some cases (TQSL on Mac) trying to install an expired
+callsign certificate (an out-of-date TQ6 file), would cause an unexpected
+error "unable to get local issuer certificate". 
+
+If a BAND is provided for a QSO along with a FREQ, where that frequency
+(or receive frequency) is outside the related ham band, ignore the FREQ
+setting.
+
+Move Deleted entities to the end of the DXCC list. Allow the "DELETED" text
+in the entity name to be localized.
+
+Check if TQSL is able to write to the working directory during start-up.
+
+Improve the error message for missing private keys to be more descriptive.
+
+Add the ability to map Cabrillo modes to user-specified ADIF modes
+using the cab_modes.dat file in the TQSL user directory. File has Cabrillo
+modes (two characters), then an ADIF mode, comma delimited. Default file is
+provided by TQSL and users can provide their own.
+
+Correct spurious error when "LIGHT" is used in Cabrillo files.
+
+Fix error message for invalid receive band to reference the proper band
+information.
+
+Add functions for storing and retrieving station address data.
+
+Force character set for ADIF and Cabrillo files to UTF-8.
+
+Fix CMake config to use the right lib64 string on Linux.
+
+Allow 'LIGHT' in a Cabrillo file to represent 300G and higher.
+
+When there are multiple signature specifications in the configuration file,
+choose the one with the highest version number.
+
+Allow TQSL to build against OpenSSL 1.1.0.
+
+Fix formatting of the messages that appear when QSOs change values in the
+station location for duplicate QSOs.
+
+Correct improperly formatted frequencies from ADIF files (values like
+'7.010.20') to remove the extra periods.
+
+Revert the change that stripped spaces in the TQSL configuration file as that
+caused newlines to be removed in places like the station_data file.
+
+Fix "OpenSSL error - bad end line" by ensuring that there's always a 
+newline starting a new certificate.
+
+Add the ability to pull DXCC Entity valid date ranges to the TQSL
+configuration file.
+
+Fix handling of the TQSL configuration file so that extra spaces are removed.
+This corrects the defect that caused "NEW ZEALAND SUBANTARCTIC ISLANDS" to
+appear first in the list of DXCC entities with Configuration File v9.2.
+
+Update to permit build using OpenSSL 1.1 and later.
+
+Allow "Light" mode QSOs in the 300 GHz and above band. Previously, TQSL
+would reject these QSOs when either specified as a band in an Cabrillo
+file ("300G") or as a frequency value in an ADIF file.
+
+When an ADIF mode/submode pair doesn't match, try mapping the MODE field
+using the user-provided ADIF map.
+
+Update duplicates handling by using the QSO details (band, mode, date,
+time, etc.) as the key and the location details as the related data.
+Return the old and new location data when a duplicate is detected.
+
+Correct defects that could cause callsign certificates to be improperly
+deleted when new certificates are installed.
+
+Fix handling of invalid callsign certificate passwords on OSX to display a
+useful error message and allow the user to retry entering the password.
+
+Allow build for Linux/BSD systems running older versions of Berkeley
+DB by defining a potentially missing symbol.
+
+Fix defect that could cause saving of private keys to be suppressed.
+
+Accept C7 and 4Y as valid prefixes.
+
+Display the serial number of the Callsign Certificate being processed
+along with the callsign for errors when installing Callsign Certificates.
+This allows errors to be specific when attempts to restore older
+Callsign Certificates fail.
+
+When installing multiple Callsign Certificates from a .tq6 file (such
+as that available on the LoTW website) don't quit if a certificate
+can't be installed due to a lack of a private key, as later callsign
+certificates may be able to installed.
+
+When deleting Callsign Certificates, store a copy so that certificate
+can be recovered. Add the ability to list callsign certificates available
+for restoration and a function that allows undeletion.
+
+When deleting Station Locations, store a copy so that location can
+be recovered. Add the ability to list station locations available
+for restoration and a function that allows undeletion.
+
+Correct typo that would cause duplicates database removal to fail
+on Windows systems.
+
+When processing an ADIF QSO, check that mode, band, date, and time
+are all provided. Reject QSOs which do not have the required data.
+
+Improve duplicates database open error handling. More cases should
+be automatically corrected when the database is improperly formatted
+or corrupted.
+
+Update tqsl_isCertificateExpired and tqsl_isCertificateSuperceded to
+work properly with key-only certificates.
+
+Add tqsllib tracing information to the diagnostic log, making that
+information more detailed and more likely to be useful for debugging
+TQSL errors.
+
+Report to the user when an update to the TQSL configuration file is
+blocked because the "new" file has a lower revision level.
+
+Use the ADIF 3.0.4 "SUBMODE" field when signing a log.
+
+Add API to allow the call sign for a station location to be temporarily
+specified. This allows locations with callsign='[None]' to be used
+by selecting a call when signing a log.
+
+2.4
+---
+Fix defect that doesn't allow adding station locations if only a single
+callsign certificate is installed.
+
+If duplicates database recovery efforts fail, delete it and 
+recreate it.
+
+Use online certificate status checks to ensure that a superceded
+certificate is not selected even if the replacement certificate is
+not installed on the local system.
+
+Return errors when writing the station location data file to the user.
+Also return errors for the callsign certificate data file.
+
+Use a hash table for the duplicates database rather than a btree. The
+format of the dupe records causes btree to perform poorly.
+
+If the certificate status file can't be parsed, discard it and create a
+new file.
+
+Fix export of "key only" certificates to correct "Invalid argument" error.
+
+Don't stop loading private keys just due to a file permission error in
+the keys directory.
+
+Add new functions to add and look up certificate status.
+
+Clean up database log files on exit. Shrink the default log file to avoid
+large amounts of wasted disk space.
+
+When scanning the working directory for bad files, close the directory to
+avoid file descriptor leaks.
+
+Add some new bad callsign patterns.
+
+Fix atoi() calls throughout to use strtol() so that strings like 012 aren't
+treated as Octal due to the leading zeroes.
+
+Default Cabrillo field to 8, not 5.
+
+Fix OpenSSL workaround needed for 1.0.0c of OpenSSL so that it only applies
+to that release, not later releases with the fix already in place.
+
+Add new tqsllib APIs:
+    Retrieve a named field from a station location
+    Merge a station location definition into the database
+    Add the ability to export station locations
+    APIs to export and import certificates Base-64 encoded
+    APIs to export and import duplicates database records
+    Added an API to calculate the difference between dates
+
+Verify that the BAND and FREQ fields are consistent. Disallow frequencies
+outside of valid ranges for ham bands. This catches "10110" used (KHz)
+versus the ADIF required 10.110 (MHz).
+
+Always convert frequency values in Cabrillo logs to Megahertz
+independent of contest type (HF/VHF).
+
+Remove strcpy/strcat/sprintf and replace with strn* variants where possible.
+
+Allow FREQ=0 when BAND is set. 
+
+Try to deduce worked call field for unknown Cabrillo file contest
+names.
+
+Update mode mapping in Cabrillo files to pass FM through as is and
+convert PH to SSB.
+
+When trying to deduce call-worked field, ensure that anything that
+looks gridsquare-like is skipped. Don't accept a log if there are 
+two fields that look like callsigns.
+
+Relax lower limit for 30m, 17m, and 12m bands to allow 10MHz, 
+18MHz, and 24MHz to be allowed
+
+Recover from invalid files in the working directory (symlink loops)
+by detecting and removing them. These would cause database opens to
+fail while searching for recovery logs.
+
+Correctly handle permission problems and other system errors that occur
+when opening station data and certificate files.
+
+Strip spaces from entirely space-filled station location fields when
+creating signing data. Prior versions of tqsllib would not properly
+trim strings containing only spaces.
+
+Remove code that was trying to remove unnecessary transaction log files
+as that was causing duplicate detection to fail.
+
+2.3
+---
+Add a mechanism to the location definition process to allow enforcement
+of proper zone number combinations. A status message is returned to allow
+the caller to report illogical selections.
+
+Duplicate checking database. No changes necessary for existing code. However
+new or updated code is strongly encouraged to enable duplicate checking
+and commit or discard a particular signing instance as appropriate
+
+tqsllib now built with MSVC on Windows. ABI compatility with the previous
+MinGW-built version is maintained.
+
+tqsllib and the rest of TrustedQSL now built with the CMake build system
+
+Fixed several bugs, crashes, and potential vulnerabilities
+
+** Windows 98 support has been dropped. This will be one of the last releases
+to support Windows 2000. 
+
+** This will be one of the last releases to support OS X on PowerPC systems.
+
+2.2
+---
+Fixed bug in handling of certificates with
+long serial numbers (typically root certs).
+
+Added workaround for OpenSSL 1.0a bug.
+
+2.1
+---
+Prompt user to save their certificate after importing a .tq6 signed certificate.
+
+Fix filtering of superceded certificates so they are not displayed by default.
+
+Don't allow certificate import to overwrite a newer certificate.
+
+Require selection of states for US, provinces for Canada (with ability to
+override when not appropriate.)
+
+Handle Alaskan administratitive areas by allowing them to be selected while
+outputting the correct county name in the station data exported with a signed
+log.
+
+Added support for specifying zone numbers for entities, states, and provinces 
+Force proper zones for entities, states when possible.
+
+Update configuration file to correspond to ADIF specifications for county names.
+
+Ignore expired certificates during import/export when an expired CA
+certificate is signed by a valid root cert.
+
+Support OpenSSL 0.9 through 1.0 beta.
+
+Fix security bug in certificate validation.
+
+2.0
+---
+The Windows DLL has changed to use __stdcall. This makes it
+incompatible with previous versions of the DLL, necessitating
+a change in major version number.
+
+openssl 0.9.6 or 0.9.7 is now required; earlier versions are
+not supported.
+
+1.6
+---
+Fixed a bug in the .p12 file generation under openssl 0.9.7.
+Thanks to Kenji 'Joe' Rikitake, JJ1BDX for the fix.
+
+Fixed a bug in tqsl_get_cert_ext that under some circumstances
+caused return of unterminated strings.
+
+1.5
+---
+Added MacOS support.
+Converted build scripts to make full use of autoconf/automake.
+Fixed some GCC 3.x compiler warnings.
+
+1.4
+---
+Fixed bug in ADIF converter where input file wasn't being opened in
+binary mode.
+
+Several error conditions in tqsl_getConverterGABBI caused the converter
+to loop on the same erroneous record.
+
+1.3
+---
+Fixed a bug in the comparison of configuration file version numbers.
+Added tqsl_verifyDataBlock function.
+
+1.2
+---
+Added tqsl_getSatellite and tqsl_getPropagationMode config
+functions.
+
+Added support for conversion of ADIF BAND_RX, FREQ_RX, PROP_MODE
+and SAT_NAME fields.
+
+1.1
+---
+ADIF converter was rejecting BAND field > 5 characters, but the
+valid 1.25cm value is 6 characters long.

@@ -1,0 +1,42 @@
+Summary: TrustedQSL ham-radio applications
+Name: TrustedQSL
+Version: @VERSION@
+Release: 1
+Copyright: Custom BSD-like
+Group: Applications/Ham Radio
+Source: %{name}-%{version}.tar.gz
+BuildRoot: /var/tmp/%{name}-buildroot
+Requires: tqsllib >= 2.3, wxwin
+BuildPrereq: tqsllib-devel
+
+%description
+The TrustedQSL applications are used for generating digitally signed
+QSO records (records of Amateur Radio contacts). This package
+contains the GUI application tqsl.
+
+%prep
+%setup -q -n TrustedQSL-%{version}
+
+%build
+cmake -DCMAKE_INSTALL_PREFIX=/usr ${TQSL_CONFIG_OPTS} .
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+mkdir -p $RPM_BUILD_ROOT/usr/share/applications
+cp tqsl.desktop $RPM_BUILD_ROOT/usr/share/applications/TrustedQSL-tqsl.desktop
+mkdir -p $RPM_BUILD_ROOT/usr/share/pixmaps
+cp icons/key48.png $RPM_BUILD_ROOT/usr/share/pixmaps/TrustedQSL.png
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root)
+%doc LICENSE
+
+/usr/bin/tqsl
+/usr/share/TrustedQSL/help/tqslapp
+/usr/share/applications/TrustedQSL-tqsl.desktop
+/usr/share/pixmaps/TrustedQSL.png

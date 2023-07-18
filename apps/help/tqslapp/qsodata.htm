@@ -1,0 +1,87 @@
+<HTML><HEAD><TITLE>TQSL Creating and Editing an ADIF File</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Creating and Editing an ADIF File</H3>
+<P>
+TQSL includes a simple <i>QSO Data Editor</i> that can be used to create and edit small <A HREF="glossary.htm#log_file">log files in the <A HREF="glossary.htm#adif">ADIF</a> format. This Editor is rudimentary, intended only as a means for those who do not have access to a logging application create and edit log files. The Editor provides access to 
+only the most critical QSO data fields:
+<ul>
+<li>Callsign</li>
+<li>Date</li>
+<li>Time</li>
+<li>Band</li>
+<li>RX Band</li>
+<li>Frequency</li>
+<li>RX Frequency</li>
+<li>Mode</li>
+<li>Propagation Mode</li>
+<li>Satellite</li>
+</ul>
+<P>
+To activate the Editor, select the <B>File</B> menu's <B>Create New ADIF file</B> command to display the <B>QSO Data</b> dialog:
+<P>
+<img src="qsodata.bmp" width="371" height="442" border="2">
+
+<P>
+After setting each field to the desired value, click the <b>Add QSO</b> button to add another QSO. When more than one QSO record is present, 
+you can use the arrow buttons to step through the records - though you will not be permitted to step away from a record that contains an error
+or whose critical fields have not yet been specified. This includes the blank record at the end if you have just clicked <B>Add QSO</B>.
+<P>
+You can delete the currently-displayed QSO by clicking the <B>Delete</B> button.
+<P>
+After all QSO records have been entered, click the <B>Ok</B> button to save them to an ADIF file of your choice.
+<P>
+To edit an existing ADIF file, select the <b>File</b> menu's <B>Edit existing ADIF file</b> command. After you choose the file to edit, the <b>QSO Data</b> dialog will display the first QSO in the file.
+<P>
+
+<H5>Required QSO Fields</H5>
+
+<P><B>Call Sign</B>
+
+<P>The call sign of the station worked.
+<P>
+
+<P><B>UTC Date (YYYY-MM-DD)</B>
+<P>The QSO date in Coordinated Universal Time (UTC, sometimes called GMT) must be entered in YYYY-MM-DD format(e.g., 2002-08-11 for August 11, 2002).
+<P>
+
+<P><B>UTC Time (HHMM)</B>
+<P>The QSO time in Coordinated Universal Time can be entered in HHMMSS or HH:MM:SS format. Seconds may be omitted (HHMM or HH:MM).
+<P>
+
+<P><B>Mode</B>
+<P>The Mode selector is populated with the modes recognized by LoTW. You can <A href="pref-adi.htm">create a mapping</a> for modes not present in the selector.
+<P>
+
+<P><B>Band</B>
+<P>The Band selector specifies the band on which the QSO took place. In the case of crossband QSOs where you transmit on one band and receive on another, select the band on which <I>your station transmitted</I>. All amateur bands from 137 kHz (2190 meters) through the millimeter waves are supported by LoTW.
+<P>
+
+<H5>Optional QSO Fields</H5>
+
+<P><B>RX Band</B>
+<P>Leave this field blank unless you are logging a crossband QSO, in which case you should select the band on which <I>your station received</I>.
+<P>
+
+<P><B>Frequency</B>
+<P>Record the frequency in megahertz on which the QSO took place; this frequency should be consistent with the selected Band field. In cross-band QSOs, specify the frequency on which
+<I>your station transmitted</I>. 
+<P>
+
+<P><B>RX Frequency</B>
+<P>Leave this field blank unless you are logging a crossband QSO, in which case you should specify the frequency in megahertz on which <I>your station received</I>.
+<P>
+
+<P><B>Propagation Mode</B>
+<P>Select the propagation mode used to make the QSO, if known. LoTW uses this field to distinguish among the various VHF/UHF propagation modes for those
+awards that require this information. It is also required to designate Satellite QSOs for DXCC, WAS, VUCC and other awards or endorsements
+available for contacts made via amateur satellites.
+<P>
+
+<P><B>Satellite</B>
+<P>If you have set the Propagation Mode selector to <i>Satellite</i>, set this selector to the name of the amateur satellite used to make the QSO.
+
+
+</BODY></HEAD>

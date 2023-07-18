@@ -1,0 +1,31 @@
+<HTML><HEAD><TITLE>Defining custom Cabrillo modes</TITLE></HEAD>
+
+<link rel="stylesheet" type="text/css" href="tqslstyle.css">
+
+<BODY>
+<H3>Cabrillo Mode Definitions</H3>
+<P>
+When processing a log, TQSL can process both <A HREF="glossary.htm#adif">ADIF</A> and <A HREF="glossary.htm#cabrillo">Cabrillo</A> format log files. ADIF is the preferred format for logs as it is better able to convey the details of a QSO, but Cabrillo is also supported.
+<p>
+One detail when processing Cabrillo logs is that the mode of a QSO is specified by a two-character encoding in a fixed field of the log. Traditionally, this permitted modes such as PH (Phone), CW, RY (RTTY). The designator "DG" is now permitted for Digital operations.
+<p>
+TQSL supports the following modes and translations:
+<table>
+<tr><td>Specifier</td><td>Resulting Mode</td></tr>
+<tr><td>CW</td><td>CW</td></tr>
+<tr><td>PH</td><td>SSB</td></tr>
+<tr><td>FM</td><td>FM</td></tr>
+<tr><td>RY</td><td>RTTY</td></tr>
+<tr><td>DG</td><td>DATA</td></tr>
+</table>
+<p>
+TQSL allows an operator to add or alter these mode "mappings" by use of a configuration file. This file is called <i>cab_mode.dat</i> and is stored in the TQSL working directory, which is either %AppData%\TrustedQSL (Windows) or $HOME/.tqsl (UNIX, OSX).
+<p>
+Create this file using a text editor with one mode specification per line, with the Cabrillo specification followed by the desired mode, with a comma separating the entries. For example, mapping can be specified to direct TQSL to upload DG QSOs as FT8 by making a <i>cab_mode.dat</i> file with the following content:
+<p>
+DG,FT8
+<p>
+Entries in the user's file will override any stock configuration and can add new mappings.
+<p>
+Be sure to use a plain text editor (such as Notepad), not a word processor, when creating or editing this file.
+</BODY></HEAD>

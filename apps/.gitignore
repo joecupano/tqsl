@@ -1,0 +1,13 @@
+tqslbuild.h
+!tqslbuild.h.in
+
+#Linux binaries
+tqsl
+tqslcert
+
+#Windows build artifacts
+Debug
+Release
+
+#OSX binaries
+*.app
